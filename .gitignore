@@ -1,5 +1,6 @@
 # Docker
 /docker-compose.yml
+.env*
 
 # Development
 node_modules
