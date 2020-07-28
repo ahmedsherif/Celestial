@@ -1,52 +1,55 @@
 {% layout 'default' %}
 
-<p>
-	To begin using this client, please login with your domain. Once we know it's you, we can start publishing to your Micropub endpoint.
-</p>
+<section class="login">
+	<aside class="login__guide login-guide">
+		<h1 class="login-guide__title">Let's get started!</h1>
+		<p>
+			To begin using this Micropub client, please login with your domain. Once we know it's you, we can start publishing to your Micropub server.
+		</p>
 
-<p>
-	Please ensure you have the following HTTP headers or <code>rel</code> attributes available on your homepage:
-</p>
-<ol>
-	<li>
-		<code>authorization_endpoint</code>
-	</li>
-	<li>
-		<code>token_endpoint</code>
-	</li>
-	<li>
-		<code>micropub</code>
-	</li>
-</ol>
+		<h2>Not sure if you're up to speed?</h2>
 
-{% if error %}
-<p class="notification notification--error">An error occured: {{ error }}</p>
-{% endif %}
+		<p>A Micropub client works in tandem with a Micropub server. If you've not had a chance to <a href="https://github.com/hirusi/Celestial/blob/master/README.md" target="_blank" rel="noopener noreferrer">look at Celestial's readme</a> yet, it would be a good idea to do so now. In general, we are just an interface. The actual publishing task (writing files or data to your website) is a job assigned to a Micropub server. This is by design. <a href="https://indieweb.org/Micropub/Servers" target="_blank" rel="noreferrer noopener">You can pick from plenty</a>.
 
-<form
-	action="/login/try/"
-	method="post"
-	enctype="application/x-www-form-urlencoded"
-	class="form form--login login-form"
->
+		<p>If you're rocking a static site like I am, I highly recommend <a href="" target="_blank" rel="https://github.com/getindiekit/indiekit">Indiekit by Paul</a>.</p>
 
-	<label for="url">Web Address:</label>
-	<input
-		id="url"
-		name="me"
-		placeholder="https://yourdomain.com"
-		class="login-form__web-address"
-		type="url"
-		autocomplete="on"
-		autofocus
-	/>
+		<p>Additionally, when you login with your domain, we expect to read a few things from your website's discovery page (generally, your home page). As an example, we could be looking for the following HTML tags in your <code>&lt;head&gt;</code> tag:</p>
 
-	<br />
-	<button type="submit">Sign In</button>
+		<pre><code>&lt;link href="https://indieauth.com/auth" rel="authorization_endpoint"&gt;
+&lt;link href="https://tokens.indieauth.com/token" rel="token_endpoint"&gt;
+&lt;link href="http://micropub.yourdomain.com/micropub" rel="micropub"&gt;</code></pre>
 
-	<input name="_csrf" type="hidden" value="{{ csrfToken }}" />
+		<p>If you're a technical user, you may also specify this data in your website's HTTP headers. Since you're a technical user, I expect you will be able to find your way around on this, based on whatever tools you are using to host your site. 🙂</p>
+	</aside>
 
-	{% comment %} Collect user tz at the time of sign in and store it. {% endcomment %}
-	<input type="hidden" name="timezone" class="login-form__timezone" value="" />
-	
-</form>
+	<main class="login__form">
+		<form
+			action="/login/try/"
+			method="post"
+			enctype="application/x-www-form-urlencoded"
+			class="form form--login login-form"
+		>
+			<fieldset>
+				<legend>Login</legend>
+					<label for="url">Web Address:</label>
+					<p class="form__fieldset-description">If the web address you enter redirects elsewhere, we will follow the redirect up to one redirect before calling off our search.</p>
+					<input
+						id="url"
+						name="me"
+						placeholder="https://yourdomain.com"
+						class="login-form__web-address"
+						type="url"
+						autocomplete="on"
+						autofocus
+					/>
+			</fieldset>
+
+			<button type="submit" class="login-form__submit">Sign In</button>
+
+			<input name="_csrf" type="hidden" value="{{ csrfToken }}" />
+
+			<input type="hidden" name="timezone" class="login-form__timezone" value="" />
+			
+		</form>
+	</main>
+</section>

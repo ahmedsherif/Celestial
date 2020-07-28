@@ -1,0 +1,29 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    @media (--lg) {
+        flex-direction: row;
+    }
+}
+
+.login__guide {
+    flex: 1 1 auto;
+}
+
+/* .login-guide {} */
+
+.login-guide__title {
+    margin-top: unset;
+}
+
+.login__form {
+    flex: 0 1 auto;
+}
+
+/* .login-form {} */
+
+.login-form__submit {
+    width: 100%;
+}

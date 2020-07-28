@@ -18,6 +18,8 @@
 
 @import "./forms.css";
 
+@import "./login.css";
+
 @import "./user.css";
 
 img.emoji {
