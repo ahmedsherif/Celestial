@@ -32,7 +32,6 @@ Although spec compliance should ensure it works with any Micropub server, I will
     - [x] [Syndication targets](https://www.w3.org/TR/micropub/#syndication-targets)
 - [ ] General resilience tasks
     - [x] Use a logging library like `winston`
-        - [ ] Set up with a transport such as [timber.io](https://timber.io)
     - [ ] Modular codebase
     - [ ] Best practices
     - [ ] [Express security checklist](https://expressjs.com/en/advanced/best-practice-security.html)
@@ -42,28 +41,30 @@ Although spec compliance should ensure it works with any Micropub server, I will
     - [ ] 📄 [Article](https://indieweb.org/article)
     - [ ] 📔 [Note](https://indieweb.org/note)
     - [ ] ↪ [Reply](https://indieweb.org/reply)
+    - [ ] ↪ [Reply with RSVP](https://indieweb.org/rsvp)
     - [ ] ♥ [Like](https://indieweb.org/like)
     - [ ] ♺ [Repost](https://indieweb.org/repost)
-    - [ ] 🔖 [Bookmark](https://indieweb.org/bookmark)
     - [ ] 📷 [Photo](https://indieweb.org/photo)
     - [ ] 🎥 [Video](https://indieweb.org/video)
-    - [ ] 🎤 [Audio](https://indieweb.org/audio)
-    - [ ] 🚩 [Checkin](https://indieweb.org/checkin)
     - [ ] 📅 [Event](https://indieweb.org/event)
-    - [ ] ↪ [Reply with RSVP](https://indieweb.org/rsvp)
 - [ ] Micropub extensions
     - [ ] [Query for supported post types](https://indieweb.org/Micropub-extensions#Query_for_Supported_Vocabulary)
     - [ ] [Slug](https://indieweb.org/Micropub-extensions#Slug)
     - [ ] [Query for category/tag list](https://indieweb.org/Micropub-extensions#Query_for_Category.2FTag_List)
-- [ ] Design
+- [ ] Design and polish
     - [ ] Consistent spacing
     - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
     - [ ] Better forms UI/UX
+    - [ ] Sprinkle helpful hints throughout the app, let the user turn them off in preferences
 
 ### Moving forward to v2.0
 
 - [ ] Rely on our own code instead of external libraries for menial tasks. Reduce dependencies and allow the project to be maintainable in the long run.
 - [ ] Idea: Add an inline/split Markdown preview for supported post types.
+- [ ] Add experimental (non-spec) support for the following post types:
+    - [ ] 🚩 [Checkin](https://indieweb.org/checkin)
+    - [ ] 🔖 [Bookmark](https://indieweb.org/bookmark)
+    - [ ] 🎤 [Audio](https://indieweb.org/audio)
 
 ## Usage
 
