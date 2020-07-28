@@ -1,4 +1,4 @@
-# Splisher
+# Celestial
 
 I am building this __Micropub client__ with a few goals in mind:
 
