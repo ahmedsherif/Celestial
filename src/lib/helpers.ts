@@ -41,10 +41,10 @@ const pageDataHelper = (
 };
 
 /**
- * @param enum {any} TypeScript doesn't allow specifying a parameter type as enum. Be sure of what you're passing in.
+ * @param enumerator {any} TypeScript doesn't support specifying a parameter type check for enums. Be wary of what you're passing in!
  */
 const enumValuesAsArray = (enumerator: any): Array<string> => {
-	return Object.values(enumerator).map((e: string) => e);
+	return Object.values(enumerator).map((e: any) => e as string);
 };
 
 export { pageDataHelper, enumValuesAsArray };
