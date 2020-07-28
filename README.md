@@ -92,13 +92,11 @@ You are encouraged to self-host this web application. While you can use the exam
 
 ## Local Development
 
-__Instructions are currently not completely ready.__
-
 ### Celestial
 
 The Docker setup employed uses a bind mount. It is intended to only run on Linux hosts. However, you should be fine running it on a Windows or macOS host.
 
-* `git clone git@github.com:hirusi/splisher.git && cd splisher`
+* `git clone git@github.com:hirusi/Celestial.git && cd Celestial`
 * `docker-compose up --build --remove-orphans`
 
 ### Micropub Server
