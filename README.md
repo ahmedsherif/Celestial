@@ -8,6 +8,8 @@ I am building this __Micropub client__ with a few goals in mind:
 - Make IndieWeb accessible to less technically inclined folks.
 - To make something useful for myself and others while I figure out and learn backend content.
 
+If you'd like to show me some support, please star the project. ♥
+
 Although spec compliance should ensure it works with any Micropub server, I will only be testing this with [Indiekit](https://github.com/getindiekit/indiekit/ "indiekit"). Paul Robert Lloyd is currently working on its successor.
 
 ## To-Do
