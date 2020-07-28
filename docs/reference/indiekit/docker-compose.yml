@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   web:
-    build: ./
+    build: PATH_TO_CELESTIAL
     environment:
       - PORT=4000
       - NODE_ENV=development
@@ -10,7 +10,7 @@ services:
       - REDIS_PASSWORD=
     volumes:
       - type: bind
-        source: ./
+        source: PATH_TO_CELESTIAL
         target: /app
     networks: 
       - indieweb
@@ -30,16 +30,15 @@ services:
       - ./conf/redis.conf:/usr/local/etc/redis/redis.conf
     command: redis-server /usr/local/etc/redis/redis.conf
   indiekit:
-    build: 
+    build: PATH_TO_INDIEKIT
     environment:
       - PORT=3000
       - NODE_ENV=development
-      - TZ=Asia/Kolkata
-      - GITHUB_REPO=
-      - GITHUB_TOKEN=
-      - GITHUB_USER=
-      - GITHUB_BRANCH=
-      - INDIEKIT_CACHE_EXPIRES=
+      - TZ=IANA_TIMEZONE
+      - GITHUB_REPO=THE_REPO_TO_PUBLISH_TO
+      - GITHUB_TOKEN=ACCESS_TOKEN_FROM_GITHUB
+      - GITHUB_USER=YOUR_GITHUB_USERNAME
+      - GITHUB_BRANCH=THE_REPO_BRANCH_TO_PUBLISH_TO
       - INDIEKIT_CONFIG_PATH=
       - INDIEKIT_LOCALE=
       - INDIEKIT_URL=
@@ -47,7 +46,7 @@ services:
       - indieweb
     volumes:
       - type: bind
-        source: 
+        source: PATH_TO_INDIEKIT
         target: /app
     ports:
       - "3000:3000"
