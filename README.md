@@ -119,5 +119,5 @@ If you'd like to run Celestial along with Indiekit, you can find an example [`do
 ### Running Tests
 
 ```
-docker container celestial_web_1 exec npm test
+docker container exec celestial_web_1 npm test
 ```
