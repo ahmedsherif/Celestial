@@ -8,7 +8,7 @@ I am building this __Micropub client__ with a few goals in mind:
 - Make IndieWeb accessible to less technically inclined folks.
 - To make something useful for myself and others while I figure out and learn backend content.
 
-Although spec compliance should ensure it works with any Micropub server, I will only be testing this with [Indiekit](https://github.com/paulrobertlloyd/indiekit/ "indiekit"). Paul Robert Lloyd is currently working on its successor [here](https://github.com/paulrobertlloyd/indiekit-redux "indiekit-redux").
+Although spec compliance should ensure it works with any Micropub server, I will only be testing this with [Indiekit](https://github.com/getindiekit/indiekit/ "indiekit"). Paul Robert Lloyd is currently working on its successor.
 
 ## To-Do
 
@@ -63,7 +63,7 @@ Although spec compliance should ensure it works with any Micropub server, I will
 ### Moving forward to v2.0
 
 - [ ] Rely on our own code instead of external libraries for menial tasks. Reduce dependencies and allow the project to be maintainable in the long run.
-- [ ] Idea: Add an inline live Markdown preview for Article, or remove it entirely and let folks fall back on better interfaces/systems which already do this job well. Examples: Netlify CMS, Forestry.
+- [ ] Idea: Add an inline/split Markdown preview for supported post types.
 
 ## Usage
 
@@ -77,7 +77,7 @@ You are encouraged to self-host this web application. While you can use the exam
 
 ### Limitations
 
-* We have implemented a strong Content Security Policy, and only allow the browser to load images from certain specified domains. I will **not** be changing this setting on the example server.
+* I have implemented a strong Content Security Policy, and only allow the browser to load images from certain specified domains. This will **not** be changed to accomodate your domain.
     * **Workaround**: If you self-host, it's easy to add a new domain to the list of allowed domains. This will nicely show your profile photo (based on microformats2) once you log in. To do this, head over to the `src/index.ts` file and change the following block to include your domain:
     ```
     // Set up a CSP
@@ -87,17 +87,24 @@ You are encouraged to self-host this web application. While you can use the exam
         imgSrc: ["'self'", "https://twemoji.maxcdn.com/", "https://yourdomain.com"],
     };
     ```
-* In the event the example server runs into excessive traffic, it will not scale. I cannot afford paying for extra server resources. I have aimed to make self-hosting easy for exactly this reason. If you are facing any issue in doing so, please open an issue on the repository and someone should be able to help you.
+* In the event the example server runs into excessive traffic, it will not scale. I have aimed to make self-hosting easy for exactly this reason. If you are facing any issue in doing so, please open an issue on the repository and someone should be able to help you.
 
 ## Local Development
 
-The Dockerfile is designed to only run on Linux hosts -- it uses a bind mount.
+__Instructions are currently not completely ready.__
+
+### Celestial
+
+The Docker setup employed uses a bind mount. It is intended to only run on Linux hosts. However, you should be fine running it on a Windows or macOS host.
 
 * `git clone git@github.com:hirusi/splisher.git && cd splisher`
-* `docker-compose build`
-* `nvm use && npm install` - Install packages locally for now. This will not be required in the future, if and when I figure out how `node_modules` need to work in a Docker environment. PRs welcome.
-* `docker-compose up`
-* ~~`docker container exec splisher_web_1 npm install`~~
+* `docker-compose up --build --remove-orphans`
+
+### Micropub Server
+
+I recommend [Indiekit](https://github.com/getindiekit/indiekit/) as a Micropub server should you be vibing a static site like I do. Please follow its setup instructions as well to get up and running. 🙂
+
+Currently, the example Docker compose file, `docker-compose.yml.example`, also builds an image for Indiekit. You can find [its Dockerfile here](docs/references/indiekit/Dockerfile) and a compatible [`docker-compose.yml` file here](docs/references/indiekit/docker-compose.yml).
 
 ### Running Tests
 
