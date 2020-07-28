@@ -1,7 +1,10 @@
 import * as env from "env-var";
 const inflect = require("i")();
+// import { URL } from "url";
 
 export const PORT: number = env.get("PORT").default("4000").asPortNumber();
+
+export const REDIS_URL: string = env.get("REDIS_URL").asUrlString();
 
 export const REDIS_PASSWORD: string = env
 	.get("REDIS_PASSWORD")

@@ -6,7 +6,7 @@ import express, {
 } from "express";
 
 // Env and other constants
-import { PORT, REDIS_PASSWORD } from "./config/constants";
+import { PORT, REDIS_URL } from "./config/constants";
 
 // Template engine
 import { Liquid } from "liquidjs";
@@ -16,13 +16,9 @@ const helmet = require("helmet");
 
 // Session and store
 const session = require("express-session");
-const redis = require("redis");
+import redis from "redis";
 const RedisStore = require("connect-redis")(session);
-const redisClient = redis.createClient({
-	password: REDIS_PASSWORD,
-	// This is the service name. Docker resolve this for us if both the services are on the same network.
-	host: "redis",
-});
+const redisClient = redis.createClient(REDIS_URL);
 
 const app = express();
 
