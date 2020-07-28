@@ -1,5 +1,7 @@
 FROM node:12
 
+ENV TZ="Europe/London"
+
 # Set up correct timezone
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
