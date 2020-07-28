@@ -1,6 +1,6 @@
 {
-  "name": "splisher",
-  "version": "0.5.0",
+  "name": "celestial",
+  "version": "0.5.1",
   "description": "A micropub client",
   "main": "index.js",
   "engines": {
