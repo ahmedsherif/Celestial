@@ -74,7 +74,7 @@ __Not ready for public use.__
 
 You are encouraged to self-host this web application. While you can use the example server hosted on Heroku, you may run into some limitations.
 
-* `git clone git@github.com:hirusi/splisher.git`
+* `git clone git@github.com:hirusi/Celestial.git`
 * `heroku apps:create [name]`
 * `git push heroku master`
 

@@ -4,7 +4,7 @@ const { combine, prettyPrint, timestamp } = format;
 const logger = createLogger({
 	level: process.env.NODE_ENV === "production" ? "info" : "silly",
 	format: format.json(),
-	defaultMeta: { service: "Splisher" },
+	defaultMeta: { service: "Celestial" },
 	transports: [
 		// - Write all logs with level `error` and below to `error.log`
 		new transports.File({ filename: "error.log", level: "error" }),
