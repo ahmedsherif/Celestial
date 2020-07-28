@@ -72,11 +72,16 @@ Although spec compliance should ensure it works with any Micropub server, I will
 
 __Not ready for public use.__
 
+Detailed development instructions are [availble in the docs](/docs/development.md).
+
 You are encouraged to self-host this web application. While you can use the example server hosted on Heroku, you may run into some limitations.
 
-* `git clone git@github.com:hirusi/Celestial.git`
-* `heroku apps:create [name]`
-* `git push heroku master`
+* `git clone git@github.com:hirusi/Celestial.git && cd Celestial`
+* `heroku login` (you'll need an account on Heroku)
+* `heroku container:login`
+* `heroku container:push web`
+* Add Redis to your Heroku app's resources. It will create a `REDIS_URL` environment variable by itself, and you should be golden.
+
 
 ### Limitations
 
@@ -91,35 +96,3 @@ You are encouraged to self-host this web application. While you can use the exam
     };
     ```
 * In the event the example server runs into excessive traffic, it will not scale. I have aimed to make self-hosting easy for exactly this reason. If you are facing any issue in doing so, please open an issue on the repository and someone should be able to help you.
-
-## Local Development
-
-### Celestial
-
-The Docker setup employed uses a bind mount. It is intended to only run on Linux hosts. However, you should be fine running it on a Windows or macOS host.
-
-* `git clone git@github.com:hirusi/Celestial.git && cd Celestial`
-* `docker-compose up --build --remove-orphans`
-
-### Micropub Server
-
-I recommend [Indiekit](https://github.com/getindiekit/indiekit/) as a Micropub server should you be vibing a static site like I do. Please follow its setup instructions as well to get up and running. 🙂
-
-Since I am already using Docker, I found it helpful to Docker-ify Indiekit.
-
-You can find [its Dockerfile here](docs/reference/indiekit/Dockerfile) and [the entrypoint file here](docs/reference/indiekit/docker-entrypoint.sh). Copy both these files to wherever you cloned indiekit and keep them at its root.
-
-You will also need to make the entrypoint file an executable:
-
-```bash
-cd path/to/indiekit
-chmod +x docker-entrypoint.sh
-```
-
-If you'd like to run Celestial along with Indiekit, you can find an example [`docker-compose.yml` file here](docs/reference/indiekit/docker-compose.yml).
-
-### Running Tests
-
-```
-docker container exec celestial_web_1 npm test
-```
