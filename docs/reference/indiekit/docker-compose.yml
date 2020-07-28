@@ -3,11 +3,7 @@ version: "3.8"
 services:
   web:
     build: PATH_TO_CELESTIAL
-    environment:
-      - PORT=4000
-      - NODE_ENV=development
-      - TZ=Asia/Kolkata
-      - REDIS_PASSWORD=
+    env_file: PATH_TO_CELESTIAL/.env.celestial
     volumes:
       - type: bind
         source: PATH_TO_CELESTIAL
@@ -31,17 +27,7 @@ services:
     command: redis-server /usr/local/etc/redis/redis.conf
   indiekit:
     build: PATH_TO_INDIEKIT
-    environment:
-      - PORT=3000
-      - NODE_ENV=development
-      - TZ=IANA_TIMEZONE
-      - GITHUB_REPO=THE_REPO_TO_PUBLISH_TO
-      - GITHUB_TOKEN=ACCESS_TOKEN_FROM_GITHUB
-      - GITHUB_USER=YOUR_GITHUB_USERNAME
-      - GITHUB_BRANCH=THE_REPO_BRANCH_TO_PUBLISH_TO
-      - INDIEKIT_CONFIG_PATH=
-      - INDIEKIT_LOCALE=
-      - INDIEKIT_URL=
+    env_file: PATH_TO_INDIEKIT/.env
     networks:
       - indieweb
     volumes:
