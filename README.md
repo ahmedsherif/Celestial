@@ -103,10 +103,21 @@ The Docker setup employed uses a bind mount. It is intended to only run on Linux
 
 I recommend [Indiekit](https://github.com/getindiekit/indiekit/) as a Micropub server should you be vibing a static site like I do. Please follow its setup instructions as well to get up and running. 🙂
 
-Currently, the example Docker compose file, `docker-compose.yml.example`, also builds an image for Indiekit. You can find [its Dockerfile here](docs/references/indiekit/Dockerfile) and a compatible [`docker-compose.yml` file here](docs/references/indiekit/docker-compose.yml).
+Since I am already using Docker, I found it helpful to Docker-ify Indiekit.
+
+You can find [its Dockerfile here](docs/reference/indiekit/Dockerfile) and [the entrypoint file here](docs/reference/indiekit/docker-entrypoint.sh). Copy both these files to wherever you cloned indiekit and keep them at its root.
+
+You will also need to make the entrypoint file an executable:
+
+```bash
+cd path/to/indiekit
+chmod +x docker-entrypoint.sh
+```
+
+If you'd like to run Celestial along with Indiekit, you can find an example [`docker-compose.yml` file here](docs/reference/indiekit/docker-compose.yml).
 
 ### Running Tests
 
 ```
-npm test
+docker container celestial_web_1 exec npm test
 ```
