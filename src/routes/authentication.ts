@@ -386,17 +386,19 @@ authRouter.get(
 					if (req.session) {
 						req.session.appState = AppUserState.User;
 
-						// Query for Micropub server for its config and/or syndication targets and save this information.
+						// Query for Micropub server for its media endpoint and syndication targets and save this information.
+						// Quietly proceed to main page if this is not supported by the server
 						setMicropubCapabilities(req)
 							.then(() => {
 								res.redirect(302, "/");
 							})
 							.catch((error) => {
 								logger.log(
-									LogLevels.error,
-									"Could not set Micropub capabilities.",
+									LogLevels.warn,
+									"Could not set Micropub server capabilities.",
 									{ error }
 								);
+								res.redirect(302, "/");
 							});
 					}
 				})
