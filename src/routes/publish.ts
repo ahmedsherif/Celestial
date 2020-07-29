@@ -57,8 +57,10 @@ publishRouter.get("/note/", (req: ExpressRequest, res: ExpressResponse) => {
 					.toString(),
 			},
 		},
-		"syndicate-to": req.session?.micropub?.["syndicate-to"],
-		"media-endpoint": req.session?.micropub?.["media-endpoint"],
+		micropub: {
+			"syndicate-to": req.session?.micropub?.["syndicate-to"],
+			"media-endpoint": req.session?.micropub?.["media-endpoint"],
+		},
 	}) as PostPageData;
 
 	res.render("publish/note", pageData);

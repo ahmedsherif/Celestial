@@ -47,20 +47,20 @@
         <label for="note">Note:</label>
         <textarea name="note" id="note" cols="30" rows="16" placeholder="Your note..." required></textarea>
 
-        {% if media-endpoint %}
+        {% if micropub.media-endpoint %}
         <label for="media-endpoint">Attach a file:</label>
         <input type="file" id="media-endpoint" name="file">
         {% endif %}
     </fieldset>
     
 
-    {% if syndicate-to %}
+    {% if micropub.syndicate-to %}
     <fieldset class="publishing-form__syndication-targets">
         <legend>Syndicate to&nbsp;</legend>
 
         <p class="form__fieldset-description" id="form__fieldset-description--syndication-warning">You may need to <a href="https://webmention.app/" target="_blank" rel="noopener noreferrer">send webmetions manually</a>, as not all Micropub servers do this for you.</p>
 
-        {% for link in syndicate-to %}
+        {% for link in micropub.syndicate-to %}
         <div class="publishing-form__syndication-target">
             <label for="{{link.uid}}">
                 {% if link.user.photo %}
