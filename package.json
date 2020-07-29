@@ -10,8 +10,8 @@
   "scripts": {
     "prestart": "npm install",
     "start": "gulp development",
-    "preprod": "npm ci",
     "prod": "gulp production",
+    "build": "gulp build",
     "test": "jest"
   },
   "repository": {

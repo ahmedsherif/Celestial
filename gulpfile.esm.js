@@ -12,9 +12,8 @@ const development = series(
 	parallel(js, css, img),
 	parallel(jsWatcher, server, watcher, cssWatcher, imgWatcher)
 );
-const production = series(
-	typescript,
-	parallel(js, img, series(css, cssPurgeMin), server)
-);
+const production = series(typescript, parallel(js, img, css, server));
 
-export { development, production };
+const build = series(typescript, parallel(js, img, css));
+
+export { development, production, build };
