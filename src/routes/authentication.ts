@@ -42,20 +42,6 @@ import { FormEncoding } from "../enumerator/FormEncoding";
 
 const authRouter: express.Router = express.Router();
 
-// Send back to home page if already logged in
-authRouter.use(
-	(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) => {
-		if (req.session && req.session?.isLoggedIn) {
-			logger.log(
-				LogLevels.verbose,
-				"User tried to visit auth routes while already logged in, redirecting to the home page."
-			);
-			res.redirect(302, "/");
-		}
-		next();
-	}
-);
-
 authRouter.get(
 	"/",
 	csrfProtection,
