@@ -58,12 +58,27 @@ For the final magic, let's bring up all our services:
 
 #### Publishing to Heroku
 
+Heroku expects the `node_modules` available within the built image. It cannot unfortunately use a bind mount for the source files to build from. So I've built a self contained image of the distribution files.
+
+You might notice that I run `npm ci` on the Dockerfile, which greatly limits the portability of the Docker image to just the host on which the image was built and distributed from. 
+
+I'm happy to accept PRs to work out a better flow.
+
 You'll need an account on Heroku.
 
 * `heroku login`
+* `heroku apps:create [name]`
 * `heroku container:login`
 * `heroku container:push web`
-* Add Redis to your Heroku app's resources. It will create a `REDIS_URL` environment variable by itself, and you should be golden.
+* Set up Redis on Heroku.
+  * Add Redis to your Heroku app's resources.
+  * It will create a `REDIS_URL` environment variable by itself.
+* Configure two more environment variables by going to your app settings on Heroku:
+  * `CLIENT_ID`: the domain where you are hosting this website
+    * Example: `https://live-love-laugh.herokuapp.com/`
+  * `REDIRECT_URI`: the domain where you are hosting this website followed by `login/callback/`
+    * Example: `https://live-love-laugh.herokuapp.com/login/callback/`
+* `heroku container:release web`
 
 ### Micropub Server
 
