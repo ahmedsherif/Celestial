@@ -316,11 +316,8 @@ authRouter.get(
 						{ user: req.session?.user?.profileUrl }
 					);
 
-					if (req.session && !req.session?.indieauth)
-						req.session.indieauth = {};
-
 					if (req.session)
-						req.session.indieauth.code = req.query.code;
+						set(req.session, "indieauth.code", req.query.code);
 
 					res.redirect(302, "/login/token/");
 				})
