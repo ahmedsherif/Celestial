@@ -80,7 +80,7 @@ const setSyndicationTargets = (req: ExpressRequest): Promise<void> => {
 
 		logger.log(
 			LogLevels.verbose,
-			"We did not receive your syndication targets while making a configuration query request. Trying to fetch them now."
+			"We did not receive your syndication targets while making a configuration query request. Trying to fetch them individually now."
 		);
 
 		const queryUrl = new URL(req.session?.endpoints?.micropub);
