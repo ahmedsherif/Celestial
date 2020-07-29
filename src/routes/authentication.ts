@@ -26,7 +26,7 @@ import { urlEncodedParser } from "../middleware/urlEncodedParser";
 import {
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
-	setUserPreference
+	setUserPreference,
 } from "../lib/user";
 import {
 	endpointsWanted,
@@ -82,8 +82,8 @@ authRouter.post(
 			});
 		}
 
-		setUserPreference(req, 'timezone', req.body.timezone);
-		setUserPreference(req, 'formEncoding', FormEncoding.URLEncoded);
+		setUserPreference(req, "timezone", req.body.timezone);
+		setUserPreference(req, "formEncoding", FormEncoding.URLEncoded);
 
 		try {
 			logger.log(
