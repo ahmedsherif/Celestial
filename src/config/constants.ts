@@ -16,6 +16,12 @@ export const INDIEAUTH_CLIENT: {
 	client_id: string;
 	redirect_uri: string;
 } = {
-	client_id: "http://localhost:4000/",
-	redirect_uri: "http://localhost:4000/login/callback/",
+	client_id: env
+		.get("CLIENT_ID")
+		.default("http://localhost:4000/")
+		.asUrlString(),
+	redirect_uri: env
+		.get("REDIRECT_URI")
+		.default("http://localhost:4000/login/callback/")
+		.asUrlString(),
 };
