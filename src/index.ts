@@ -47,6 +47,7 @@ const directives = {
 		"https://twemoji.maxcdn.com/",
 		"https://plausible.io/",
 	],
+	connectSrc: ["'self'", "https://plausible.io/"],
 	imgSrc: ["'self'", "https://rusingh.com", "https://twemoji.maxcdn.com/"],
 };
 
