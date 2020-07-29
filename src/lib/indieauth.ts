@@ -14,7 +14,7 @@ const setAuthData = (req: ExpressRequest, data: IndieAuthToken): void => {
 
 	if (req.session) {
 		req.session.indieauth.access_token = data?.access_token;
-		req.session.indieauth.token_type = data?.token_type;
+		req.session.indieauth.token_type = data?.token_type || "Bearer";
 		req.session.indieauth.scope = data?.scope;
 	}
 };

@@ -342,8 +342,10 @@ authRouter.get(
 						);
 					}
 					if (!data?.token_type) {
-						throw new Error(
-							"We received an access token but not the access token type from the token endpoint."
+						logger.log(
+							LogLevels.warn,
+							"No token_type was provided. We are defaulting to Bearer.",
+							{ user: req.session?.user?.profileUrl }
 						);
 					}
 					if (!data?.scope) {
