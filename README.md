@@ -74,16 +74,7 @@ __Not ready for public use.__
 
 Detailed development instructions are [availble in the docs](/docs/development.md).
 
-You are encouraged to self-host this web application. While you can use the example server hosted on Heroku, you may run into some limitations.
-
-* `git clone git@github.com:hirusi/Celestial.git && cd Celestial`
-* `heroku login` (you'll need an account on Heroku)
-* `heroku container:login`
-* `heroku container:push web`
-* Add Redis to your Heroku app's resources. It will create a `REDIS_URL` environment variable by itself, and you should be golden.
-
-
-### Limitations
+## Limitations of the public example server
 
 * I have implemented a strong Content Security Policy, and only allow the browser to load images from certain specified domains. This will **not** be changed to accomodate your domain.
     * **Workaround**: If you self-host, it's easy to add a new domain to the list of allowed domains. This will nicely show your profile photo (based on microformats2) once you log in. To do this, head over to the `src/index.ts` file and change the following block to include your domain:
