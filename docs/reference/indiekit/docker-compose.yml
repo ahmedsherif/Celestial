@@ -2,7 +2,10 @@ version: "3.8"
 
 services:
   web:
-    build: PATH_TO_CELESTIAL
+    build: node:12
+    working_dir: /app
+    entrypoint: PATH_TO_CELESTIAL/docker-entrypoint.sh
+    command: node /app/index.js
     env_file: PATH_TO_CELESTIAL/.env.celestial
     volumes:
       - type: bind
