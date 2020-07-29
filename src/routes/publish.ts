@@ -177,7 +177,7 @@ publishRouter.post(
 					method: "POST",
 					headers: {
 						Accept: "application/json",
-						Authorization: `Bearer ${req.session?.indieauth?.access_token}`,
+						Authorization: `${req.session?.indieauth?.token_type} ${req.session?.indieauth?.access_token}`,
 					},
 					body: params,
 				};
