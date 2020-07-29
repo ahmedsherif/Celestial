@@ -43,7 +43,7 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 		fetch(`${queryUrl}?${params.toString()}`, {
 			method: "GET",
 			headers: {
-				Authorization: `Bearer ${req.session?.indieauth?.access_token}`,
+				Authorization: `${req.session?.indieauth?.token_type} ${req.session?.indieauth?.access_token}`,
 				"Content-Type": "application/json",
 				Accept: "application/json",
 			},
