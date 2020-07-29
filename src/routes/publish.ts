@@ -48,11 +48,11 @@ publishRouter.get("/note/", (req: ExpressRequest, res: ExpressResponse) => {
 		formDefaults: {
 			published: {
 				date: DateTime.utc()
-					.setZone(req.session?.user?.timezone)
+					.setZone(req.session?.user?.preferences?.timezone)
 					.toFormat("yyyy-MM-dd")
 					.toString(),
 				time: DateTime.utc()
-					.setZone(req.session?.user?.timezone)
+					.setZone(req.session?.user?.preferences?.timezone)
 					.toFormat("HH:mm")
 					.toString(),
 			},
