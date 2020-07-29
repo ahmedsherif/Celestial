@@ -42,7 +42,11 @@ import { resetEphemeralSessionData } from "./lib/session";
 // Create a CSP
 const directives = {
 	defaultSrc: ["'self'"],
-	scriptSrc: ["'self'", "https://twemoji.maxcdn.com/"],
+	scriptSrc: [
+		"'self'",
+		"https://twemoji.maxcdn.com/",
+		"https://plausible.io/",
+	],
 	imgSrc: ["'self'", "https://rusingh.com", "https://twemoji.maxcdn.com/"],
 };
 
