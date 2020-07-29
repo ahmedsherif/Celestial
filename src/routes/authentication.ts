@@ -266,12 +266,14 @@ authRouter.get(
 		// Check: Have we received a code?
 		if (req.query.code) {
 			logger.log(
-				LogLevels.debug,
+				LogLevels.http,
 				"Received a response with code from the authorization server.",
-				{ user: req.session?.user?.profileUrl }
+				{
+					user: req.session?.user?.profileUrl,
+					query: req.query,
+				}
 			);
 			const params = new URLSearchParams();
-			// params.append("me", req.session?.userProfileURL);
 			params.append("client_id", INDIEAUTH_CLIENT.client_id);
 			params.append("redirect_uri", INDIEAUTH_CLIENT.redirect_uri);
 			params.append("code", req.query.code as string);
@@ -296,8 +298,35 @@ authRouter.get(
 				},
 				body: params,
 			})
-				.then((response) => response.json())
-				.then((data: { me: string; scope: string }) => {
+				.then((response) => {
+					logger.log(
+						LogLevels.http,
+						"Received a response from the authorization server while verifying the code. Raw response attached.",
+						{
+							user: req.session?.user?.profileUrl,
+							response,
+						}
+					);
+					return response.json();
+				})
+				.catch((error) => {
+					logger.log(
+						LogLevels.error,
+						"Error while converting the code verification response from the auth server to JSON",
+						{ user: req.session?.user?.profileUrl, error }
+					);
+				})
+				.then((data: any) => {
+					// data: { me: string; scope: string } | { error: string; error_description?: string; error_uri?: string; }
+					logger.log(
+						LogLevels.http,
+						"Received a response from the authorization server while verifying the code. Resolved JSON attached.",
+						{
+							user: req.session?.user?.profileUrl,
+							response: data,
+						}
+					);
+
 					if (!data?.me) {
 						throw new Error(
 							"The authorization server did not return your canonical URL."
@@ -308,6 +337,20 @@ authRouter.get(
 						throw new Error(
 							"The authorization server did not return any scope."
 						);
+					}
+
+					if (!data?.error) {
+						logger.log(
+							LogLevels.error,
+							"Could not verify code from auth server. However, it has returned an error.",
+							{
+								user: req.session?.user?.profileUrl,
+								error_error: data.error,
+								error_description: data.error_description,
+								error_uri: data.error_uri,
+							}
+						);
+						throw new Error(data.error);
 					}
 
 					logger.log(
