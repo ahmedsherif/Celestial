@@ -328,11 +328,31 @@ authRouter.get(
 				},
 				body: params,
 			})
-				.then((response) => response.json())
+				.then((response) => {
+					logger.log(
+						LogLevels.http,
+						"Received a response from the token server. Raw response attached.",
+						{
+							user: req.session?.user?.profileUrl,
+							response: response,
+						}
+					);
+					return response.json();
+				})
+				.catch((error) => {
+					logger.log(
+						LogLevels.error,
+						"Could not convert response to JSON data",
+						{
+							user: req.session?.user?.profileUrl,
+							error,
+						}
+					);
+				})
 				.then((data: IndieAuthToken) => {
 					logger.log(
 						LogLevels.http,
-						"Received a response from the token server.",
+						"Received a response from the token server. JSON response attached.",
 						{ user: req.session?.user?.profileUrl, response: data }
 					);
 
