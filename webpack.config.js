@@ -1,6 +1,6 @@
 module.exports = {
 	mode: process.env.NODE_ENV === "development" ? "development" : "production",
-	devtool: "eval-source-map",
+	devtool: process.env.NODE_ENV === "development" ? "eval-source-map" : false,
 	output: {
 		filename: "main.js",
 	},
