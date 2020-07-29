@@ -1,4 +1,5 @@
 import { Request as ExpressRequest } from "express";
+import _merge from "lodash.merge";
 
 import { APP_TITLE, APP_SUBTITLE } from "../config/constants";
 import { AppUserState } from "../enumerator/AppUserState";
@@ -16,8 +17,7 @@ const pageDataHelper = (
 	req: ExpressRequest,
 	data: object
 ): DefaultPageData | PostPageData | AuthPageData | UserPageData => {
-	return Object.assign(
-		{},
+	return _merge(
 		{
 			title: APP_TITLE,
 			subtitle: APP_SUBTITLE,
