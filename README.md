@@ -53,6 +53,7 @@ Although spec compliance should ensure it works with any Micropub server, I will
     - [ ] [Query for supported post types](https://indieweb.org/Micropub-extensions#Query_for_Supported_Vocabulary)
     - [ ] [Slug](https://indieweb.org/Micropub-extensions#Slug)
     - [ ] [Query for category/tag list](https://indieweb.org/Micropub-extensions#Query_for_Category.2FTag_List)
+    - [ ] [Query for post list](https://indieweb.org/Micropub-extensions#Query_for_Post_List)
 - [ ] Design and polish
     - [ ] Consistent spacing
     - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
