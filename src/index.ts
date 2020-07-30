@@ -134,12 +134,14 @@ app.get("/error", (req: ExpressRequest, res: ExpressResponse) => {
 	let pageData: DefaultPageData | UserPageData;
 	if (req.session?.appState === AppUserState.User) {
 		pageData = pageDataHelper(req, {
-			pageTitle: "Error",
-		}) as DefaultPageData;
+			pageTitle: "An error occured :(",
+			error: req.session?.error,
+		}) as UserPageData;
 	} else {
 		pageData = pageDataHelper(req, {
-			pageTitle: "Error",
-		}) as UserPageData;
+			pageTitle: "An error occured :(",
+			error: req.session?.error,
+		}) as DefaultPageData;
 	}
 
 	resetEphemeralSessionData(req, ["error"]);
@@ -170,7 +172,6 @@ app.use(
 				user: req.session?.user?.profileUrl,
 			});
 			if (req.session) req.session.error = err.message;
-			resetEphemeralSessionData(req, ["error"]);
 			res.redirect(302, "/error");
 		}
 		next(err);

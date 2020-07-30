@@ -1,6 +1,10 @@
 {% layout 'default' %}
 
 {% if error %}
-<h1>An error occured :(</h1>
-<p class="notification notification--error">{{ error }}</p>
+<p>More details about the error can be found below:</p>
+
+<pre>
+  <p class="notification notification--error">{{ error }}</p>
+</pre>
+
 {% endif %}
