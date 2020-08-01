@@ -22,7 +22,7 @@
 		<p>If you're a technical user, you may also specify this data in your website's HTTP headers. Since you're a technical user, I expect you will be able to find your way around on this, based on whatever tools you are using to host your site. 🙂</p>
 	</aside>
 
-	<main class="login__form">
+	<main class="login__main">
 		<form
 			action="/login/try/"
 			method="post"
@@ -31,8 +31,12 @@
 		>
 			<fieldset>
 				<legend>Login</legend>
+				<div class="form-field__group form-field-group">
 					<label for="url">Web Address:</label>
-					<p class="form__fieldset-description">If the web address you enter redirects elsewhere, we will follow the redirect up to one redirect before calling off our search.</p>
+					<p
+						class="form-field-group__description"
+						id="form-field-group__description--url"
+					>If the web address you enter redirects elsewhere, we will follow the redirect up to one redirect before calling off our search.</p>
 					<input
 						id="url"
 						name="me"
@@ -41,7 +45,9 @@
 						type="url"
 						autocomplete="on"
 						autofocus
+						aria-describedby="form-field-group__description--url"
 					/>
+				</div>
 			</fieldset>
 
 			<button type="submit" class="login-form__submit">Sign In</button>
