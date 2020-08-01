@@ -1,6 +1,6 @@
 {
   "name": "celestial",
-  "version": "0.7.5",
+  "version": "0.8.0",
   "description": "A micropub client",
   "main": "index.js",
   "engines": {

@@ -48,6 +48,11 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 		}
 	}
 
+	// Add slug
+	if (req.body?.["mp-slug"] && req.body?.["mp-slug"] !== "") {
+		params.append("mp-slug", req.body["mp-slug"]);
+	}
+
 	return params;
 };
 

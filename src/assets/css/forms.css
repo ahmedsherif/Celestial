@@ -41,7 +41,8 @@
 	}
 
 	& p.form__aria-descriptionto,
-	& p.form__fieldset-description {
+	& p.form__fieldset-description,
+	& p.form-field-group__description {
 		color: var(--gray-600);
 		font-size: 1.4rem;
 		font-weight: normal;

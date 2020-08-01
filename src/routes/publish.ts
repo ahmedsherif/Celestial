@@ -145,6 +145,7 @@ publishRouter.post(
 						content: params.get("content"),
 						published: params.get("published"),
 						"mp-syndicate-to": params.getAll("mp-syndicate-to[]"),
+						"mp-slug": params.getAll("mp-slug"),
 					}
 				);
 
