@@ -124,7 +124,7 @@ publishRouter.get("/rsvp/", (req: ExpressRequest, res: ExpressResponse) => {
 
 // Common publishing endpoint
 publishRouter.post(
-	"/publish/",
+	"/create/",
 	urlEncodedParser,
 	(req: ExpressRequest, res: ExpressResponse, next: ExpressNextFunction) => {
 		logger.log(LogLevels.http, "Received a publishing request.", {
