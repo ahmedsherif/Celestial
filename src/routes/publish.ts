@@ -136,9 +136,6 @@ publishRouter.post(
 			case FormEncoding.URLEncoded:
 			default:
 				const params = prepareParams(req);
-
-				req.body;
-
 				logger.log(
 					LogLevels.verbose,
 					"Sending publish request to your Micropub server.",
