@@ -28,7 +28,7 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 	const published = deriveDate(
 		req.body?.date,
 		req.body?.time,
-		req.session?.user?.timezone
+		req.session?.user?.preferences?.timezone
 	);
 
 	const params = new URLSearchParams();
