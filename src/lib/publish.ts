@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
 import { Request as ExpressRequest } from "express";
 import { URLSearchParams } from "url";
+import slug from "slug";
 
 const deriveDate = (
 	date: string,
@@ -49,8 +50,15 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 	}
 
 	// Add slug
+	// Slugify as a fail-safe
 	if (req.body?.["mp-slug"] && req.body?.["mp-slug"] !== "") {
-		params.append("mp-slug", req.body["mp-slug"]);
+		params.append(
+			"mp-slug",
+			slug(req.body["mp-slug"], {
+				replacement: "-",
+				lower: true,
+			})
+		);
 	}
 
 	return params;

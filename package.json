@@ -1,6 +1,6 @@
 {
   "name": "celestial",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "A micropub client",
   "main": "index.js",
   "engines": {
@@ -53,6 +53,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/redis": "^2.8.25",
     "@types/set-value": "^2.0.0",
+    "@types/slug": "^0.9.1",
     "@vvo/tzdb": "^5.2.0",
     "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
@@ -87,6 +88,7 @@
     "react-dom": "^16.13.1",
     "redis": "^3.0.2",
     "set-value": "^3.0.2",
+    "slug": "^3.3.4",
     "style-loader": "^1.2.1",
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
