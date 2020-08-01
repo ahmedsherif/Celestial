@@ -90,14 +90,6 @@ publishRouter.get("/repost/", (req: ExpressRequest, res: ExpressResponse) => {
 	res.render("publish/repost", pageData);
 });
 
-publishRouter.get("/bookmark/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
-		pageTitle: "Bookmark",
-	}) as PostPageData;
-
-	res.render("publish/bookmark", pageData);
-});
-
 publishRouter.get("/photo/", (req: ExpressRequest, res: ExpressResponse) => {
 	const pageData: PostPageData = pageDataHelper(req, {
 		pageTitle: "Photo",
@@ -112,22 +104,6 @@ publishRouter.get("/video/", (req: ExpressRequest, res: ExpressResponse) => {
 	}) as PostPageData;
 
 	res.render("publish/video", pageData);
-});
-
-publishRouter.get("/audio/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
-		pageTitle: "Audio",
-	}) as PostPageData;
-
-	res.render("publish/audio", pageData);
-});
-
-publishRouter.get("/checkin/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
-		pageTitle: "Checkin",
-	}) as PostPageData;
-
-	res.render("publish/checkin", pageData);
 });
 
 publishRouter.get("/event/", (req: ExpressRequest, res: ExpressResponse) => {
