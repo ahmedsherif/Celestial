@@ -1,3 +1,10 @@
+/* Undo Sakrua */
+form {
+	& fieldset {
+		font-weight: normal;
+	}
+}
+
 .form {
 	& input,
 	& textarea {
@@ -75,6 +82,13 @@
 		grid-row-start: 1;
 		grid-row-end: 3;
 	}
+}
+
+.publishing-form__character-count {
+	color: var(--brand-base);
+	font-size: 1.4rem;
+	margin-bottom: 0.25em;
+	text-align: right;
 }
 
 .publishing-form__syndication-targets {

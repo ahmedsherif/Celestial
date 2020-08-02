@@ -1,6 +1,6 @@
 {
   "name": "celestial",
-  "version": "0.8.2",
+  "version": "0.9.0",
   "description": "A micropub client",
   "main": "index.js",
   "engines": {
@@ -63,6 +63,7 @@
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",
     "csurf": "^1.11.0",
+    "dropzone": "^5.7.2",
     "env-var": "^6.2.0",
     "esm": "^3.2.25",
     "express": "^4.17.1",
@@ -90,6 +91,8 @@
     "set-value": "^3.0.2",
     "slug": "^3.3.4",
     "style-loader": "^1.2.1",
+    "svelte": "^3.24.0",
+    "svelte-loader": "^2.13.6",
     "typescript": "^3.9.6",
     "webpack": "^4.43.0",
     "webpack-stream": "^5.2.1",

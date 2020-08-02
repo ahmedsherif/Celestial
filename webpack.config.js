@@ -20,6 +20,13 @@ module.exports = {
 			// 	test: /\.css$/i,
 			// 	use: ["style-loader", "css-loader"],
 			// },
+			{
+				test: /\.svelte/i,
+				exclude: /node_modules/,
+				use: {
+					loader: "svelte-loader"
+				}
+			}
 		],
 	},
 };
