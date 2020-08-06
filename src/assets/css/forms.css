@@ -17,6 +17,14 @@ form {
 		&[type="checkbox"] {
 			padding: unset;
 			margin-bottom: unset;
+
+			@media(--dm) {
+				background: var(--gray-800);
+			}
+		}
+
+		@media(--dm) {
+			background: var(--gray-800);
 		}
 	}
 
@@ -27,7 +35,7 @@ form {
 		padding-left: 2.4rem;
 		padding-top: 1.2rem;
 
-		&media (--dm) {
+		@media (--dm) {
 			border-top-color: var(--gray-800);
 		}
 

@@ -10,6 +10,8 @@
 
 @import "./layout.css";
 
+@import "./dropzone.css";
+
 @import "./navigation.css";
 
 @import "./page-header.css";

@@ -27,6 +27,7 @@ import { authRouter } from "./routes/authentication";
 import { logoutRouter } from "./routes/logout";
 import { publishRouter } from "./routes/publish";
 import { userRouter } from "./routes/user";
+import { apiRouter as apiv1Router } from "./routes/api/v1";
 
 // Our interface, enums, libs, etc.
 import { AppUserState } from "./enumerator/AppUserState";
@@ -156,6 +157,8 @@ app.use("/logout/", logoutRouter);
 app.use("/publish/", publishRouter);
 
 app.use("/user/", userRouter);
+
+app.use("/api/v1/", apiv1Router);
 
 // Generic error handler
 // Currently only handles errors with the code "AppError"
