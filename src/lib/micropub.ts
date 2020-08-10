@@ -11,13 +11,38 @@ const setMicropubCapabilities = (req: ExpressRequest): Promise<void> => {
 	return new Promise((resolve, reject) => {
 		setConfigurationData(req)
 			.then(() => {
+				logger.log(
+					LogLevels.debug,
+					"We should have syndication targets available in the session by now. If this is not the case, let's try to query them using its dedicated query.",
+					{ user: req.session?.user?.profileUrl }
+				);
 				if (!req.session?.micropub?.["syndicate-to"])
 					setSyndicationTargets(req)
 						.then(() => resolve())
 						.catch((error) => reject(error));
+				// We have the syndication endpoints (at least), resolve the micropub capabilities method.
 				else resolve();
 			})
-			.catch((error) => reject(error));
+			.catch((error) => {
+				logger.log(
+					LogLevels.debug,
+					"Maybe the server returned a 404 - for example, if it doesn't support the ?q=config query.",
+					{
+						user: req.session?.user?.profileUrl,
+						error_details: error,
+					}
+				);
+				if (!error.ok) {
+					logger.log(
+						LogLevels.debug,
+						"Let's try to set syndication targets separately through a syndicate-to query.",
+						{ user: req.session?.user?.profileUrl }
+					);
+					setSyndicationTargets(req)
+						.then(() => resolve())
+						.catch((error) => reject(error));
+				}
+			});
 	});
 };
 
@@ -48,7 +73,21 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 				Accept: "application/json",
 			},
 		})
-			.then((response) => response.json())
+			.then((response) => {
+				if (response.ok) return response.json();
+				else reject(response);
+			})
+			.catch((error) => {
+				logger.log(
+					LogLevels.error,
+					"While requesting configuration data, we did not receive a JSON response -- or could not convert it to JSON.",
+					{
+						user: req.session?.user?.profileUrl,
+						error_details: error,
+					}
+				);
+				reject(error);
+			})
 			.then((configData: MicropubConfig) => {
 				logger.log(
 					LogLevels.http,
@@ -67,7 +106,10 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 				resolve();
 			})
 			.catch((error) => {
-				logger.log(LogLevels.error, error.message);
+				logger.log(LogLevels.error, error.message, {
+					user: req.session?.user?.profileUrl,
+					error_details: error,
+				});
 				reject(error);
 			});
 	});
@@ -80,7 +122,10 @@ const setSyndicationTargets = (req: ExpressRequest): Promise<void> => {
 
 		logger.log(
 			LogLevels.verbose,
-			"We did not receive your syndication targets while making a configuration query request. Trying to fetch them individually now."
+			"We did not receive your syndication targets while making a configuration query request. Trying to fetch them individually now.",
+			{
+				user: req.session?.user?.profileUrl,
+			}
 		);
 
 		const queryUrl = new URL(req.session?.endpoints?.micropub);
@@ -98,11 +143,24 @@ const setSyndicationTargets = (req: ExpressRequest): Promise<void> => {
 			},
 		})
 			.then((response) => response.json())
+			.catch((error) => {
+				logger.log(
+					LogLevels.error,
+					"While requesting syndication endpoints, we did not receive a JSON response -- or could not convert it to JSON.",
+					{
+						user: req.session?.user?.profileUrl,
+						error_details: error,
+					}
+				);
+			})
 			.then((syndicationData: MicropubSyndicationData) => {
 				logger.log(
 					LogLevels.http,
 					"Received syndication data from your Micropub server.",
-					{ "syndicate-to": syndicationData }
+					{
+						"syndicate-to": syndicationData,
+						user: req.session?.user?.profileUrl,
+					}
 				);
 
 				// The server may return an empty array if there are no targets available.
@@ -120,7 +178,14 @@ const setSyndicationTargets = (req: ExpressRequest): Promise<void> => {
 				resolve();
 			})
 			.catch((error) => {
-				logger.log(LogLevels.error, error.message);
+				logger.log(
+					LogLevels.error,
+					"Could not set syndication endpoints.",
+					{
+						user: req.session?.user?.profileUrl,
+						error_details: error,
+					}
+				);
 				reject(error);
 			});
 	});
