@@ -24,16 +24,14 @@ const deriveDate = (
 };
 
 const prepareParams = (req: ExpressRequest): URLSearchParams => {
+	const params = new URLSearchParams();
+
 	// The date and time we receive are in user's tz
 	const published = deriveDate(
 		req.body?.date,
 		req.body?.time,
 		req.session?.user?.preferences?.timezone
 	);
-
-	const params = new URLSearchParams();
-	params.append("h", req.body.h);
-	params.append("content", req.body.note);
 	params.append("published", published.toString());
 
 	// Can be a string, an emtpy string, or an array of string
@@ -60,6 +58,15 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 			})
 		);
 	}
+
+	// Post type - entry, review, resume, etc.
+	params.append("h", req.body.h);
+
+	// Content
+	params.append("content", req.body.note);
+
+	// All other properties
+	// TODO add these dynamically instead of cherry picking. we want this to be a common publishing endpoint for all types of publishing requests.
 
 	return params;
 };
