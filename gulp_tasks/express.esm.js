@@ -8,7 +8,7 @@ const typescriptOut = path.resolve(__dirname, "../");
 
 const typescript = () => {
 	return src(typescriptRoot)
-		.pipe(tsc(require("../tsconfig.js")))
+		.pipe(tsc(require("../tsconfig.json").compilerOptions))
 		.pipe(dest(typescriptOut));
 };
 
