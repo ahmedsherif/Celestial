@@ -1,1 +1,138 @@
 {% layout 'default' %}
+
+<form
+    class="form form--publishing publishing-form publishing-form--repost-of"
+    action="/publish/create/"
+    enctype="{{ user.preferences.formEncoding }}"
+    method="post"
+>
+    <fieldset class="publishing-form__when">
+        <legend>Local date time&nbsp;</legend>
+        <p class="form__fieldset-description" id="form__fieldset-description--timezone-warning">Although we have likely set the correct timezone for you, please check the preferences and update it if required before publishing.</p>
+
+        <div
+            class="publishing-form__when--part publishing-form__when--date"
+        >
+            <label for="date">Date:</label>
+            <input
+                id="date"
+                name="date"
+                type="date"
+                value="{{formDefaults.published.date}}"
+                aria-describedby="form__fieldset-description--timezone-warning"
+            />
+        </div>
+
+        <div
+            class="publishing-form__when--part publishing-form__when--time"
+        >
+            <label for="time">Time:</label>
+            <input
+                id="time"
+                name="time"
+                type="time"
+                value="{{formDefaults.published.time}}"
+                aria-describedby="form__fieldset-description--timezone-warning"
+            />
+        </div>
+    </fieldset>
+
+    <fieldset class="publishing-form__content">
+        <legend>Your content&nbsp;</legend>
+
+        <div class="form__field-group">
+            <label for="form-field-group__slug">Slug:</label>
+            <p
+                class="form-field-group__description"
+                id="form-field-group__description--slug"
+            >Write a slug if your Micropub server supports it. In case of a collision, the server may choose to modify the slug. If you leave this empty, it may choose to generate a random string. If your server does not support this, you can safely ignore it.</p>
+            <input
+                type="text"
+                id="form-field-group__slug"
+                name="mp-slug"
+                aria-describedby="form-field-group__description--slug"
+            />
+        </div>
+
+        <div class="form__field-group form__field-group--repost-of">
+             <label for="form-field-group__repost-of">URL of the page you want to repost</label>
+            <input
+                type="url"
+                id="form-field-group__repost-of"
+                name="u-repost-of"
+            />
+        </div>
+    </fieldset>
+
+    {% if micropub.syndicate-to %}
+    <fieldset class="publishing-form__syndication-targets">
+        <legend>Syndicate to&nbsp;</legend>
+
+        <p
+            class="form__fieldset-description"
+            id="form__fieldset-description--syndication-warning"
+        >You may need to <a href="https://webmention.app/" target="_blank" rel="noopener noreferrer">send webmetions manually</a>, as not all Micropub servers do this for you.
+        </p>
+
+        {% for link in micropub.syndicate-to %}
+        <div class="publishing-form__syndication-target">
+            <label for="{{link.uid}}">
+                {% if link.user.photo %}
+
+                {% if link.user.url %}
+                <a
+                    href="{{link.user.url}}"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                {% endif %}
+                    <img
+                        src="{{link.user.photo}}"
+                        {% if link.user.name %} alt="{{link.user.name}}" {% endif %}
+                    />
+                {% if link.user.url %}
+                </a>
+                {% endif %}
+
+                {% elsif %}
+
+                {% if link.service.url %}
+                <a
+                    href="{{link.service.url}}"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                >
+                {% endif %}
+                    <img
+                        src="{{link.service.photo}}"
+                        {% if link.service.name %} alt="{{link.service.name}}" {% endif %}
+                    />
+                {% if link.service.url %}
+                </a>
+                {% endif %}
+                
+                {% endif %}
+                {{link.name}}
+            </label>
+            <input
+                type="checkbox"
+                id="{{link.uid}}"
+                name="mp-syndicate-to"
+                value="{{link.uid}}"
+            />
+        </div>
+        {% endfor %}
+    </fieldset>
+    {% endif %}
+
+
+    <input type="hidden" name="h" value="entry">
+
+    <button
+        type="submit"
+        class="publishing-form__button publishing-form__button--submit"
+    >Like
+    </button>
+
+</form>
+
