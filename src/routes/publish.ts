@@ -16,7 +16,7 @@ import { urlEncodedParser } from "../middleware/urlEncodedParser";
 import { LogLevels } from "../enumerator/LogLevels";
 import { FormEncoding } from "../enumerator/FormEncoding";
 
-import { pageDataHelper } from "../lib/helpers";
+import { pageDataHelper, postDataHelper } from "../lib/helpers";
 import { resetEphemeralSessionData } from "../lib/session";
 import { logger } from "../lib/logger";
 import { prepareParams } from "../lib/publish";
@@ -43,34 +43,16 @@ publishRouter.get("/article/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/note/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Note",
-		formDefaults: {
-			published: {
-				date: DateTime.utc()
-					.setZone(req.session?.user?.preferences?.timezone)
-					.toFormat("yyyy-MM-dd")
-					.toString(),
-				time: DateTime.utc()
-					.setZone(req.session?.user?.preferences?.timezone)
-					.toFormat("HH:mm")
-					.toString(),
-			},
-		},
-		micropub: {
-			"syndicate-to": req.session?.micropub?.["syndicate-to"],
-			"media-endpoint": req.session?.micropub?.["media-endpoint"],
-		},
 	}) as PostPageData;
-
 	res.render("publish/note", pageData);
 });
 
 publishRouter.get("/reply/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Reply",
 	}) as PostPageData;
-
 	res.render("publish/reply", pageData);
 });
 
