@@ -41,7 +41,7 @@ Although spec compliance should ensure it works with any Micropub server, I will
     - [ ] Unit testing
 - [ ] [Types of posts](https://indieweb.org/posts#Types_of_Posts) to be supported:
     - [ ] 📄 [Article](https://indieweb.org/article)
-    - [ ] 📔 [Note](https://indieweb.org/note)
+    - [x] 📔 [Note](https://indieweb.org/note)
     - [ ] ↪ [Reply](https://indieweb.org/reply)
     - [ ] ↪ [Reply with RSVP](https://indieweb.org/rsvp)
     - [ ] ♥ [Like](https://indieweb.org/like)
@@ -51,7 +51,7 @@ Although spec compliance should ensure it works with any Micropub server, I will
     - [ ] 📅 [Event](https://indieweb.org/event)
 - [ ] Micropub extensions
     - [ ] [Query for supported post types](https://indieweb.org/Micropub-extensions#Query_for_Supported_Vocabulary)
-    - [ ] [Slug](https://indieweb.org/Micropub-extensions#Slug)
+    - [x] [Slug](https://indieweb.org/Micropub-extensions#Slug)
     - [ ] [Query for category/tag list](https://indieweb.org/Micropub-extensions#Query_for_Category.2FTag_List)
     - [ ] [Query for post list](https://indieweb.org/Micropub-extensions#Query_for_Post_List)
 - [ ] Design and polish
