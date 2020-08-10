@@ -25,7 +25,7 @@ RUN npm run build
 
 # Remove src files
 RUN rm -rf src gulp_tasks docs
-RUN rm .prettierrc .nvmrc .prettierignore .editorconfig .babelrc tsconfig.js webpack.config.js
+RUN rm .prettierrc .nvmrc .prettierignore .editorconfig .babelrc tsconfig.json webpack.config.js
 
 # Instruct the container to execute this by default
 CMD ["node", "index.js"]
