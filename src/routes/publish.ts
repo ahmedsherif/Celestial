@@ -172,9 +172,11 @@ publishRouter.post(
 					"Received a response from the Micropub server",
 					{ response }
 				);
-				if (response.headers.get("Location"))
+				if (response.headers?.get("Location"))
 					if (req.session)
-						req.session.postLink = response.headers.get("Location");
+						req.session.postLink = response.headers?.get(
+							"Location"
+						);
 				// TODO Set shortlinks and syndication links, show them to the user
 				// https://www.w3.org/TR/2017/REC-micropub-20170523/#response-p-5
 				res.redirect(302, "/publish/success/");
