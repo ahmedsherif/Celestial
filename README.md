@@ -63,7 +63,8 @@ Although spec compliance should ensure it works with any Micropub server, I will
 ### Moving forward to v2.0
 
 - [ ] Rely on our own code instead of external libraries for menial tasks. Reduce dependencies and allow the project to be maintainable in the long run.
-- [ ] Idea: Add an inline/split Markdown preview for supported post types.
+- [ ] Add an inline/split Markdown preview for supported post types.
+- [ ] Full-width layout for a better and familiar publishing experience.
 - [ ] Add experimental (non-spec) support for the following post types:
     - [ ] 🚩 [Checkin](https://indieweb.org/checkin)
     - [ ] 🔖 [Bookmark](https://indieweb.org/bookmark)
