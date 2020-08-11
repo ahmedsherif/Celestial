@@ -5,4 +5,5 @@
 .notification--error {
 	color: var(--notification-error-color);
 	margin: unset;
+	white-space: pre-wrap;
 }
