@@ -37,7 +37,10 @@ logoutRouter.get(
 			body: params,
 		})
 			.then((response) => {
-				if (response?.ok) return response;
+				// If the response is good, it will directly be a JSON object
+				if (response?.ok)
+					return new Promise((resolve, reject) => resolve(response));
+				// Spec says to expect the error as a JSON object in the response body
 				else return response.json();
 			})
 			.then((data) => {
