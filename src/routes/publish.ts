@@ -35,7 +35,7 @@ publishRouter.get("/success/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/article/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Article",
 	}) as PostPageData;
 
@@ -57,7 +57,7 @@ publishRouter.get("/reply/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/like/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Like",
 	}) as PostPageData;
 
@@ -65,7 +65,7 @@ publishRouter.get("/like/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/repost/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Repost",
 	}) as PostPageData;
 
@@ -73,7 +73,7 @@ publishRouter.get("/repost/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/photo/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Photo",
 	}) as PostPageData;
 
@@ -81,7 +81,7 @@ publishRouter.get("/photo/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/video/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Video",
 	}) as PostPageData;
 
@@ -89,7 +89,7 @@ publishRouter.get("/video/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/event/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "Event",
 	}) as PostPageData;
 
@@ -97,7 +97,7 @@ publishRouter.get("/event/", (req: ExpressRequest, res: ExpressResponse) => {
 });
 
 publishRouter.get("/rsvp/", (req: ExpressRequest, res: ExpressResponse) => {
-	const pageData: PostPageData = pageDataHelper(req, {
+	const pageData: PostPageData = postDataHelper(req, {
 		pageTitle: "RSVP",
 	}) as PostPageData;
 

@@ -231,3 +231,55 @@ form {
 		}
 	}
 }
+
+.publishing-form--like-of {
+	@media (--lg) {
+		display: grid;
+		gap: 0.6em;
+		grid-template-columns: 3fr 1fr;
+		grid-template-rows: auto auto auto;
+	}
+
+	@media (--xl) {
+		grid-template-columns: 7fr 3fr;
+	}
+
+	& .publishing-form__content {
+		@media (--lg) {
+			/* Grid item properties */
+			grid-column-start: 1;
+			grid-column-end: 2;
+			grid-row-start: 1;
+			grid-row-end: 3;
+		}
+	}
+
+	& .publishing-form__syndication-targets {
+		@media (--lg) {
+			/* Grid item properties */
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 2;
+			grid-row-end: 3;
+		}
+	}
+
+	& .publishing-form__when {
+		@media (--lg) {
+			/* Grid item properties */
+			grid-column-start: 2;
+			grid-column-end: 3;
+			grid-row-start: 1;
+			grid-row-end: 2;
+		}
+	}
+
+	& .publishing-form__button--submit {
+		@media (--lg) {
+			grid-row-start: 3;
+			grid-row-end: 4;
+			grid-column-start: 1;
+			grid-column-end: 2;
+		}
+	}
+}

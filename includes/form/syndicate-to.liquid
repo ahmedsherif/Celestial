@@ -1,0 +1,60 @@
+{% if micropub.syndicate-to and micropub.syndicate-to.length > 0 %}
+<fieldset class="publishing-form__syndication-targets">
+    <legend>Syndicate to&nbsp;</legend>
+
+    <p
+        class="form__fieldset-description"
+        id="form__fieldset-description--syndication-warning"
+    >You may need to <a href="https://webmention.app/" target="_blank" rel="noopener noreferrer">send webmetions manually</a>, as not all Micropub servers do this for you.
+    </p>
+
+    {% for link in micropub.syndicate-to %}
+    <div class="publishing-form__syndication-target">
+        <label for="{{link.uid}}">
+            {% if link.user.photo %}
+
+            {% if link.user.url %}
+            <a
+                href="{{link.user.url}}"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+            {% endif %}
+                <img
+                    src="{{link.user.photo}}"
+                    {% if link.user.name %} alt="{{link.user.name}}" {% endif %}
+                />
+            {% if link.user.url %}
+            </a>
+            {% endif %}
+
+            {% elsif %}
+
+            {% if link.service.url %}
+            <a
+                href="{{link.service.url}}"
+                rel="noopener noreferrer"
+                target="_blank"
+            >
+            {% endif %}
+                <img
+                    src="{{link.service.photo}}"
+                    {% if link.service.name %} alt="{{link.service.name}}" {% endif %}
+                />
+            {% if link.service.url %}
+            </a>
+            {% endif %}
+            
+            {% endif %}
+            {{link.name}}
+        </label>
+        <input
+            type="checkbox"
+            id="{{link.uid}}"
+            name="mp-syndicate-to"
+            value="{{link.uid}}"
+        />
+    </div>
+    {% endfor %}
+</fieldset>
+{% endif %}
