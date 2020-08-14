@@ -10,7 +10,9 @@ I am building this __Micropub client__ with a few goals in mind:
 
 If you'd like to show me some support, please star the project. ♥
 
-Although spec compliance should ensure it works with any Micropub server, I will only be testing this with [Indiekit](https://github.com/getindiekit/indiekit/ "indiekit"). Paul Robert Lloyd is currently working on its successor.
+Although spec compliance should ensure it works with any Micropub server, I will only be testing this with [Indiekit](https://github.com/getindiekit/indiekit/ "indiekit"). Paul Robert Lloyd is currently working on its successor. If you use a different Micropub server and face a problem, please open an issue and I'll see how best I can fix it.
+
+A [demo site](https://micropub-celestial.herokuapp.com/) is available through Heroku. Currently deployed commit: [#18a882](https://github.com/hirusi/Celestial/commit/18a8826d45d8e170414b1cb434973a25867330be).
 
 ## To-Do
 
