@@ -65,12 +65,9 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 	// All other properties
 	// TODO add these dynamically instead of cherry picking. we want this to be a common publishing endpoint for all types of publishing requests.
 	
-	// * NOTE
-	// Content
-	if (req.body?.note) params.append("content", req.body.note);
+	// Content (can also be a quote in case of like)
+	if (req.body?.content) params.append("content", req.body.content);
 
-	// * LIKE OF
-	// TODO Quote support
 	if (req.body?.["like-of"]) params.append("like-of", req.body["like-of"]);
 
 	return params;

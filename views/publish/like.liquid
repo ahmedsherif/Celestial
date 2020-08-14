@@ -23,17 +23,24 @@
                 name="mp-slug"
                 aria-describedby="form-field-group__description--slug"
             />
-        </div>
 
+        </div>
+    </fieldset>
+
+    <fieldset class="publishing-form__their-content">
+        <legend>Their content:</legend>
         <div class="form__field-group form__field-group--like-of">
-             <label for="form-field-group__like-of">URL of the page you like</label>
+             <label for="form-field-group__like-of">URL of the page you like:</label>
             <input
                 type="url"
                 id="form-field-group__like-of"
                 name="like-of"
             />
         </div>
+        <div class="form__field-group form__field-group--note"></div>
     </fieldset>
+
+    <div class="form__field-group form__field-group--note"></div>
 
     {% include 'form/syndicate-to' %}
 
