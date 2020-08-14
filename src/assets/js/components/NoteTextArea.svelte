@@ -3,6 +3,7 @@
 	let twitterLength = 280,
 		mastodonLength = 500;
 	$: textLength = text.length;
+	export let required;
 </script>
 
 <label for="content">Content:</label>
@@ -23,5 +24,5 @@
 	cols="30"
 	rows="16"
 	aria-describedby="form-field-group__description--content"
-	required
-></textarea>
+	required="{required}"
+	></textarea>

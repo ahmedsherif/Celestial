@@ -10,8 +10,15 @@ window.addEventListener("DOMContentLoaded", () => {
 	setTimeZone();
 
 	if (!!document.querySelector(".form__field-group--note")) {
+		let required = false;
+		if (document.querySelector(".publishing-form--note")) {
+			required = true;
+		}
 		const noteTextArea = new NoteTextArea({
 			target: document.querySelector(".form__field-group--note"),
+			props: {
+				required,
+			},
 		});
 	}
 });
