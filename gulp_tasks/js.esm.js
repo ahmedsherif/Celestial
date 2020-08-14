@@ -21,7 +21,7 @@ const js = () => {
 };
 
 const jsWatcher = () => {
-	return watch("./src/assets/js/**/*.{js,jsx}", js);
+	return watch("./src/assets/js/**/*.{js,jsx,svelte}", js);
 };
 
 export { js, jsWatcher };
