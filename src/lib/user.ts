@@ -9,7 +9,7 @@ import { LogLevels } from "../enumerator/LogLevels";
 
 import { logger } from "./logger";
 import { parseProperty } from "./microformats";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { FormEncoding } from "../enumerator/Forms";
 
 const makeUrl = (url: string): URL => {
 	// Has the user entered any protocol at all - simple check for '://'

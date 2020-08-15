@@ -10,7 +10,7 @@ import { UserPageData, PreferencesPageData } from "../interface/PageData";
 import { pageDataHelper, enumValuesAsArray } from "../lib/helpers";
 import { setUserPreference, areAllPreferencesValid } from "../lib/user";
 import { urlEncodedParser } from "../middleware/urlEncodedParser";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { FormEncoding, AccessTokenPlacement } from "../enumerator/Forms";
 import { LogLevels } from "../enumerator/LogLevels";
 import { logger } from "../lib/logger";
 
@@ -39,6 +39,7 @@ userRouter.get("/preferences/", (req: ExpressRequest, res: ExpressResponse) => {
 		pageTitle: "Preferences",
 		formDefaults: {
 			encodings: enumValuesAsArray(FormEncoding),
+			accessTokenPlacement: enumValuesAsArray(AccessTokenPlacement),
 			timezones: timeZonesNames,
 		},
 	}) as PreferencesPageData;

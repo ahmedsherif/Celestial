@@ -14,12 +14,13 @@ import { PostPageData } from "../interface/PageData";
 import { urlEncodedParser } from "../middleware/urlEncodedParser";
 
 import { LogLevels } from "../enumerator/LogLevels";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { FormEncoding } from "../enumerator/Forms";
 
 import { pageDataHelper, postDataHelper } from "../lib/helpers";
 import { resetEphemeralSessionData } from "../lib/session";
 import { logger } from "../lib/logger";
 import { prepareParams } from "../lib/publish";
+import set from "set-value";
 
 const publishRouter = Router();
 
@@ -135,10 +136,16 @@ publishRouter.post(
 					method: "POST",
 					headers: {
 						Accept: "application/json",
-						Authorization: `${req.session?.indieauth?.token_type} ${req.session?.indieauth?.access_token}`,
 					},
 					body: params,
 				};
+
+				if (req.session?.user?.preferences?.authInBody)
+					set(
+						requestOptions,
+						"headers",
+						req.session?.user?.preferences?.authInBody
+					);
 		}
 
 		fetch(req.session?.endpoints?.micropub, requestOptions)

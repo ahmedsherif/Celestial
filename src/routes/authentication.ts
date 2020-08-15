@@ -38,7 +38,7 @@ import { pageDataHelper } from "../lib/helpers";
 import { resetEphemeralSessionData } from "../lib/session";
 import { setMicropubCapabilities } from "../lib/micropub";
 import { setAuthData, cleanupAuthData } from "../lib/indieauth";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { FormEncoding } from "../enumerator/Forms";
 
 const authRouter: express.Router = express.Router();
 

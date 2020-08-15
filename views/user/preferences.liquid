@@ -31,6 +31,25 @@
             </div>
             {% endif %}
 
+            <div class="form__field-group">
+                <label for="access-token-placement">How should the access token be sent to the server?</label>
+                <p class="form__aria-descriptionto" id="access-token-placement-description">By default, an access token is attached in the headers of the publishing request made to your Micropub server. If you'd like to change this and send it in through the body of the request, specify this below.</p>
+                <select
+                    id="access-token-placement"
+                    name="access-token-placement"
+                    class="user-preferences-form__access-token-placement"
+                    aria-describedby="access-token-placement-description"
+                    required
+                >
+                    {% for placement in formDefaults.accessTokenPlacement %}
+                    <option
+                        value="{{placement}}"
+                        {% if user.preferences.accessTokenPlacement and encoding == user.preferences.accessTokenPlacement %}selected{% endif %}
+                    >{{placement}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
             {% if formDefaults.timezones | size %}
             <div class="form__field-group">
                 <label for="form-encoding">Timezone:</label>

@@ -1,5 +1,5 @@
 import { AppUserState } from "../enumerator/AppUserState";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { FormEncoding } from "../enumerator/Forms";
 import { MicropubSyndicationData } from "../interface/Micropub";
 
 /**
