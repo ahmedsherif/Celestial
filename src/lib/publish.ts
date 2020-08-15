@@ -70,6 +70,9 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 
 	if (req.body?.["like-of"]) params.append("like-of", req.body["like-of"]);
 
+	if (req.body?.["in-reply-to"])
+		params.append("in-reply-to", req.body["in-reply-to"]);
+
 	return params;
 };
 
