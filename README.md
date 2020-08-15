@@ -23,43 +23,18 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
     - [x] Authorization
         - [x] Basic usage with a sample `create` scope
         - [x] Complete all requirements as laid out by the spec
-- [ ] Micropub spec compliance
-    - [x] [Endpoint discovery](https://www.w3.org/TR/micropub/#endpoint-discovery)
-    - [ ] [Create](https://www.w3.org/TR/micropub/#create)
-        - [x] `application/x-www-form-urlencoded`
-        - [ ] `form/multipart`
-        - [ ] `JSON`
-    - [ ] [Update](https://www.w3.org/TR/micropub/#create)
-    - [ ] [Delete](https://www.w3.org/TR/micropub/#create)
-    - [ ] [Media endpoint](https://www.w3.org/TR/micropub/#media-endpoint)
-    - [x] [Query server for configuration](https://www.w3.org/TR/micropub/#configuration)
-    - [x] [Syndication targets](https://www.w3.org/TR/micropub/#syndication-targets)
+- [ ] Micropub spec compliance - [being tracked here](https://github.com/hirusi/Celestial/issues/4).
 - [ ] General resilience tasks
     - [x] Use a logging library like `winston`
+    - [ ] Unit testing
     - [ ] Modular codebase
     - [ ] Best practices
     - [ ] [Express security checklist](https://expressjs.com/en/advanced/best-practice-security.html)
     - [ ] [Redis security checklist](https://redis.io/topics/security)
-    - [ ] Unit testing
-- [ ] [Types of posts](https://indieweb.org/posts#Types_of_Posts) to be supported:
-    - [ ] 📄 [Article](https://indieweb.org/article)
-    - [x] 📔 [Note](https://indieweb.org/note)
-    - [ ] ↪ [Reply](https://indieweb.org/reply)
-    - [ ] ↪ [Reply with RSVP](https://indieweb.org/rsvp)
-    - [ ] ♥ [Like](https://indieweb.org/like)
-    - [ ] ♺ [Repost](https://indieweb.org/repost)
-    - [ ] 📷 [Photo](https://indieweb.org/photo)
-    - [ ] 🎥 [Video](https://indieweb.org/video)
-    - [ ] 📅 [Event](https://indieweb.org/event)
-- [ ] Micropub extensions
-    - [ ] [Query for supported post types](https://indieweb.org/Micropub-extensions#Query_for_Supported_Vocabulary)
-    - [x] [Slug](https://indieweb.org/Micropub-extensions#Slug)
-    - [ ] [Query for category/tag list](https://indieweb.org/Micropub-extensions#Query_for_Category.2FTag_List)
-    - [ ] [Query for post list](https://indieweb.org/Micropub-extensions#Query_for_Post_List)
 - [ ] Design and polish
-    - [ ] Consistent spacing
+    - [ ] Design system
     - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
-    - [ ] Better forms UI/UX
+    - [ ] Better forms UI/UX (reactivity?)
     - [ ] Sprinkle helpful hints throughout the app, let the user turn them off in preferences
 
 ### Moving forward to v2.0
@@ -71,6 +46,10 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
     - [ ] 🚩 [Checkin](https://indieweb.org/checkin)
     - [ ] 🔖 [Bookmark](https://indieweb.org/bookmark)
     - [ ] 🎤 [Audio](https://indieweb.org/audio)
+    
+### Moving forward to v3.0
+
+- [ ] Break IndieAuth implementation into a module
 
 ## Usage
 
