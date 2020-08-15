@@ -61,10 +61,10 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 
 	// Post type - entry, review, resume, etc.
 	params.append("h", req.body.h);
-	
+
 	// All other properties
 	// TODO add these dynamically instead of cherry picking. we want this to be a common publishing endpoint for all types of publishing requests.
-	
+
 	// Content (can also be a quote in case of like)
 	if (req.body?.content) params.append("content", req.body.content);
 
@@ -72,6 +72,9 @@ const prepareParams = (req: ExpressRequest): URLSearchParams => {
 
 	if (req.body?.["in-reply-to"])
 		params.append("in-reply-to", req.body["in-reply-to"]);
+
+	if (req.body?.["repost-of"])
+		params.append("repost-of", req.body["repost-of"]);
 
 	return params;
 };
