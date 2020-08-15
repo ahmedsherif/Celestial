@@ -5,7 +5,7 @@ module.exports = {
 		filename: "main.js",
 	},
 	resolve: {
-		extensions: [".js", ".jsx"],
+		extensions: [".mjs", ".js", ".jsx"],
 	},
 	module: {
 		rules: [
@@ -21,12 +21,17 @@ module.exports = {
 			// 	use: ["style-loader", "css-loader"],
 			// },
 			{
+				test: /\.mjs$/,
+				include: /node_modules/,
+				type: "javascript/auto",
+			},
+			{
 				test: /\.svelte/i,
 				exclude: /node_modules/,
 				use: {
-					loader: "svelte-loader"
-				}
-			}
+					loader: "svelte-loader",
+				},
+			},
 		],
 	},
 };
