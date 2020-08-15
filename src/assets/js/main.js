@@ -9,13 +9,12 @@ window.addEventListener("DOMContentLoaded", () => {
 	userMenu();
 	setTimeZone();
 
-	if (!!document.querySelector(".form__field-group--note")) {
+	if (!!document.querySelector(".form__field-group--content")) {
 		let required = false;
-		if (document.querySelector(".publishing-form--note")) {
+		if (document.querySelector(".publishing-form--note"))
 			required = true;
-		}
 		const noteTextArea = new NoteTextArea({
-			target: document.querySelector(".form__field-group--note"),
+			target: document.querySelector(".form__field-group--content"),
 			props: {
 				required,
 			},

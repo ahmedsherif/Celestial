@@ -67,7 +67,7 @@ form {
 }
 
 .form__field-group {
-	margin-bottom: 0.6em;
+	margin-bottom: 2.4em;;
 }
 
 .publishing-form__character-count {
@@ -250,15 +250,6 @@ form {
 			grid-column-start: 1;
 			grid-column-end: 2;
 			grid-row-start: 1;
-			grid-row-end: 2;
-		}
-	}
-
-	& .publishing-form__their-content {
-		@media (--lg) {
-			grid-column-start: 1;
-			grid-column-end: 2;
-			grid-row-start: 2;
 			grid-row-end: 3;
 		}
 	}

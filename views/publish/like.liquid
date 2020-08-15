@@ -9,7 +9,7 @@
     {% include 'form/date-time' %}
 
     <fieldset class="publishing-form__content">
-        <legend>Your content&nbsp;</legend>
+        <legend>Content&nbsp;</legend>
 
         <div class="form__field-group">
             <label for="form-field-group__slug">Slug:</label>
@@ -25,22 +25,23 @@
             />
 
         </div>
-    </fieldset>
 
-    <fieldset class="publishing-form__their-content">
-        <legend>Their content:</legend>
-        <div class="form__field-group form__field-group--like-of">
+        <div class="form__field-group form__field-group--like-of form-field-group">
              <label for="form-field-group__like-of">URL of the page you like:</label>
+             <p
+                class="form-field-group__description"
+                id="form-field-group__description--like-of"
+            >The permalink of the post/page you want to like.</p>
             <input
                 type="url"
+                class="form-field-group__url"
                 id="form-field-group__like-of"
                 name="like-of"
+                aria-describedby="form-field-group__description--like-of"
             />
         </div>
         <div class="form__field-group form__field-group--note"></div>
     </fieldset>
-
-    <div class="form__field-group form__field-group--note"></div>
 
     {% include 'form/syndicate-to' %}
 
