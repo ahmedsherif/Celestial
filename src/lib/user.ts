@@ -294,6 +294,7 @@ const areAllPreferencesValid = (req: ExpressRequest): boolean => {
 
 export {
 	makeUrl,
+	isValidUrl,
 	areAllPreferencesValid,
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
