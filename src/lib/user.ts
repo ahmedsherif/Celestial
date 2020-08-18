@@ -14,19 +14,19 @@ import { FormEncoding } from "../enumerator/FormEncoding";
 const makeUrl = (url: string): URL => {
 	// Has the user entered any protocol at all - simple check for '://'
 	// Also note that if no pathname is specified, '/' is assumed by the URL class. We don't need to take care of this check later on.
-	if (url.indexOf("://")) {
-		logger.log(
-			LogLevels.debug,
-			"User has specified a protocol in their web address."
-		);
-		return new URL(url.toLowerCase());
-	} else {
+	if (url.indexOf("://") === -1) {
 		logger.log(
 			LogLevels.debug,
 			"User has not specified a protocol in their web address, attaching http://"
 		);
 		// If http[s] not input the user, assume http
 		return new URL(String.prototype.concat("http://", url.toLowerCase()));
+	} else {
+		logger.log(
+			LogLevels.debug,
+			"User has specified a protocol in their web address."
+		);
+		return new URL(url.toLowerCase());
 	}
 };
 
@@ -293,6 +293,7 @@ const areAllPreferencesValid = (req: ExpressRequest): boolean => {
 };
 
 export {
+	makeUrl,
 	areAllPreferencesValid,
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
