@@ -53,7 +53,7 @@ const isValidUrl = (url: URL): boolean | Error => {
 				"The URL specified is invalid, as it includes a hash/fragment."
 			);
 
-		if (isIp(url.toString()))
+		if (isIp(url.hostname) || isIp(url.hostname.slice(1, -1)))
 			throw new Error(
 				"The URL specified is invalid, as it is an IP address (v4/v6)."
 			);
