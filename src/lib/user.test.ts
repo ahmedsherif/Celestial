@@ -1,31 +1,35 @@
 import { makeUrl, isValidUrl } from "./user";
 
-const urls = {
-	given: [
-		"example.com",
-		"EXAMPLE.COM",
-		"HTTP://EXAMPLE.COM",
-		"http://example.com",
-		"https://example.com",
-		"http://example.com/",
-		"https://example.com/",
-		"https://example.com/indieweb",
-	],
-	expected: [
-		"http://example.com/",
-		"http://example.com/",
-		"http://example.com/",
-		"http://example.com/",
-		"https://example.com/",
-		"http://example.com/",
-		"https://example.com/",
-		"https://example.com/indieweb",
-	],
-};
+describe("Derive an assumed URL from user-input URL", () => {
+	const urls = {
+		given: [
+			"example.com",
+			"EXAMPLE.COM",
+			"HTTP://EXAMPLE.COM",
+			"http://example.com",
+			"https://example.com",
+			"http://example.com/",
+			"https://example.com/",
+			"https://example.com/indieweb",
+			"192.168.0.1",
+			"[2607:f0d0:1002:0051:0000:0000:0000:0004]",
+		],
+		expected: [
+			"http://example.com/",
+			"http://example.com/",
+			"http://example.com/",
+			"http://example.com/",
+			"https://example.com/",
+			"http://example.com/",
+			"https://example.com/",
+			"https://example.com/indieweb",
+			"http://192.168.0.1/",
+			"http://[2607:f0d0:1002:51::4]/",
+		],
+	};
 
-describe("Get a URL object from user-input URL", () => {
 	urls.given.forEach((gUrl, index) => {
-		test(`should make URL from ${gUrl}`, () => {
+		test(`should make expected URL from ${gUrl}`, () => {
 			const url = makeUrl(gUrl);
 			expect(url.toString()).toBe(urls.expected[index]);
 		});
