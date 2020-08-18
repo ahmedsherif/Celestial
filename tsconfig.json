@@ -5,15 +5,17 @@
 		"module": "commonjs",
 		"outDir": "./",
 		"rootDir": "./src",
-		"tsBuildInfoFile": "./",
+		"tsBuildInfoFile": "./.tsbuildinfo",
 		"strict": true,
 		"noImplicitAny": false,
-		"baseUrl": ".",
+		"baseUrl": "./src",
 		"paths": {
-			"@app/*": ["src/*"]
+			"@app/*": ["/*"]
 		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true
-	}
+	},
+	"include": ["./src/**/*.ts"],
+	"exclude": ["./node_modules"]
 }

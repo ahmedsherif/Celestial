@@ -4,16 +4,11 @@ import { series, parallel } from "gulp";
 import { css, cssPurgeMin, cssWatcher } from "./gulp_tasks/css.esm";
 import { js, jsWatcher } from "./gulp_tasks/js.esm";
 import { minifyImg as img, imgWatcher } from "./gulp_tasks/img.esm";
-import { typescript, server, watcher } from "./gulp_tasks/express.esm";
 
 // Env tasks
-const development = series(
-	typescript,
-	parallel(js, css, img),
-	parallel(jsWatcher, server, watcher, cssWatcher, imgWatcher)
+export const development = parallel(js, css, img);
+export const production = series(
+	development,
+	cssPurgeMin,
+	parallel(jsWatcher, cssWatcher, imgWatcher)
 );
-const production = series(typescript, parallel(js, img, css, server));
-
-const build = series(typescript, parallel(js, img, css));
-
-export { development, production, build };
