@@ -116,5 +116,8 @@
       "gulpfile.esm.js"
     ]
   },
-  "browserslist": "> 0.25%, not dead"
+  "browserslist": "> 0.25%, not dead",
+  "jest": {
+    "rootDir": "src"
+  }
 }
