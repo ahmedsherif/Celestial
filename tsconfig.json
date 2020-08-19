@@ -8,9 +8,14 @@
 		"tsBuildInfoFile": "./.tsbuildinfo",
 		"strict": true,
 		"noImplicitAny": false,
-		"baseUrl": "./src",
+		"baseUrl": "src",
 		"paths": {
-			"@app/*": ["/*"]
+			"middleware/*": ["middleware/*"],
+			"config/*": ["config/*"],
+			"lib/*": ["lib/*"],
+			"routes/*": ["routes/*"],
+			"enumerator/*": ["enumerator/*"],
+			"interface/*": ["interface/*"]
 		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,

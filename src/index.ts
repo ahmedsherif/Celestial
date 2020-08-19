@@ -1,3 +1,7 @@
+// Transform paths in the JS output
+// TypeScript is only a compiler - configuring it for path alias is just a convenience hatch. It doesn't actually transform those paths by itself in the JavaScript/compiled output. Yup. 🤷‍♀️
+require("module-alias/register");
+
 // Core
 import express, {
 	Response as ExpressResponse,
@@ -6,7 +10,7 @@ import express, {
 } from "express";
 
 // Env and other constants
-import { PORT, REDIS_URL } from "./config/constants";
+import { PORT, REDIS_URL } from "config/constants";
 
 // Template engine
 import { Liquid } from "liquidjs";
@@ -23,21 +27,25 @@ const redisClient = redis.createClient(REDIS_URL);
 const app = express();
 
 // Route imports
+import { authRouter } from "routes/authentication";
+import { logoutRouter } from "routes/logout";
+import { publishRouter } from "routes/publish";
+import { userRouter } from "routes/user";
 import { authRouter } from "./routes/authentication";
 import { logoutRouter } from "./routes/logout";
 import { publishRouter } from "./routes/publish";
 import { userRouter } from "./routes/user";
 
 // Our interface, enums, libs, etc.
-import { AppUserState } from "./enumerator/AppUserState";
-import { LogLevels } from "./enumerator/LogLevels";
+import { AppUserState } from "enumerator/AppUserState";
+import { LogLevels } from "enumerator/LogLevels";
 
-import { DefaultPageData, UserPageData } from "./interface/PageData";
-import { AppError } from "./interface/AppError";
+import { DefaultPageData, UserPageData } from "interface/PageData";
+import { AppError } from "interface/AppError";
 
-import { logger } from "./lib/logger";
-import { pageDataHelper } from "./lib/helpers";
-import { resetEphemeralSessionData } from "./lib/session";
+import { logger } from "lib/logger";
+import { pageDataHelper } from "lib/helpers";
+import { resetEphemeralSessionData } from "lib/session";
 
 // Create a CSP
 const directives = {
