@@ -1,7 +1,7 @@
 import { Request as ExpressRequest } from "express";
-import { logger } from "lib/logger";
-import { LogLevels } from "enumerator/LogLevels";
-import { IndieAuthToken } from "interface/IndieAuth";
+import { logger } from "./logger";
+import { LogLevels } from "../enumerator/LogLevels";
+import { IndieAuthToken } from "../interface/IndieAuth";
 
 const setAuthData = (req: ExpressRequest, data: IndieAuthToken): void => {
 	logger.log(

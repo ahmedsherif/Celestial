@@ -1,6 +1,6 @@
-import { AppUserState } from "enumerator/AppUserState";
-import { FormEncoding } from "enumerator/FormEncoding";
-import { MicropubSyndicationData } from "interface/Micropub";
+import { AppUserState } from "../enumerator/AppUserState";
+import { FormEncoding } from "../enumerator/FormEncoding";
+import { MicropubSyndicationData } from "../interface/Micropub";
 
 /**
  * Virtually all pages should need this data at a minimum. If you find there's something hardly being used, move it to its own PageData interface.

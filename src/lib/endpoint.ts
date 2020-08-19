@@ -1,12 +1,11 @@
 const i = require("i")(true);
 import { Request as ExpressRequest, query } from "express";
 import httpLinkHeader from "http-link-header";
-import set from "set-value";
 import fetch from "node-fetch";
 
-import { logger } from "lib/logger";
-
-import { LogLevels } from "enumerator/LogLevels";
+import { logger } from "./logger";
+import { LogLevels } from "../enumerator/LogLevels";
+import set from "set-value";
 
 const endpointsWanted = [
 	{
