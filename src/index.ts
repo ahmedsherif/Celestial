@@ -31,10 +31,6 @@ import { authRouter } from "routes/authentication";
 import { logoutRouter } from "routes/logout";
 import { publishRouter } from "routes/publish";
 import { userRouter } from "routes/user";
-import { authRouter } from "./routes/authentication";
-import { logoutRouter } from "./routes/logout";
-import { publishRouter } from "./routes/publish";
-import { userRouter } from "./routes/user";
 
 // Our interface, enums, libs, etc.
 import { AppUserState } from "enumerator/AppUserState";
