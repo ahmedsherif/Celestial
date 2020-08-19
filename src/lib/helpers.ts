@@ -2,14 +2,14 @@ import { Request as ExpressRequest } from "express";
 import _merge from "lodash.merge";
 import { DateTime } from "luxon";
 
-import { APP_TITLE, APP_SUBTITLE } from "../config/constants";
-import { AppUserState } from "../enumerator/AppUserState";
+import { APP_TITLE, APP_SUBTITLE } from "config/constants";
+import { AppUserState } from "enumerator/AppUserState";
 import {
 	DefaultPageData,
 	PostPageData,
 	AuthPageData,
 	UserPageData,
-} from "../interface/PageData";
+} from "interface/PageData";
 
 /**
  * Currently, the app title, subtitle, app state, and user identity is set by default. You may pass these in as well in case you wish to overwrite the defaults.

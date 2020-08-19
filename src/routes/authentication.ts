@@ -11,34 +11,34 @@ import cheerio from "cheerio";
 import set from "set-value";
 
 // Env and other constants
-import { INDIEAUTH_CLIENT } from "../config/constants";
+import { INDIEAUTH_CLIENT } from "config/constants";
 
 // Our interface, enums, and middleware
-import { AuthPageData } from "../interface/PageData";
-import { IndieAuthToken } from "../interface/IndieAuth";
+import { AuthPageData } from "interface/PageData";
+import { IndieAuthToken } from "interface/IndieAuth";
 
-import { AppUserState } from "../enumerator/AppUserState";
-import { LogLevels } from "../enumerator/LogLevels";
+import { AppUserState } from "enumerator/AppUserState";
+import { LogLevels } from "enumerator/LogLevels";
+import { FormEncoding } from "enumerator/FormEncoding";
 
-import { csrfProtection } from "../middleware/csrfProtection";
-import { urlEncodedParser } from "../middleware/urlEncodedParser";
+import { csrfProtection } from "middleware/csrfProtection";
+import { urlEncodedParser } from "middleware/urlEncodedParser";
 
 import {
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
 	setUserPreference,
-} from "../lib/user";
+} from "lib/user";
 import {
 	endpointsWanted,
 	setEndpointsFromHeaders,
 	setEndpointsFromBody,
-} from "../lib/endpoint";
-import { logger } from "../lib/logger";
-import { pageDataHelper } from "../lib/helpers";
-import { resetEphemeralSessionData } from "../lib/session";
-import { setMicropubCapabilities } from "../lib/micropub";
-import { setAuthData, cleanupAuthData } from "../lib/indieauth";
-import { FormEncoding } from "../enumerator/FormEncoding";
+} from "lib/endpoint";
+import { logger } from "lib/logger";
+import { pageDataHelper } from "lib/helpers";
+import { resetEphemeralSessionData } from "lib/session";
+import { setMicropubCapabilities } from "lib/micropub";
+import { setAuthData, cleanupAuthData } from "lib/indieauth";
 
 const authRouter: express.Router = express.Router();
 

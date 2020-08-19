@@ -5,11 +5,11 @@ import set from "set-value";
 import { timeZonesNames } from "@vvo/tzdb";
 import { Image } from "microformats-parser/dist/types";
 
-import { LogLevels } from "../enumerator/LogLevels";
+import { LogLevels } from "enumerator/LogLevels";
+import { FormEncoding } from "enumerator/FormEncoding";
 
-import { logger } from "./logger";
-import { parseProperty } from "./microformats";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { logger } from "lib/logger";
+import { parseProperty } from "lib/microformats";
 
 const makeUrl = (url: string): URL => {
 	// Has the user entered any protocol at all - simple check for '://'

@@ -6,13 +6,15 @@ import {
 } from "express";
 import { timeZonesNames } from "@vvo/tzdb";
 
-import { UserPageData, PreferencesPageData } from "../interface/PageData";
-import { pageDataHelper, enumValuesAsArray } from "../lib/helpers";
-import { setUserPreference, areAllPreferencesValid } from "../lib/user";
-import { urlEncodedParser } from "../middleware/urlEncodedParser";
-import { FormEncoding } from "../enumerator/FormEncoding";
-import { LogLevels } from "../enumerator/LogLevels";
-import { logger } from "../lib/logger";
+import { UserPageData, PreferencesPageData } from "interface/PageData";
+import { pageDataHelper, enumValuesAsArray } from "lib/helpers";
+import { setUserPreference, areAllPreferencesValid } from "lib/user";
+import { logger } from "lib/logger";
+
+import { urlEncodedParser } from "middleware/urlEncodedParser";
+
+import { FormEncoding } from "enumerator/FormEncoding";
+import { LogLevels } from "enumerator/LogLevels";
 
 const userRouter = Router();
 

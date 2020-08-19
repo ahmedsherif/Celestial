@@ -9,17 +9,17 @@ import { DateTime } from "luxon";
 // import getType from "post-type-discovery";
 
 // Our interface, enums, middleware, libs
-import { PostPageData } from "../interface/PageData";
+import { PostPageData } from "interface/PageData";
 
-import { urlEncodedParser } from "../middleware/urlEncodedParser";
+import { urlEncodedParser } from "middleware/urlEncodedParser";
 
-import { LogLevels } from "../enumerator/LogLevels";
-import { FormEncoding } from "../enumerator/FormEncoding";
+import { LogLevels } from "enumerator/LogLevels";
+import { FormEncoding } from "enumerator/FormEncoding";
 
-import { pageDataHelper, postDataHelper } from "../lib/helpers";
-import { resetEphemeralSessionData } from "../lib/session";
-import { logger } from "../lib/logger";
-import { prepareParams } from "../lib/publish";
+import { pageDataHelper, postDataHelper } from "lib/helpers";
+import { resetEphemeralSessionData } from "lib/session";
+import { logger } from "lib/logger";
+import { prepareParams } from "lib/publish";
 
 const publishRouter = Router();
 

@@ -6,8 +6,8 @@ import express, {
 import fetch, { FetchError } from "node-fetch";
 import { URLSearchParams } from "url";
 
-import { logger } from "../lib/logger";
-import { LogLevels } from "../enumerator/LogLevels";
+import { logger } from "lib/logger";
+import { LogLevels } from "enumerator/LogLevels";
 
 const logoutRouter = express.Router();
 
