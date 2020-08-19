@@ -132,6 +132,29 @@ describe("Profile and discovery URLs", () => {
 		expect(fetchMock.mock.calls.length).toEqual(2);
 	});
 
+	test("should handle a successful response with bad temporary redirect", async () => {
+		expect.assertions(2);
+
+		fetchMock
+			.mockResponseOnce(async () => ({
+				status: 302,
+				headers: {
+					Location: "https://example.com/profile/",
+				},
+			}))
+			.mockResponseOnce(async () => ({
+				status: 500,
+			}));
+
+		await expect(
+			getProfileAndDiscoveryUrls("https://example.com/temporary/")
+		).rejects.toThrowError(
+			"We followed a temporary redirect but there was a problem fetching the redirected URL."
+		);
+
+		expect(fetchMock.mock.calls.length).toEqual(2);
+	});
+
 	test("should handle a bad response with temporary redirect", async () => {
 		expect.assertions(1);
 
