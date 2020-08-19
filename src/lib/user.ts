@@ -241,7 +241,8 @@ const setProfileDetails = (req: ExpressRequest, document: string): void => {
 			"Saving the name and a URL to the photo for the user to session now.",
 			{
 				user: req.session?.user?.profileUrl,
-				name: name ? name[0] : "Did not find any name.",
+				name:
+					name && name[0] !== "" ? name[0] : "Did not find any name.",
 				photo: photo
 					? (photo[0] as Image).value
 						? (photo[0] as Image).value
@@ -250,7 +251,8 @@ const setProfileDetails = (req: ExpressRequest, document: string): void => {
 			}
 		);
 
-		if (name) set(req.session, "user.microformats.name", name[0]);
+		if (name && name[0] !== "")
+			set(req.session, "user.microformats.name", name[0]);
 
 		if (photo)
 			set(
