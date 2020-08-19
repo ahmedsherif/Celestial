@@ -21,8 +21,8 @@
     "server:prod": "node index.js",
     "typescript:compile": "tsc",
     "typescript:watch": "tsc --incremental --watch",
-    "test:dev": "jest --watch",
-    "test:prod": "jest"
+    "test:dev": "NODE_ENV=test jest --watch",
+    "test:prod": "NODE_ENV=test jest"
   },
   "repository": {
     "type": "git",
@@ -110,6 +110,7 @@
   "devDependencies": {
     "gulp-imagemin": "^7.1.0",
     "jest": "^26.1.0",
+    "jest-fetch-mock": "^3.0.3",
     "nodemon": "^2.0.4",
     "prettier": "^2.0.5"
   },

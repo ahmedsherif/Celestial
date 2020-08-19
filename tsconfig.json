@@ -10,7 +10,8 @@
 		"noImplicitAny": false,
 		"esModuleInterop": true,
 		"skipLibCheck": true,
-		"forceConsistentCasingInFileNames": true
+		"forceConsistentCasingInFileNames": true,
+		"lib": ["dom", "ES2015", "esnext"]
 	},
 	"include": ["./src/**/*.ts"],
 	"exclude": ["./node_modules"]
