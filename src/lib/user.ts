@@ -17,20 +17,25 @@ const makeUrl = (url: string): URL => {
 	if (url.indexOf("://") === -1) {
 		logger.log(
 			LogLevels.debug,
-			"User has not specified a protocol in their web address, attaching http://"
+			"User has not specified a protocol in their web address, attaching http://",
+			{ url }
 		);
 		// If http[s] not input the user, assume http
 		return new URL(String.prototype.concat("http://", url.toLowerCase()));
 	} else {
 		logger.log(
 			LogLevels.debug,
-			"User has specified a protocol in their web address."
+			"User has specified a protocol in their web address.",
+			{ url }
 		);
 		return new URL(url.toLowerCase());
 	}
 };
 
 const isValidUrl = (url: URL): boolean | Error => {
+	logger.log(LogLevels.debug, "Checking validity of URL", {
+		url: url.toString(),
+	});
 	try {
 		if (url.username)
 			throw new Error(
@@ -91,12 +96,12 @@ const getProfileAndDiscoveryUrls = (
 
 		// Perform validation checks as per spec
 		const isValid = isValidUrl(assumedUrl);
-		if (isValid instanceof Error) {
-			throw { code: "AppError", message: isValid.message };
-		} else {
+		if (isValid instanceof Error) reject(isValid);
+		else {
 			logger.log(
 				LogLevels.debug,
-				"User's web address has been validated successfully."
+				"User's web address has been validated successfully.",
+				{ url: assumedUrl.toString() }
 			);
 			fetch(assumedUrl.toString(), {
 				method: "HEAD",
@@ -105,7 +110,8 @@ const getProfileAndDiscoveryUrls = (
 				.then((response) => {
 					logger.log(
 						LogLevels.debug,
-						"Received a response to our HEAD request from the user's web address."
+						"Received a response to our HEAD request from the user's web address.",
+						{ url: assumedUrl.toString() }
 					);
 					// Check if this was a temporary redirect
 					if (response.status === 302 || response.status === 307) {
@@ -117,10 +123,20 @@ const getProfileAndDiscoveryUrls = (
 
 						logger.log(
 							LogLevels.debug,
-							"Found a temporary redirect, following redirect."
+							"Found a temporary redirect, following redirect.",
+							{
+								url: assumedUrl.toString(),
+								redirected_to: response.headers.get(
+									"Location"
+								) as string,
+							}
 						);
 
-						fetch(response.headers.get("Location") as string)
+						const newAssumedUrl = response.headers.get(
+							"Location"
+						) as string;
+
+						fetch(newAssumedUrl)
 							.then((response) => {
 								if (!response.ok)
 									throw new Error(
@@ -134,25 +150,35 @@ const getProfileAndDiscoveryUrls = (
 									"Received a response from the redirected URL. Setting profile and discovery URLs now."
 								);
 								profileUrl = new URL(assumedUrl.toString());
-								discoveryUrl = new URL(
-									response.headers.get("Location") as string
-								);
+								discoveryUrl = new URL(newAssumedUrl);
 								resolve({
 									profileUrl: profileUrl.toString(),
 									discoveryUrl: discoveryUrl.toString(),
 								});
 							})
-							.catch((error) => reject(error));
+							.catch((error: Error) => reject(error));
 					}
 					// Was it a permanent redirect?
 					else if (
 						response.status === 301 ||
 						response.status === 308
 					) {
+						if (response.headers.get("Location") === null) {
+							throw new Error(
+								"We were given a permanent redirect to follow, but the Location HTTP header was missing."
+							);
+						}
+
 						// Profile and discovery URL are, both, the redirected URL
 						logger.log(
 							LogLevels.debug,
-							"Permanent redirect found. Assuming the redirected URL to be correct web address for this user."
+							"Permanent redirect found. Assuming the redirected URL to be correct web address for this user.",
+							{
+								url: assumedUrl.toString(),
+								redirected_to: response.headers.get(
+									"Location"
+								) as string,
+							}
 						);
 
 						if (response.headers.get("Location") === null) {
@@ -181,7 +207,7 @@ const getProfileAndDiscoveryUrls = (
 						});
 					}
 				})
-				.catch((error) => reject(error));
+				.catch((error: Error) => reject(error));
 		}
 	});
 
