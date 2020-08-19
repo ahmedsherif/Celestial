@@ -218,7 +218,11 @@ const getProfileAndDiscoveryUrls = (
 const setProfileDetails = (req: ExpressRequest, document: string): void => {
 	logger.log(
 		LogLevels.debug,
-		"Attempting to find a name and photo for the user."
+		"Attempting to find a name and photo for the user.",
+		{
+			user: req.session?.user?.profileUrl,
+			discoveryUrl: req.session?.user?.discoveryUrl,
+		}
 	);
 
 	const name = parseProperty(
