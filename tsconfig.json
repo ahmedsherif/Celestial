@@ -8,10 +8,6 @@
 		"tsBuildInfoFile": "./.tsbuildinfo",
 		"strict": true,
 		"noImplicitAny": false,
-		"baseUrl": "./src",
-		"paths": {
-			"@app/*": ["/*"]
-		},
 		"esModuleInterop": true,
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true
