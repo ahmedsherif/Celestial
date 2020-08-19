@@ -1,4 +1,9 @@
-import { makeUrl, isValidUrl, getProfileAndDiscoveryUrls } from "./user";
+import {
+	makeUrl,
+	isValidUrl,
+	getProfileAndDiscoveryUrls,
+	setProfileDetails,
+} from "./user";
 import fetchMock from "jest-fetch-mock";
 
 describe("Derive an assumed URL from user-input URL", () => {
@@ -224,5 +229,58 @@ describe("Profile and discovery URLs", () => {
 			profileUrl: "https://example.com/profile/",
 			discoveryUrl: "https://example.com/profile/",
 		});
+	});
+});
+
+describe("Get name and photo from user's discovery page", () => {
+	let request;
+
+	beforeEach(() => {
+		request = {
+			session: {
+				user: {
+					discoveryUrl: "https://example.com/",
+				},
+			},
+		};
+	});
+
+	test("should set name in session when only name is available", () => {
+		expect.assertions(2);
+
+		const rawHtml = `<!DOCTYPE html><html lang="en"><head></head><body><section class="h-card"><h1 class="p-name">Jane Doe</h1></section></body></html>`;
+
+		setProfileDetails(request, rawHtml);
+
+		expect(request.session.user.microformats.name).toBe("Jane Doe");
+		expect(request.session.user.microformats.photo).toBeUndefined();
+	});
+
+	test("should set photo in session when only photo is available", () => {
+		expect.assertions(2);
+
+		const rawHtml = `<!DOCTYPE html><html lang="en"><head></head><body><section class="h-card"><img src="https://example.com/jane-doe.jpg" class="u-photo" /></section></body></html>`;
+
+		setProfileDetails(request, rawHtml);
+
+		expect(request.session.user.microformats.photo).toBe(
+			"https://example.com/jane-doe.jpg"
+		);
+		// ? Why is p-name returning as "" when it is not available
+		// Check http://microformats.org/wiki/microformats2-parsing#parsing_a_p-_property
+		expect(request.session.user.microformats.name).toBeUndefined();
+	});
+
+	test("should set both name and photo in session when both are available", () => {
+		expect.assertions(2);
+
+		const rawHtml = `<!DOCTYPE html><html lang="en"><head></head><body><section class="h-card"><img src="https://example.com/jane-doe.jpg" class="u-photo" /><h1 class="p-name">Jane Doe</h1></section></body></html>`;
+
+		setProfileDetails(request, rawHtml);
+
+		expect(request.session.user.microformats.photo).toBe(
+			"https://example.com/jane-doe.jpg"
+		);
+		expect(request.session.user.microformats.name).toBe("Jane Doe");
 	});
 });
