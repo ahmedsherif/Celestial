@@ -1,5 +1,5 @@
 import { makeUrl, isValidUrl, getProfileAndDiscoveryUrls } from "./user";
-import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
+import fetchMock from "jest-fetch-mock";
 
 describe("Derive an assumed URL from user-input URL", () => {
 	const urls = {
@@ -104,10 +104,6 @@ describe("Validate assumed URL, which was derived from user-input URL", () => {
 });
 
 describe("Profile and discovery URLs", () => {
-	beforeAll(() => {
-		enableFetchMocks();
-	});
-
 	beforeEach(() => {
 		fetchMock.resetMocks();
 	});

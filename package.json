@@ -43,6 +43,8 @@
   "homepage": "https://github.com/hirusi/celestial#readme",
   "dependencies": {
     "@babel/core": "^7.10.5",
+    "@babel/plugin-transform-regenerator": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
@@ -127,6 +129,9 @@
   },
   "browserslist": "> 0.25%, not dead",
   "jest": {
-    "rootDir": "src"
+    "rootDir": "src",
+    "setupFiles": [
+      "../setupTests.js"
+    ]
   }
 }
