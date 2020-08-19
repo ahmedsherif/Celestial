@@ -108,99 +108,94 @@ describe("Profile and discovery URLs", () => {
 		fetchMock.resetMocks();
 	});
 
-	test("should handle a successful response with temporary redirect", () => {
-		expect.assertions(1);
+	test("should handle a successful response with temporary redirect", async () => {
+		expect.assertions(2);
 
-		// @ts-ignore
 		fetchMock
-			.mockResponseOnce(() => ({
+			.mockResponseOnce(async () => ({
 				status: 302,
 				headers: {
 					Location: "https://example.com/profile/",
 				},
 			}))
-			.mockResponseOnce(() => ({
+			.mockResponseOnce(async () => ({
 				status: 200,
 			}));
 
-		expect(
-			getProfileAndDiscoveryUrls(
-				"https://example.com/temporary_redirect/"
-			)
+		await expect(
+			getProfileAndDiscoveryUrls("https://example.com/temporary/")
 		).resolves.toMatchObject({
-			profileUrl: "https://example.com/temporary_redirect/",
+			profileUrl: "https://example.com/temporary/",
 			discoveryUrl: "https://example.com/profile/",
 		});
+
+		expect(fetchMock.mock.calls.length).toEqual(2);
 	});
 
-	test("should handle an errant response with temporary redirect", () => {
+	test("should handle a bad response with temporary redirect", async () => {
 		expect.assertions(1);
 
-		// @ts-ignore
-		fetchMock.mockResponse(() => ({
+		fetchMock.mockResponse(async () => ({
 			status: 307,
 		}));
 
-		expect(
+		await expect(
 			getProfileAndDiscoveryUrls(
-				"https://example.com/temporary_redirect_no_location/"
+				"https://example.com/temporary_no_location/"
 			)
 		).rejects.toThrowError(
 			"We were given a temporary redirect to follow but the Location HTTP header was missing."
 		);
 	});
 
-	test("should handle a successful response from permanent redirect", () => {
-		expect.assertions(1);
+	test("should handle a successful response from permanent redirect", async () => {
+		expect.assertions(2);
 
-		// @ts-ignore
 		fetchMock
-			.mockResponseOnce(() => ({
+			.mockResponseOnce(async () => ({
 				status: 301,
 				headers: {
 					Location: "https://example.com/profile/",
 				},
 			}))
-			.mockResponseOnce(() => ({
+			.mockResponseOnce(async () => ({
 				status: 200,
 			}));
 
-		expect(
-			getProfileAndDiscoveryUrls(
-				"https://example.com/permanent_redirect/"
-			)
+		await expect(
+			getProfileAndDiscoveryUrls("https://example.com/permanent/")
 		).resolves.toMatchObject({
 			profileUrl: "https://example.com/profile/",
 			discoveryUrl: "https://example.com/profile/",
 		});
+
+		expect(fetchMock.mock.calls.length).toBe(1);
 	});
 
-	test("should handle a bad response from permanent redirect", () => {
+	test("should handle a bad response from permanent redirect", async () => {
 		expect.assertions(1);
 
-		// @ts-ignore
-		fetchMock.mockResponse(() => ({
+		fetchMock.mockResponse(async () => ({
 			status: 308,
 		}));
 
-		expect(
+		await expect(
 			getProfileAndDiscoveryUrls(
-				"https://example.com/permanent_redirect_no_location/"
+				"https://example.com/permanent_no_location/"
 			)
 		).rejects.toThrowError(
-			"We were given a permanent redirect to follow but the Location HTTP header was missing."
+			"We were given a permanent redirect to follow, but the Location HTTP header was missing."
 		);
 	});
 
-	test("should handle a no-redirect address", () => {
+	test("should handle a no-redirect address", async () => {
 		expect.assertions(1);
 
-		// @ts-ignore
-		fetchMock.mockResponse(() => ({
+		fetchMock.mockResponse(async () => ({
 			status: 200,
 		}));
 
-		expect(
+		await expect(
 			getProfileAndDiscoveryUrls("https://example.com/profile/")
 		).resolves.toMatchObject({
 			profileUrl: "https://example.com/profile/",
