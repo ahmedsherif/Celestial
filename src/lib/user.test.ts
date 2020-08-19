@@ -86,4 +86,18 @@ describe("Validate assumed URL, which was derived from user-input URL", () => {
 		);
 		expect(response).toBeInstanceOf(Error);
 	});
+
+	const expected = [
+		"http://example.com/",
+		"https://example.com/",
+		"https://example.com/indieweb",
+		"http://192.168.0.1/",
+		"http://[2607:f0d0:1002:51::4]/",
+	];
+	expected.forEach((testUrl: string) => {
+		test(`should return true for a valid URL such as ${testUrl}`, () => {
+			const result = isValidUrl(new URL(testUrl));
+			expect(result).toBeTruthy();
+		});
+	});
 });
