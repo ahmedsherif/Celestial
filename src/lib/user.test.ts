@@ -1,8 +1,5 @@
 import { makeUrl, isValidUrl, getProfileAndDiscoveryUrls } from "./user";
-import fetchMock, {
-	enableFetchMocks,
-	MockResponseInitFunction,
-} from "jest-fetch-mock";
+import fetchMock, { enableFetchMocks } from "jest-fetch-mock";
 
 describe("Derive an assumed URL from user-input URL", () => {
 	const urls = {
@@ -98,7 +95,7 @@ describe("Validate assumed URL, which was derived from user-input URL", () => {
 		"http://192.168.0.1/",
 		"http://[2607:f0d0:1002:51::4]/",
 	];
-	expected.forEach((testUrl) => {
+	expected.forEach((testUrl: string) => {
 		test(`should return true for a valid URL such as ${testUrl}`, () => {
 			const result = isValidUrl(new URL(testUrl));
 			expect(result).toBeTruthy();
