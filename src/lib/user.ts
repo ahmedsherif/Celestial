@@ -306,11 +306,11 @@ const areAllPreferencesValid = (req: ExpressRequest): boolean => {
 		});
 	}
 
-	if (req.body?.["user-timezone"]) {
+	if (req.body?.["timezone"]) {
 		// Validate the timezone received
 		isValidTimezone = Array.prototype.some.call(
 			timeZonesNames,
-			(tzName: string) => tzName === req.body["user-timezone"]
+			(tzName: string) => tzName === req.body["timezone"]
 		);
 
 		if (isValidTimezone)

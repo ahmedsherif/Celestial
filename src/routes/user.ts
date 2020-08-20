@@ -57,7 +57,7 @@ userRouter.post(
 		);
 		if (areAllPreferencesValid(req)) {
 			setUserPreference(req, "formEncoding", req.body["form-encoding"]);
-			setUserPreference(req, "timezone", req.body["user-timezone"]);
+			setUserPreference(req, "timezone", req.body["timezone"]);
 			// TODO Details updated message to user
 			res.redirect("/user/preferences");
 		} else {
