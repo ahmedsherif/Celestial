@@ -3,6 +3,8 @@ import {
 	isValidUrl,
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
+	setUserPreference,
+	areAllPreferencesValid,
 } from "./user";
 import fetchMock from "jest-fetch-mock";
 
@@ -282,5 +284,100 @@ describe("Get name and photo from user's discovery page", () => {
 			"https://example.com/jane-doe.jpg"
 		);
 		expect(request.session.user.microformats.name).toBe("Jane Doe");
+	});
+});
+
+describe("setUserPreference", () => {
+	let request;
+
+	beforeEach(() => {
+		request = {
+			session: {},
+		};
+	});
+
+	test("should update session with given key and value", () => {
+		setUserPreference(request, "timezone", "Asia/Kolkata");
+
+		expect(request.session).toMatchObject({
+			user: {
+				preferences: {
+					timezone: "Asia/Kolkata",
+				},
+			},
+		});
+	});
+
+	test("should update session with given key (including a hyphen) and value", () => {
+		setUserPreference(request, "timezone-preferred", "Asia/Kolkata");
+
+		expect(request.session).toMatchObject({
+			user: {
+				preferences: {
+					"timezone-preferred": "Asia/Kolkata",
+				},
+			},
+		});
+	});
+});
+
+describe("User preferences validation", () => {
+	test("should fail if an invalid timezone is provided", () => {
+		const request = {
+			body: { timezone: "Asia/Calcutta" },
+		};
+		// @ts-ignore
+		const response = areAllPreferencesValid(request);
+		expect(response).toBe(false);
+	});
+
+	test("should fail if an empty timezone is provided", () => {
+		const request = {
+			body: { timezone: "" },
+		};
+		// @ts-ignore
+		const response = areAllPreferencesValid(request);
+		expect(response).toBe(false);
+	});
+
+	test("should fail if an invalid form encoding is provided", () => {
+		const request = {
+			body: { "form-encoding": "abc" },
+		};
+		// @ts-ignore
+		const response = areAllPreferencesValid(request);
+		expect(response).toBe(false);
+	});
+
+	test("should fail if an empty form encoding is provided", () => {
+		const request = {
+			body: { "form-encoding": "" },
+		};
+		// @ts-ignore
+		const response = areAllPreferencesValid(request);
+		expect(response).toBe(false);
+	});
+
+	test("should fail if invalid preferences are provided", () => {
+		const requests = [
+			{
+				body: { "form-encoding": "", timezone: "" },
+			},
+			{
+				body: { "form-encoding": "foo", timezone: "bar" },
+			},
+			{
+				body: { "form-encoding": "foo", timezone: "" },
+			},
+			{
+				body: { "form-encoding": "", timezone: "foo" },
+			},
+		];
+		expect.assertions(requests.length);
+		requests.forEach((request) => {
+			// @ts-ignore
+			const response = areAllPreferencesValid(request);
+			expect(response).toBe(false);
+		});
 	});
 });
