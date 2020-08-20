@@ -21,8 +21,8 @@
     "server:prod": "node index.js",
     "typescript:compile": "tsc",
     "typescript:watch": "tsc --incremental --watch",
-    "test:dev": "NODE_ENV=test jest --watch",
-    "test:prod": "NODE_ENV=test jest"
+    "test:dev": "jest --watch",
+    "test:prod": "jest"
   },
   "repository": {
     "type": "git",
