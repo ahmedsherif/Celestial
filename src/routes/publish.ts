@@ -118,16 +118,25 @@ publishRouter.post(
 			case FormEncoding.URLEncoded:
 			default:
 				const params = prepareParams(req);
+				if (params instanceof Error)
+					next({
+						code: "AppError",
+						message: params.message,
+					});
 				logger.log(
 					LogLevels.verbose,
 					"Sending publish request to your Micropub server.",
 					{
 						encoding: FormEncoding.URLEncoded,
-						h: params.get("h"),
-						content: params.get("content"),
-						published: params.get("published"),
-						"mp-syndicate-to": params.getAll("mp-syndicate-to[]"),
-						"mp-slug": params.getAll("mp-slug"),
+						h: (params as URLSearchParams).get("h"),
+						content: (params as URLSearchParams).get("content"),
+						published: (params as URLSearchParams).get("published"),
+						"mp-syndicate-to": (params as URLSearchParams).getAll(
+							"mp-syndicate-to[]"
+						),
+						"mp-slug": (params as URLSearchParams).getAll(
+							"mp-slug"
+						),
 					}
 				);
 

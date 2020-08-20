@@ -19,7 +19,7 @@
 </p>
 <textarea
 	bind:value="{text}"
-	name="content"
+	name="e-content"
 	id="content"
 	cols="30"
 	rows="16"

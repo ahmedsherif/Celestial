@@ -289,42 +289,51 @@ const setUserPreference = (
 	}
 };
 
+const isValidTimeZone = (tz: string): boolean => {
+	// Validate the timezone received
+	return Array.prototype.some.call(
+		timeZonesNames,
+		(tzName: string) => tzName === tz
+	);
+};
+
+const isValidFormEncoding = (userFormEncoding: string): boolean => {
+	let isValid = false;
+
+	// Validate the form encoding value received
+	// https://stackoverflow.com/a/39372911/2464435
+	Object.values(FormEncoding).forEach((srcFormEncoding: string) => {
+		console.log(srcFormEncoding === userFormEncoding);
+		if (srcFormEncoding === userFormEncoding) isValid = true;
+	});
+
+	return isValid;
+};
+
 /**
  * @description Check if form encoding and timezone are valid. Returns true only if both are valid.
- * TODO Probably should break it into smaller functions and let this function call those.
  */
 const areAllPreferencesValid = (req: ExpressRequest): boolean => {
-	let isValidEncoding = false,
-		isValidTimezone = false;
+	let encodingValid = false,
+		tzValid = false;
+
 	if (req.body?.["form-encoding"]) {
-		// Validate the form encoding value received
-		// https://stackoverflow.com/a/39372911/2464435
-		Object.values(FormEncoding).forEach((encoding) => {
-			if (encoding === req.body["form-encoding"]) {
-				isValidEncoding = true;
-				logger.log(
-					LogLevels.debug,
-					"Form encoding preference validated",
-					{ user: req.session?.user?.profileUrl }
-				);
-			}
-		});
+		encodingValid = isValidFormEncoding(req.body?.["form-encoding"]);
+		if (encodingValid)
+			logger.log(LogLevels.debug, "Form encoding preference validated", {
+				user: req.session?.user?.profileUrl,
+			});
 	}
 
 	if (req.body?.["timezone"]) {
-		// Validate the timezone received
-		isValidTimezone = Array.prototype.some.call(
-			timeZonesNames,
-			(tzName: string) => tzName === req.body["timezone"]
-		);
-
-		if (isValidTimezone)
+		tzValid = isValidTimeZone(req.body?.timezone);
+		if (tzValid)
 			logger.log(LogLevels.debug, "Timezone preference validated", {
 				user: req.session?.user?.profileUrl,
 			});
 	}
 
-	if (isValidEncoding && isValidTimezone) return true;
+	if (encodingValid && tzValid) return true;
 
 	return false;
 };
@@ -332,6 +341,7 @@ const areAllPreferencesValid = (req: ExpressRequest): boolean => {
 export {
 	makeUrl,
 	isValidUrl,
+	isValidTimeZone,
 	areAllPreferencesValid,
 	getProfileAndDiscoveryUrls,
 	setProfileDetails,
