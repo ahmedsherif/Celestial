@@ -271,16 +271,17 @@ const setProfileDetails = (req: ExpressRequest, document: string): void => {
 	}
 };
 
-/**
- * @param key Do not use a key which includes a hyphen or any such characters making usage of dot notation errant/impossible.
- */
 const setUserPreference = (
 	req: ExpressRequest,
 	key: string,
 	value: any
-): void => {
+): void | Error => {
 	if (req.session) {
-		set(req.session, `user.preferences.${key}`, value);
+		try {
+			set(req.session, `user.preferences.${key}`, value);
+		} catch (error) {
+			throw new Error(error.message);
+		}
 
 		logger.log(LogLevels.verbose, `User preferences updated.`, {
 			[key]: value,
