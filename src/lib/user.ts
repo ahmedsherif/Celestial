@@ -289,6 +289,10 @@ const setUserPreference = (
 	}
 };
 
+/**
+ * @description Check if form encoding and timezone are valid. Returns true only if both are valid.
+ * TODO Probably should break it into smaller functions and let this function call those.
+ */
 const areAllPreferencesValid = (req: ExpressRequest): boolean => {
 	let isValidEncoding = false,
 		isValidTimezone = false;
