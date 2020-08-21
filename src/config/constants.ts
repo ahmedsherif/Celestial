@@ -7,10 +7,10 @@ export const PORT: number = env.get("PORT").default("4000").asPortNumber();
 export const REDIS_URL: string = env.get("REDIS_URL").default("").asUrlString();
 
 export const APP_TITLE: string = inflect.titleize(
-	require("/app/package.json").name
+	require("./../../package.json").name
 );
 
-export const APP_SUBTITLE: string = require("/app/package.json").description;
+export const APP_SUBTITLE: string = require("./../../package.json").description;
 
 export const INDIEAUTH_CLIENT: {
 	client_id: string;
