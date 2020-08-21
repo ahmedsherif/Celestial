@@ -11,6 +11,7 @@ describe("Understand browser-formatted date-time", () => {
 		const args = [
 			["2020/08/20", "14:45", "Asia/Kolkata"],
 			["2020-08-20", "14.45", "Asia/Kolkata"],
+			["2020-08-20", "14.45", "Asia/Calcutta"],
 			["2020-08-20", "14:45", "Asia"],
 		];
 
