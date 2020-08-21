@@ -29,17 +29,22 @@ const parseProperty = (
 	vocab: string,
 	property: string
 ): MicroformatProperty[] | undefined => {
+	let desiredProperty: MicroformatProperty[] | undefined;
+
 	let vocabularies: MicroformatRoot | undefined = parseVocabulary(
 		body,
 		baseUrl,
 		vocab
 	);
+
 	if (vocabularies !== undefined) {
 		for (const key in vocabularies.properties) {
-			if (key === property) return vocabularies.properties[key];
+			if (key === property)
+				desiredProperty = vocabularies.properties[key];
 		}
 	}
-	return;
+
+	return desiredProperty;
 };
 
 export { parseBody, parseProperty, parseVocabulary };
