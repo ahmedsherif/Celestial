@@ -11,6 +11,27 @@ import {
 	UserPageData,
 } from "../interface/PageData";
 
+const getBaseData = (req: ExpressRequest) => {
+	return {
+		title: APP_TITLE,
+		subtitle: APP_SUBTITLE,
+		appState: req.session?.appState || AppUserState.Guest,
+		user: {
+			microformats: {
+				name: req.session?.user?.microformats?.name,
+				photo: req.session?.user?.microformats?.photo,
+			},
+			indieauth: {
+				identity: req.session?.user?.profileUrl,
+			},
+			preferences: {
+				timezone: req.session?.user?.preferences?.timezone,
+				formEncoding: req.session?.user?.preferences?.formEncoding,
+			},
+		},
+	};
+};
+
 /**
  * Currently, the app title, subtitle, app state, and user identity is set by default. You may pass these in as well in case you wish to overwrite the defaults.
  */
@@ -18,48 +39,13 @@ const pageDataHelper = (
 	req: ExpressRequest,
 	data?: object
 ): DefaultPageData | PostPageData | AuthPageData | UserPageData => {
-	return _merge(
-		{
-			title: APP_TITLE,
-			subtitle: APP_SUBTITLE,
-			appState: req.session?.appState || AppUserState.Guest,
-			user: {
-				microformats: {
-					name: req.session?.user?.microformats?.name,
-					photo: req.session?.user?.microformats?.photo,
-				},
-				indieauth: {
-					identity: req.session?.user?.profileUrl,
-				},
-				preferences: {
-					timezone: req.session?.user?.preferences?.timezone,
-					formEncoding: req.session?.user?.preferences?.formEncoding,
-				},
-			},
-		},
-		data
-	);
+	return _merge(getBaseData(req), data);
 };
 
 const postDataHelper = (req: ExpressRequest, data?: object): PostPageData => {
 	return _merge(
+		getBaseData(req),
 		{
-			title: APP_TITLE,
-			subtitle: APP_SUBTITLE,
-			appState: req.session?.appState || AppUserState.Guest,
-			user: {
-				microformats: {
-					name: req.session?.user?.microformats?.name,
-					photo: req.session?.user?.microformats?.photo,
-				},
-				indieauth: {
-					identity: req.session?.user?.profileUrl,
-				},
-				preferences: {
-					timezone: req.session?.user?.preferences?.timezone,
-					formEncoding: req.session?.user?.preferences?.formEncoding,
-				},
-			},
 			formDefaults: {
 				published: {
 					date: DateTime.utc()
