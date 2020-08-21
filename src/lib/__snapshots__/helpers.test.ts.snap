@@ -1,0 +1,159 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Data helpers for Express routes Data helpers for default pages should overwrite default page data when extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "John Doe",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;
+
+exports[`Data helpers for Express routes Data helpers for default pages should return default page data when no extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "Jane",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;
+
+exports[`Data helpers for Express routes Data helpers for default pages should return merged page data when extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "priority": "high",
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "Jane",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;
+
+exports[`Data helpers for Express routes Data helpers for post pages should overwrite default post data when extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "formDefaults": Object {
+    "published": Object {
+      "date": "2020-01-01",
+      "time": "10:00",
+    },
+  },
+  "micropub": Object {
+    "media-endpoint": undefined,
+    "syndicate-to": undefined,
+  },
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "Jane",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;
+
+exports[`Data helpers for Express routes Data helpers for post pages should return default post data when no extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "formDefaults": Object {
+    "published": Object {
+      "date": "2016-12-22",
+      "time": "05:06",
+    },
+  },
+  "micropub": Object {
+    "media-endpoint": undefined,
+    "syndicate-to": undefined,
+  },
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "Jane",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;
+
+exports[`Data helpers for Express routes Data helpers for post pages should return merged post data when extra data provided 1`] = `
+Object {
+  "appState": "User",
+  "formDefaults": Object {
+    "published": Object {
+      "date": "2016-12-22",
+      "time": "05:06",
+    },
+  },
+  "micropub": Object {
+    "media-endpoint": undefined,
+    "syndicate-to": undefined,
+  },
+  "priority": "high",
+  "subtitle": "A micropub client",
+  "title": "Celestial",
+  "user": Object {
+    "indieauth": Object {
+      "identity": "https://example.com",
+    },
+    "microformats": Object {
+      "name": "Jane",
+      "photo": "https://example.com/",
+    },
+    "preferences": Object {
+      "formEncoding": "application/x-www-form-urlencoded",
+      "timezone": "Asia/Kolkata",
+    },
+  },
+}
+`;

@@ -16,7 +16,7 @@ import {
  */
 const pageDataHelper = (
 	req: ExpressRequest,
-	data: object
+	data?: object
 ): DefaultPageData | PostPageData | AuthPageData | UserPageData => {
 	return _merge(
 		{
