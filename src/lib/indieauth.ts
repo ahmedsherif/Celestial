@@ -22,6 +22,10 @@ const setAuthData = (req: ExpressRequest, data: IndieAuthToken): void => {
 	}
 };
 
+/**
+ * 
+ * @description Cleans up any key-value pairs created during the authorization process that are no longer needed post-authorization.
+ */
 const cleanupAuthData = (req: ExpressRequest): void => {
 	logger.log(
 		LogLevels.debug,
