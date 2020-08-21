@@ -6,6 +6,8 @@
 node_modules
 *.log
 .tsbuildinfo
+src/coverage
+!coverage-final.json
 
 # Express app dirs and files
 /config
