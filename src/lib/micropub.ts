@@ -1,15 +1,19 @@
 import fetch from "node-fetch";
 import { Request as ExpressRequest } from "express";
 import { URLSearchParams } from "url";
+import set from "set-value";
 
 import { logger } from "./logger";
 import { LogLevels } from "../enumerator/LogLevels";
 import { MicropubConfig, MicropubSyndicationData } from "../interface/Micropub";
+import { isObject } from "./helpers";
+import { MicropubQueryType } from "../enumerator/Micropub";
+import { DateTime } from "luxon";
 
 // Dummy handler to keep nesting hell readable.
 const setMicropubCapabilities = (req: ExpressRequest): Promise<void> => {
 	return new Promise((resolve, reject) => {
-		setConfigurationData(req)
+		queryServer(req, MicropubQueryType.configuration)
 			.then(() => {
 				logger.log(
 					LogLevels.debug,
@@ -23,9 +27,9 @@ const setMicropubCapabilities = (req: ExpressRequest): Promise<void> => {
 						"It looks like we don't have syndication endpoints in the session from the config query request.",
 						{ user: req.session?.user?.profileUrl }
 					);
-					setSyndicationTargets(req)
+					queryServer(req, MicropubQueryType.syndicationTargets)
 						.then(() => resolve())
-						.catch((error) => reject(error));
+						.catch((error: Error) => reject(error));
 				}
 				// We have the syndication endpoints (at least), resolve the micropub capabilities method.
 				else resolve();
@@ -35,30 +39,79 @@ const setMicropubCapabilities = (req: ExpressRequest): Promise<void> => {
 				logger.log(LogLevels.verbose, "Configuration query failed.", {
 					user: req.session?.user?.profileUrl,
 				});
-				setSyndicationTargets(req)
+				queryServer(req, MicropubQueryType.syndicationTargets)
 					.then(() => resolve())
-					.catch((error) => reject(error));
+					.catch((error: Error) => reject(error));
 			});
 	});
 };
 
-const setConfigurationData = (req: ExpressRequest): Promise<void> => {
-	return new Promise((resolve, reject) => {
+const validateQueryResponse = (
+	data,
+	query: MicropubQueryType
+): void | Error => {
+	switch (query) {
+		case MicropubQueryType.syndicationTargets:
+			// Check if the format is correct. We need the root to be an object carrying a key "syndicate-to".
+			// The server may return an empty array if there are no targets available.
+			if (!isObject(data))
+				return new Error(
+					"Response is invalid JSON. We expected to see an object. Please file an issue with your Micropub server."
+				);
+
+			if (!data?.["syndicate-to"])
+				return new Error(
+					"Response is invalid JSON. We expect to see a syndicate-to key on the response. Please file an issue with your Micropub server."
+				);
+	}
+};
+
+const setQueryResponse = (
+	req: ExpressRequest,
+	data: Record<any, any>,
+	query: MicropubQueryType
+) => {
+	if (req.session) {
+		// Set data under micropub key.
+		Object.keys(data).forEach((key) => {
+			set(req, `session.micropub.${key}`, data[key]);
+		});
+
+		// Additionally, set last fetched date for this query type.
+		set(
+			req,
+			`session.micropub.lastFetched.${query}`,
+			DateTime.utc().toString()
+		);
+	}
+};
+
+const queryServer = (
+	req: ExpressRequest,
+	query: MicropubQueryType
+): Promise<void | Error> =>
+	new Promise((resolve, reject) => {
+		// * MicropubQueryType.configuration
+		// Micropub W3C Recommendation 23 May 2017
 		// 3.7 https://www.w3.org/TR/2017/REC-micropub-20170523/#querying
 		// 3.7.1 https://www.w3.org/TR/2017/REC-micropub-20170523/#configuration
 
 		// First, we make a call for the config. It *should* include syndication targets and *must* include a media endpoint.
 		// Indiekit also returns a list of categories and supported post types as well within the same call. Spec seems silent, so we'll make a separate request for categories as well as syndication targets just to be sure we have everything we need.
-		// TODO Call for categories
+
+		// * MicropubQueryType.syndicationTargets
+		// Micropub W3C Recommendation 23 May 2017
+		// 3.7.3 https://www.w3.org/TR/2017/REC-micropub-20170523/#syndication-targets
+
 		const queryUrl = new URL(req.session?.endpoints?.micropub);
 		const params = new URLSearchParams(
 			queryUrl.searchParams as URLSearchParams
 		);
-		params.append("q", "config");
+		params.append("q", query);
 
 		logger.log(
 			LogLevels.http,
-			"Sending a configuration query request to your Micropub server.",
+			`Sending a ${query} query request to your Micropub server.`,
 			{ address: `${queryUrl}?${params.toString()}` }
 		);
 
@@ -73,7 +126,7 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 			.then((response) => {
 				logger.log(
 					LogLevels.http,
-					"Received a response on our config query request",
+					`Received a response on our ${query} query request`,
 					{
 						user: req.session?.user?.profileUrl,
 						response,
@@ -83,7 +136,7 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 					if (
 						response.headers
 							.get("content-type")
-							?.includes("application/json")
+							?.startsWith("application/json")
 					) {
 						try {
 							return response.json();
@@ -101,168 +154,40 @@ const setConfigurationData = (req: ExpressRequest): Promise<void> => {
 						}
 					} else {
 						throw new Error(
-							"We received a successful response from your Micropub server for our confiq query request, but the server did not send JSON data. Please file an issue with your server's author/maintainer."
+							`We received a successful response from your Micropub server for our ${query} query request, but the server did not send JSON data. Please file an issue with your server's author/maintainer.`
 						);
 					}
 				} else {
 					throw new Error(
-						"We did not receive a successful response from your Micropub server for our config query request."
+						`We did not receive a successful response from your Micropub server for our ${query} query request.`
 					);
 				}
 			})
-			.then((configData: MicropubConfig) => {
+			.then((data: MicropubConfig) => {
 				logger.log(
 					LogLevels.verbose,
-					"Converted the configuration data from your Micropub server to JSON.",
-					{ config: configData }
+					`Converted response from your Micropub server to JSON for our ${query} query.`,
+					{ data }
 				);
-				// Create if it doesn't exist.
-				if (req.session && !req.session?.micropub)
-					req.session.micropub = {};
-				// Set data
-				Object.keys(configData).forEach((key) => {
-					if (req.session)
-						req.session.micropub[key] = configData[key];
-				});
+
+				const isValid = validateQueryResponse(data, query);
+				if (isValid instanceof Error) throw isValid;
+
+				setQueryResponse(req, data, query);
 
 				resolve();
 			})
-			.catch((error) => {
+			.catch((error: Error) => {
 				logger.log(
 					LogLevels.error,
-					"While requesting configuration data, we did not receive a JSON response -- or could not convert the response to JSON.",
+					`An error occured while requesting ${query} data from your Micropub server.`,
 					{
 						user: req.session?.user?.profileUrl,
 						error,
 					}
 				);
-				reject();
-			})
-			.catch((error) => {
-				logger.log(
-					LogLevels.error,
-					"Could not make a call to the Micropub server for the config.",
-					{
-						user: req.session?.user?.profileUrl,
-						error,
-					}
-				);
-				reject();
+				reject(error);
 			});
 	});
-};
 
-const setSyndicationTargets = (req: ExpressRequest): Promise<void> => {
-	return new Promise((resolve, reject) => {
-		// Micropub W3C Recommendation 23 May 2017
-		// 3.7.3 https://www.w3.org/TR/2017/REC-micropub-20170523/#syndication-targets
-
-		const queryUrl = new URL(req.session?.endpoints?.micropub);
-		const params = new URLSearchParams(
-			queryUrl.searchParams as URLSearchParams
-		);
-		params.append("q", "syndicate-to");
-
-		logger.log(
-			LogLevels.http,
-			"Trying to fetch syndication targets individually.",
-			{
-				user: req.session?.user?.profileUrl,
-				address: `${queryUrl}?${params.toString()}`,
-			}
-		);
-
-		fetch(`${queryUrl}?${params.toString()}`, {
-			method: "GET",
-			headers: {
-				Authorization: `Bearer ${req.session?.indieauth?.access_token}`,
-				"Content-Type": "application/json",
-				Accept: "application/json",
-			},
-		})
-			.then((response) => {
-				logger.log(
-					LogLevels.http,
-					"Received a response on our syndcation targets query request",
-					{
-						user: req.session?.user?.profileUrl,
-						response,
-					}
-				);
-				if (response.ok) {
-					if (
-						response.headers
-							.get("content-type")
-							?.includes("application/json")
-					) {
-						try {
-							return response.json();
-						} catch (error) {
-							logger.log(
-								LogLevels.error,
-								"Failed to convert response to JSON",
-								{
-									user: req.session?.user?.profileUrl,
-								}
-							);
-							throw new Error(
-								"Failed to convert response to JSON"
-							);
-						}
-					} else {
-						throw new Error(
-							"We received a successful response from your Micropub server for our syndcation targets query request, but the server did not send JSON data. Please file an issue with your server's author/maintainer."
-						);
-					}
-				} else {
-					throw new Error(
-						"We did not receive a successful response from your Micropub server for our syndcation targets query request."
-					);
-				}
-			})
-			.then((syndicationData: MicropubSyndicationData) => {
-				logger.log(
-					LogLevels.http,
-					"Converted syndication targets from your Micropub server to JSON successfully.",
-					{
-						"syndicate-to": syndicationData,
-						user: req.session?.user?.profileUrl,
-					}
-				);
-
-				// The server may return an empty array if there are no targets available.
-				if (syndicationData["syndicate-to"].length && req.session) {
-					// We'd have liked to use the set-value library here but unfortunately it doesn't play well with the bracket notation.
-					// We could have formatted the JSON data to be dot notation friendly - but that looks to be a slippery slope.
-
-					// Create if it doesn't exist.
-					if (req.session?.micropub) req.session.micropub = {};
-					logger.log(
-						LogLevels.verbose,
-						"Setting syndication data in our session.",
-						{
-							"syndicate-to": syndicationData,
-							user: req.session?.user?.profileUrl,
-						}
-					);
-					req.session.micropub["syndicate-to"] =
-						syndicationData["syndicate-to"];
-				}
-
-				resolve();
-			})
-			.catch((error) => {
-				logger.log(
-					LogLevels.error,
-					"Failed to get syndication targets.",
-					{
-						user: req.session?.user?.profileUrl,
-						error: error,
-					}
-				);
-				reject();
-			});
-	});
-};
-
-export { setMicropubCapabilities };
+export { setMicropubCapabilities, queryServer };

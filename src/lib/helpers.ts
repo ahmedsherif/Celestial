@@ -88,4 +88,8 @@ const enumValuesAsArray = (enumerator: any): Array<string> => {
 	return Object.values(enumerator).map((e: any) => e as string);
 };
 
-export { pageDataHelper, postDataHelper, enumValuesAsArray };
+const isObject = (value: any) => {
+	return typeof value === "object" && !Array.isArray(value) && value !== null;
+};
+
+export { pageDataHelper, postDataHelper, enumValuesAsArray, isObject };
