@@ -10,6 +10,7 @@ import {
 	AuthPageData,
 	UserPageData,
 } from "../interface/PageData";
+import { getPostsNavigation } from "./publish";
 
 const getBaseData = (req: ExpressRequest) => {
 	return {
@@ -29,6 +30,9 @@ const getBaseData = (req: ExpressRequest) => {
 				formEncoding: req.session?.user?.preferences?.formEncoding,
 			},
 		},
+		postsNavigation: getPostsNavigation(
+			req.session?.micropub?.["post-types"]
+		),
 	};
 };
 

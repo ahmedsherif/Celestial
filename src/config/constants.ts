@@ -24,3 +24,60 @@ export const INDIEAUTH_CLIENT: {
 		.default("http://localhost:4000/login/callback/")
 		.asUrlString(),
 };
+
+export const POST_TYPES = [
+	{
+		name: "Article",
+		type: "article",
+		icon: "📄",
+		endpoint: "/publish/article",
+	},
+	{
+		name: "Note",
+		type: "note",
+		icon: "📔",
+		endpoint: "/publish/note",
+	},
+	{
+		name: "Reply",
+		type: "reply",
+		icon: "↪",
+		endpoint: "/publish/reply",
+	},
+	{
+		name: "RSVP",
+		type: "rsvp",
+		icon: "↪",
+		endpoint: "/publish/rsvp",
+	},
+	{
+		name: "Like",
+		type: "like",
+		icon: "♥",
+		endpoint: "/publish/like",
+	},
+	{
+		name: "Repost",
+		type: "repost",
+		icon: "♺",
+		endpoint: "/publish/repost",
+	},
+	{
+		name: "Photo",
+		type: "photo",
+		icon: "📷",
+		endpoint: "/publish/photo",
+	},
+	{
+		name: "Video",
+		type: "video",
+		icon: "🎥",
+		endpoint: "/publish/video",
+	},
+	{
+		name: "Event",
+		type: "event",
+		icon: "📅",
+		endpoint: "/publish/event",
+	},
+];

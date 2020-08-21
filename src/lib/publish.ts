@@ -4,6 +4,10 @@ import { URLSearchParams } from "url";
 import slug from "slug";
 
 import { isValidTimeZone } from "./user";
+import { POST_TYPES } from "../config/constants";
+import { logger } from "./logger";
+import { LogLevels } from "../enumerator/LogLevels";
+import { VocabularyItems, VocabularyItem } from "../interface/Micropub";
 
 const deriveDate = (
 	date: string,
@@ -141,6 +145,38 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	return params;
 };
 
+const getPostsNavigation = (
+	serverPostTypes:
+		| Array<{
+				name: string;
+				type: string;
+		  }>
+		| undefined
+): VocabularyItems => {
+	if (serverPostTypes !== undefined) {
+		// Return union of what we support and what the server supports
+		let unionPostTypes: Array<VocabularyItem> = [];
+		POST_TYPES.forEach((POST_TYPE) => {
+			if (
+				serverPostTypes !== undefined &&
+				serverPostTypes.findIndex(
+					(spt) => spt.type === POST_TYPE.type
+				) !== -1
+			)
+				unionPostTypes.push(POST_TYPE);
+		});
+
+		logger.log(LogLevels.debug, "Supported post types determined", {
+			postsNavigation: unionPostTypes,
+		});
+
+		return unionPostTypes;
+	} else {
+		// Return everything we support
+		return POST_TYPES;
+	}
+};
+
 export {
 	prepareParams,
 	setDate,
@@ -148,4 +184,5 @@ export {
 	setSyndicationTargets,
 	setSlug,
 	deriveMf2Key,
+	getPostsNavigation,
 };

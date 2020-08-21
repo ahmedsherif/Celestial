@@ -29,4 +29,18 @@ interface MicropubSyndicationData extends Object {
 	"syndicate-to": Array<SyndicationData>;
 }
 
-export { MicropubConfig, MicropubSyndicationData };
+interface VocabularyItem {
+	name: string;
+	type: string;
+	icon: string;
+	endpoint: string;
+}
+
+interface VocabularyItems extends Array<VocabularyItem> {}
+
+export {
+	MicropubConfig,
+	MicropubSyndicationData,
+	VocabularyItems,
+	VocabularyItem,
+};

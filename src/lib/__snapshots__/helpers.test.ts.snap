@@ -3,6 +3,62 @@
 exports[`Data helpers for Express routes Data helpers for default pages should overwrite default page data when extra data provided 1`] = `
 Object {
   "appState": "User",
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "subtitle": "A micropub client",
   "title": "Celestial",
   "user": Object {
@@ -24,6 +80,62 @@ Object {
 exports[`Data helpers for Express routes Data helpers for default pages should return default page data when no extra data provided 1`] = `
 Object {
   "appState": "User",
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "subtitle": "A micropub client",
   "title": "Celestial",
   "user": Object {
@@ -45,6 +157,62 @@ Object {
 exports[`Data helpers for Express routes Data helpers for default pages should return merged page data when extra data provided 1`] = `
 Object {
   "appState": "User",
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "priority": "high",
   "subtitle": "A micropub client",
   "title": "Celestial",
@@ -77,6 +245,62 @@ Object {
     "media-endpoint": undefined,
     "syndicate-to": undefined,
   },
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "subtitle": "A micropub client",
   "title": "Celestial",
   "user": Object {
@@ -108,6 +332,62 @@ Object {
     "media-endpoint": undefined,
     "syndicate-to": undefined,
   },
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "subtitle": "A micropub client",
   "title": "Celestial",
   "user": Object {
@@ -139,6 +419,62 @@ Object {
     "media-endpoint": undefined,
     "syndicate-to": undefined,
   },
+  "postsNavigation": Array [
+    Object {
+      "endpoint": "/publish/article",
+      "icon": "📄",
+      "name": "Article",
+      "type": "article",
+    },
+    Object {
+      "endpoint": "/publish/note",
+      "icon": "📔",
+      "name": "Note",
+      "type": "note",
+    },
+    Object {
+      "endpoint": "/publish/reply",
+      "icon": "↪",
+      "name": "Reply",
+      "type": "reply",
+    },
+    Object {
+      "endpoint": "/publish/rsvp",
+      "icon": "↪",
+      "name": "RSVP",
+      "type": "rsvp",
+    },
+    Object {
+      "endpoint": "/publish/like",
+      "icon": "♥",
+      "name": "Like",
+      "type": "like",
+    },
+    Object {
+      "endpoint": "/publish/repost",
+      "icon": "♺",
+      "name": "Repost",
+      "type": "repost",
+    },
+    Object {
+      "endpoint": "/publish/photo",
+      "icon": "📷",
+      "name": "Photo",
+      "type": "photo",
+    },
+    Object {
+      "endpoint": "/publish/video",
+      "icon": "🎥",
+      "name": "Video",
+      "type": "video",
+    },
+    Object {
+      "endpoint": "/publish/event",
+      "icon": "📅",
+      "name": "Event",
+      "type": "event",
+    },
+  ],
   "priority": "high",
   "subtitle": "A micropub client",
   "title": "Celestial",
