@@ -89,6 +89,11 @@ const setSlug = (params: URLSearchParams, indicativeSlug: string) => {
 const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	const params = new URLSearchParams();
 
+	// h-*
+	if (req.body?.h && req.body?.h === "")
+		return new Error("An h-* property must be available.");
+	params.append("h", req.body.h);
+
 	// mp-*
 	// It might be possible to have a common setter for syndication targets and categories, since they both behave in a similar manner
 	setSyndicationTargets(params, req.body?.["mp-syndicate-to"]);
