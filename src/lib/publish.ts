@@ -42,6 +42,10 @@ const deriveDate = (
 	}
 };
 
+const deriveMf2Key = (key: string) => {
+	return key.slice(key.indexOf("-") + 1);
+};
+
 const setSyndicationTargets = (
 	params: URLSearchParams,
 	syndicationTargets: string | string[]
@@ -99,32 +103,34 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	setSyndicationTargets(params, req.body?.["mp-syndicate-to"]);
 	setSlug(params, req.body?.["mp-slug"]);
 
-	const response = setDate(
-		params,
-		"published",
-		req.body?.date,
-		req.body?.time,
-		req.session?.user?.preferences?.timezone
-	);
-	if (response instanceof Error) return response;
-
-	params.append("h", req.body.h);
+	// dt-*
+	if (req.body?.date && req.body?.time) {
+		const response = setDate(
+			params,
+			"published",
+			req.body?.date,
+			req.body?.time,
+			req.session?.user?.preferences?.timezone
+		);
+		if (response instanceof Error) return response;
+	}
+	// else proceed, Micropub server will default to "now"
 
 	// For the remaining properties, some basic rules:
 	// - Removing the prefix, no two property names shall clash. If they do, only the first one takes effect.
 	// - Do not handle manually managed properties.
 
 	const manuallyManagedProperties = [
+		"h",
 		"mp-syndicate-to",
 		"mp-slug",
 		"dt-published",
 		"dt-updated",
-		"h",
 	];
 
 	for (const formInput in req.body) {
 		if (!manuallyManagedProperties.includes(formInput)) {
-			const mf2Key = formInput.slice(formInput.indexOf("-") + 1);
+			const mf2Key = deriveMf2Key(formInput);
 			const mf2Value = req.body[formInput];
 
 			if (params.get(mf2Key)) continue;
@@ -135,4 +141,11 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	return params;
 };
 
-export { prepareParams, deriveDate };
+export {
+	prepareParams,
+	setDate,
+	deriveDate,
+	setSyndicationTargets,
+	setSlug,
+	deriveMf2Key,
+};
