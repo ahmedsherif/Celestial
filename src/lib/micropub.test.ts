@@ -1,4 +1,4 @@
-import { queryServer } from "./micropub";
+import { queryServer, setMicropubCapabilities } from "./micropub";
 import fetchMock from "jest-fetch-mock";
 import { MicropubQueryType } from "../enumerator/Micropub";
 
@@ -233,4 +233,86 @@ describe("Get capabilities/properties of the Micropub server", () => {
 			});
 		});
 	}
+
+	test("should fetch syndication data if config query fails", async () => {
+		expect.assertions(2);
+
+		fetchMock
+			.mockRejectOnce(async () => ({
+				status: 404,
+			}))
+			.mockRejectOnce(async () => ({
+				status: 404,
+			}));
+
+		await expect(setMicropubCapabilities(request)).rejects.toThrowError(
+			"We did not receive a successful response from your Micropub server for our syndicate-to query request."
+		);
+
+		expect(fetchMock.mock.calls.length).toBe(2);
+	});
+
+	test("should fetch syndication data individually (w/ error) if config query does not include syndication data", async () => {
+		expect.assertions(2);
+
+		fetchMock
+			.mockResponseOnce(async () => ({
+				status: 200,
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({}),
+			}))
+			.mockRejectOnce(async () => ({
+				status: 404,
+			}));
+
+		await expect(setMicropubCapabilities(request)).rejects.toThrowError(
+			"We did not receive a successful response from your Micropub server for our syndicate-to query request."
+		);
+
+		expect(fetchMock.mock.calls.length).toBe(2);
+	});
+
+	test("should fetch syndication data individually (w/ valid response) if config query does not include syndication data", async () => {
+		expect.assertions(3);
+
+		Date.now = jest.fn(() => 1482363367071);
+
+		fetchMock
+			.mockResponseOnce(async () => ({
+				status: 200,
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({}),
+			}))
+			.mockResponseOnce(async () => ({
+				status: 200,
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({
+					...responsesToTest[MicropubQueryType.syndicationTargets]
+						.expectedJson,
+				}),
+			}));
+
+		await expect(setMicropubCapabilities(request)).resolves.toBeUndefined();
+
+		expect(request).toMatchObject({
+			session: {
+				micropub: {
+					...responsesToTest[MicropubQueryType.syndicationTargets]
+						.expectedJson,
+					lastFetched: {
+						[MicropubQueryType.syndicationTargets]:
+							"2016-12-21T23:36:07.071Z",
+					},
+				},
+			},
+		});
+
+		expect(fetchMock.mock.calls.length).toBe(2);
+	});
 });
