@@ -26,22 +26,22 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
 - [ ] Micropub spec compliance - [being tracked here](https://github.com/hirusi/Celestial/issues/4).
 - [ ] General resilience tasks
     - [x] Use a logging library like `winston`
-    - [ ] Unit testing
-    - [ ] Modular codebase
-    - [ ] Best practices
+    - [x] Unit testing
+    - [ ] Modular codebase (as many smaller & side-effects-free functions as possible without compromising readability)
     - [ ] [Express security checklist](https://expressjs.com/en/advanced/best-practice-security.html)
     - [ ] [Redis security checklist](https://redis.io/topics/security)
 - [ ] Design and polish
     - [ ] Design system
     - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
     - [ ] Better forms UI/UX (reactivity?)
-    - [ ] Sprinkle helpful hints throughout the app, let the user turn them off in preferences
+    - [ ] Sprinkle helpful hints throughout the app
 
 ### Moving forward to v2.0
 
 - [ ] Rely on our own code instead of external libraries for menial tasks. Reduce dependencies and allow the project to be maintainable in the long run.
 - [ ] Add an inline/split Markdown preview for supported post types.
 - [ ] Full-width layout for a better and familiar publishing experience.
+- [ ] Option for user to turn off helpful hints in preferences (for advanced users)
 - [ ] Add experimental (non-spec) support for the following post types:
     - [ ] 🚩 [Checkin](https://indieweb.org/checkin)
     - [ ] 🔖 [Bookmark](https://indieweb.org/bookmark)
