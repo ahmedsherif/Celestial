@@ -1,4 +1,5 @@
 import { Request as ExpressRequest } from "express";
+import set from "set-value";
 import { logger } from "./logger";
 import { LogLevels } from "../enumerator/LogLevels";
 import { IndieAuthToken } from "../interface/IndieAuth";
@@ -10,12 +11,14 @@ const setAuthData = (req: ExpressRequest, data: IndieAuthToken): void => {
 		{ user: req.session?.user?.profileUrl }
 	);
 
-	if (req.session && !req.session?.indieauth) req.session.indieauth = {};
-
 	if (req.session) {
-		req.session.indieauth.access_token = data?.access_token;
-		req.session.indieauth.token_type = data?.token_type || "Bearer";
-		req.session.indieauth.scope = data?.scope;
+		Object.keys(data).forEach((datumKey: string) => {
+			set(req, `session.indieauth.${datumKey}`, data[datumKey]);
+		});
+
+		// Default the token type to Bearer
+		if (!req.session?.indieauth?.token_type)
+			set(req, `session.indieauth.token_type`, "Bearer");
 	}
 };
 
