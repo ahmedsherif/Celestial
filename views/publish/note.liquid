@@ -1,9 +1,5 @@
 {% layout 'default' %}
 
-{% if error %}
-    <p class="notification notification--error">An error occured: {{ error }}</p>
-{% endif %}
-
 <form
     class="form form--publishing publishing-form publishing-form--note"
     action="/publish/create/"
