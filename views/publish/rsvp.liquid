@@ -1,1 +1,77 @@
 {% layout 'default' %}
+
+<form
+    class="form form--publishing publishing-form publishing-form--rsvp"
+    action="/publish/create/"
+    enctype="{{ user.preferences.formEncoding }}"
+    method="post"
+>
+    {% include 'form/date-time' %}
+
+    <fieldset class="publishing-form__content">
+        <legend>Content&nbsp;</legend>
+
+        <div class="form__field-group">
+            <label for="form-field-group__slug">Slug:</label>
+            <p
+                class="form-field-group__description"
+                id="form-field-group__description--slug"
+            >Write a slug if your Micropub server supports it. In case of a collision, the server may choose to modify the slug. If you leave this empty, it may choose to generate a random string. If your server does not support this, you can safely ignore it.</p>
+            <input
+                type="text"
+                id="form-field-group__slug"
+                name="mp-slug"
+                aria-describedby="form-field-group__description--slug"
+            />
+
+        </div>
+
+        <div class="form__field-group form__field-group--in-reply-to form-field-group">
+             <label for="form-field-group__in-reply-to">URL of the event</label>
+             <p
+                class="form-field-group__description"
+                id="form-field-group__description--in-reply-to"
+            >The permalink of the event you want to RSVP to. This would be the page carrying the <a href="http://microformats.org/wiki/h-event">h-event</a> markup.</p>
+            <input
+                type="url"
+                class="form-field-group__url"
+                id="form-field-group__in-reply-to"
+                name="u-in-reply-to"
+                aria-describedby="form-field-group__description--in-reply-to"
+            />
+        </div>
+        {% comment %} TODO It could be a good idea to fetch event details on the front-end here as the user will get a chance to think about whether they really want to RSVP and if so, which option suits them best. {% endcomment %}
+
+        <div class="form__field-group form__field-group--rsvp form-field-group">
+             <label for="form-field-group__rsvp">RSVP</label>
+             <p
+                class="form-field-group__description"
+                id="form-field-group__description--rsvp"
+            ></p>
+            <select
+                class="form-field-group__rsvp"
+                id="form-field-group__rsvp"
+                name="p-rsvp"
+                aria-describedby="form-field-group__description--rsvp"
+            >
+                <option value="interested" selected>Interested</option>
+                <option value="maybe">Maybe</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+        </div>
+        
+    </fieldset>
+
+    {% include 'form/syndicate-to' %}
+
+    <input type="hidden" name="h" value="entry">
+
+    <button
+        type="submit"
+        class="publishing-form__button publishing-form__button--submit"
+    >Reply
+    </button>
+
+</form>
+
