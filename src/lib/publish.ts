@@ -107,7 +107,7 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	setSyndicationTargets(params, req.body?.["mp-syndicate-to"]);
 	setSlug(params, req.body?.["mp-slug"]);
 
-	// dt-*
+	// dt-published
 	if (req.body?.date && req.body?.time) {
 		const response = setDate(
 			params,
@@ -120,6 +120,36 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 	}
 	// else proceed, Micropub server will default to "now"
 
+	// dt-start
+	if (
+		req.body?.["h-event__dt-start--date"] &&
+		req.body?.["h-event__dt-start--time"]
+	) {
+		const response = setDate(
+			params,
+			"dt-start",
+			req.body?.["h-event__dt-start--date"],
+			req.body?.["h-event__dt-start--time"],
+			req.session?.user?.preferences?.timezone
+		);
+		if (response instanceof Error) return response;
+	}
+
+	// dt-end
+	if (
+		req.body?.["h-event__dt-end--date"] &&
+		req.body?.["h-event__dt-end--time"]
+	) {
+		const response = setDate(
+			params,
+			"dt-end",
+			req.body?.["h-event__dt-end--date"],
+			req.body?.["h-event__dt-end--time"],
+			req.session?.user?.preferences?.timezone
+		);
+		if (response instanceof Error) return response;
+	}
+
 	// For the remaining properties, some basic rules:
 	// - Removing the prefix, no two property names shall clash. If they do, only the first one takes effect.
 	// - Do not handle manually managed properties.
@@ -128,8 +158,12 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 		"h",
 		"mp-syndicate-to",
 		"mp-slug",
-		"dt-published",
-		"dt-updated",
+		"date",
+		"time",
+		"h-event__dt-start--date",
+		"h-event__dt-start--time",
+		"h-event__dt-end--date",
+		"h-event__dt-end--time",
 	];
 
 	for (const formInput in req.body) {

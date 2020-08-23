@@ -113,12 +113,27 @@ form {
 	width: max-content;
 }
 
+.publishing-form--event {
+	& .field-group--dt-start,
+	& .field-group--dt-end {
+		display: flex;
+		flex-direction: column;
+		gap: 2em;
+
+		@media (--lg) {
+			flex-direction: row;
+			gap: 1em;
+		}
+	}
+}
+
 .publishing-form--in-reply-to,
 .publishing-form--note,
 .publishing-form--like-of,
 .publishing-form--repost-of,
 .publishing-form--article,
-.publishing-form--rsvp {
+.publishing-form--rsvp,
+.publishing-form--event {
 	@media (--lg) {
 		display: grid;
 		gap: 0.6em;

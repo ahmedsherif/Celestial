@@ -1,1 +1,98 @@
 {% layout 'default' %}
+
+<form
+    class="form form--publishing publishing-form publishing-form--event"
+    action="/publish/create/"
+    enctype="{{ user.preferences.formEncoding }}"
+    method="post"
+>
+    {% comment %} TODO Add a summary content area {% endcomment %}
+    
+    {% include 'form/date-time' %}
+
+    <section class="publishing-form__content">
+        <fieldset>
+            <legend>Your content&nbsp;</legend>
+
+            <div class="field-group">
+                <label for="field-group__title">Event title/name:</label>
+                <input
+                    type="text"
+                    id="field-group__title"
+                    name="p-name"
+                />
+            </div>
+
+            {% include 'form/content' %}
+        </fieldset>
+
+        <fieldset class="fieldset fieldset--dt-start">
+            <legend>Event start date-time&nbsp;</legend>
+            <p class="fieldset__description" id="fieldset__description--timezone-warning">When does the event start? Please note the time entered here will be specific to your timezone. Check your preferences to be sure.</p>
+
+            <div class="field-group field-group--dt-start">
+                <div
+                    class="field-group__dt-start field-group__dt-start--date"
+                >
+                    <label for="date">Date:</label>
+                    <input
+                        id="date"
+                        name="h-event__dt-start--date"
+                        type="date"
+                        aria-describedby="fieldset__description--timezone-warning"
+                    />
+                </div>
+                <div
+                    class="field-group__dt-start field-group__dt-start--time"
+                >
+                    <label for="time">Time:</label>
+                    <input
+                        id="time"
+                        name="h-event__dt-start--time"
+                        type="time"
+                        aria-describedby="fieldset__description--timezone-warning"
+                    />
+                </div>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset fieldset--dt-end">
+            <legend>Event end date-time&nbsp;</legend>
+            <p class="fieldset__description" id="fieldset__description--timezone-warning">When does the event end? Please note the time entered here will be specific to your timezone. Check your preferences to be sure.</p>
+
+            <div class="field-group field-group--dt-end">
+                <div
+                    class="field-group__dt-end field-group__dt-end--date"
+                >
+                    <label for="date">Date:</label>
+                    <input
+                        id="date"
+                        name="h-event__dt-end--date"
+                        type="date"
+                        aria-describedby="fieldset__description--timezone-warning"
+                    />
+                </div>
+                <div
+                    class="field-group__dt-end field-group__dt-end--time"
+                >
+                    <label for="time">Time:</label>
+                    <input
+                        id="time"
+                        name="h-event__dt-end--time"
+                        type="time"
+                        aria-describedby="fieldset__description--timezone-warning"
+                    />
+                </div>
+            </div>
+        </fieldset>
+
+    </section>
+
+    {% include 'form/syndicate-to' %}
+
+    <input type="hidden" name="h" value="event">
+
+    <button type="submit" class="publishing-form__button publishing-form__button--submit">Create event</button>
+
+</form>
+
