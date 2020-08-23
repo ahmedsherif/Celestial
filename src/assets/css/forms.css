@@ -233,7 +233,8 @@ form {
 }
 
 .publishing-form--like-of,
-.publishing-form--repost-of {
+.publishing-form--repost-of,
+.publishing-form--article {
 	@media (--lg) {
 		display: grid;
 		gap: 0.6em;

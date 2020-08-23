@@ -1,1 +1,33 @@
 {% layout 'default' %}
+
+<form
+    class="form form--publishing publishing-form publishing-form--article"
+    action="/publish/create/"
+    enctype="{{ user.preferences.formEncoding }}"
+    method="post"
+>
+    {% include 'form/date-time' %}
+
+    <fieldset class="publishing-form__content">
+        <legend>Your content&nbsp;</legend>
+
+        <div class="form__field-group">
+            <label for="form-field-group__title">Title:</label>
+            <input
+                type="text"
+                id="form-field-group__title"
+                name="p-name"
+            />
+        </div>
+
+        <div class="form__field-group form__field-group--content"></div>
+    </fieldset>
+
+    {% include 'form/syndicate-to' %}
+
+    <input type="hidden" name="h" value="entry">
+
+    <button type="submit" class="publishing-form__button publishing-form__button--submit">Create article</button>
+
+</form>
+
