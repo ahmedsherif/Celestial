@@ -41,23 +41,7 @@
             />
         </div>
 
-        {% comment %} <div class="form__field-group form__field-group--context">
-            <label for="context">Context:</label>
-            <p
-                class="form-field-group__description"
-                id="form-field-group__description--context"
-            >Are you quoting the original author? If so, paste the quoted text here. You may write markdown depending on how the data sent by the Micropub server to your website is processed. It may also be possible that your Micropub server sends formatted content to your website. Please consult your server documentation.</p>
-
-            <textarea
-                name="context"
-                id="context"
-                cols="30"
-                rows="8"
-                aria-describedby="form-field-group__description--context"
-                ></textarea>
-        </div> {% endcomment %}
-
-        <div class="form__field-group form__field-group--content"></div>
+        {% include 'form/content' %}
     </fieldset>
 
     {% include 'form/syndicate-to' %}

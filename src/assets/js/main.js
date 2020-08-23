@@ -1,7 +1,7 @@
 import { emoji } from "./emoji";
 import { userMenu, activeNavigation } from "./navigation";
 import { setTimeZone } from "./forms";
-import NoteTextArea from "./components/NoteTextArea.svelte";
+import ContentTextArea from "./components/ContentTextArea.svelte";
 
 window.addEventListener("DOMContentLoaded", () => {
 	emoji();
@@ -9,12 +9,11 @@ window.addEventListener("DOMContentLoaded", () => {
 	userMenu();
 	setTimeZone();
 
-	if (!!document.querySelector(".form__field-group--content")) {
+	if (!!document.querySelector(".field-group--content")) {
 		let required = false;
-		if (document.querySelector(".publishing-form--note"))
-			required = true;
-		const noteTextArea = new NoteTextArea({
-			target: document.querySelector(".form__field-group--content"),
+		if (document.querySelector(".publishing-form--note")) required = true;
+		const content = new ContentTextArea({
+			target: document.querySelector(".field-group--content"),
 			props: {
 				required,
 			},

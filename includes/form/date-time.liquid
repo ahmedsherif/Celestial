@@ -1,30 +1,32 @@
-<fieldset class="publishing-form__when">
-    <legend>Local publishing date-time</legend>
-    <p class="form__fieldset-description" id="form__fieldset-description--timezone-warning">Although we have likely set the correct timezone for you, please check the preferences and update it if required before publishing.</p>
+<section class="publishing-form__date-time">
+    <fieldset>
+        <legend>Local publishing date-time</legend>
+        <p class="fieldset__description" id="fieldset__description--timezone-warning">Although we have likely set the correct timezone for you, please check the preferences and update it if required before publishing.</p>
 
-    <div
-        class="publishing-form__when--part publishing-form__when--date"
-    >
-        <label for="date">Date:</label>
-        <input
-            id="date"
-            name="date"
-            type="date"
-            value="{{formDefaults.published.date}}"
-            aria-describedby="form__fieldset-description--timezone-warning"
-        />
-    </div>
+        <div
+            class="publishing-form__date-time--part publishing-form__date-time--date"
+        >
+            <label for="date">Date:</label>
+            <input
+                id="date"
+                name="date"
+                type="date"
+                value="{{formDefaults.published.date}}"
+                aria-describedby="fieldset__description--timezone-warning"
+            />
+        </div>
 
-    <div
-        class="publishing-form__when--part publishing-form__when--time"
-    >
-        <label for="time">Time:</label>
-        <input
-            id="time"
-            name="time"
-            type="time"
-            value="{{formDefaults.published.time}}"
-            aria-describedby="form__fieldset-description--timezone-warning"
-        />
-    </div>
-</fieldset>
+        <div
+            class="publishing-form__date-time--part publishing-form__date-time--time"
+        >
+            <label for="time">Time:</label>
+            <input
+                id="time"
+                name="time"
+                type="time"
+                value="{{formDefaults.published.time}}"
+                aria-describedby="fieldset__description--timezone-warning"
+            />
+        </div>
+    </fieldset>
+</section>
