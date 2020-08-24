@@ -30,3 +30,12 @@ Let's make sure our `docker-compose.yml` is all set up. This will let us bring C
   * __Tip__: Try to keep the password lengthy (18-24 or more characters) but omit special characters. Some can cause Redis to read the password only up to a point -- such as `hello` (interpreted password) for `hello$world` (the desired password).
 * Make sure you also configure the environment variables required by Indiekit.
 * When you're all set, just run: `docker-compose up -d --remove-orphans`
+
+
+## Troubleshooting
+
+- You will also need to make the entrypoint file an executable. Please repeat for Indiekit.
+  ```bash
+  cd path/to/Celestial
+  chmod a+x docker-entrypoint.sh
+  ```
