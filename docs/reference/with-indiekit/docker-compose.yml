@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   celestial:
-    image: celestial:0.12.3
+    image: hirusi/celestial:0.12.3
     environment: 
       - PORT=4000
       - NODE_ENV=production
