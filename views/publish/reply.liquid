@@ -11,33 +11,33 @@
     <fieldset class="publishing-form__content">
         <legend>Content&nbsp;</legend>
 
-        <div class="form__field-group">
-            <label for="form-field-group__slug">Slug:</label>
+        <div class="field-group">
+            <label for="field-group__slug">Slug:</label>
             <p
-                class="form-field-group__description"
-                id="form-field-group__description--slug"
+                class="field-group__description"
+                id="field-group__description--slug"
             >Write a slug if your Micropub server supports it. In case of a collision, the server may choose to modify the slug. If you leave this empty, it may choose to generate a random string. If your server does not support this, you can safely ignore it.</p>
             <input
                 type="text"
-                id="form-field-group__slug"
+                id="field-group__slug"
                 name="mp-slug"
-                aria-describedby="form-field-group__description--slug"
+                aria-describedby="field-group__description--slug"
             />
 
         </div>
 
-        <div class="form__field-group form__field-group--in-reply-to form-field-group">
-             <label for="form-field-group__in-reply-to">URL of the page you are replying to:</label>
+        <div class="field-group field-group--in-reply-to">
+             <label for="field-group__in-reply-to">URL of the page you are replying to:</label>
              <p
-                class="form-field-group__description"
-                id="form-field-group__description--in-reply-to"
+                class="field-group__description"
+                id="field-group__description--in-reply-to"
             >The permalink of the post/page you want to reply to.</p>
             <input
                 type="url"
-                class="form-field-group__url"
-                id="form-field-group__in-reply-to"
+                class="field-group__url"
+                id="field-group__in-reply-to"
                 name="u-in-reply-to"
-                aria-describedby="form-field-group__description--in-reply-to"
+                aria-describedby="field-group__description--in-reply-to"
             />
         </div>
 
