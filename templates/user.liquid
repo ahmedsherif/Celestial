@@ -6,4 +6,7 @@
 			{% block %}{% endblock %}
 		</main>
 	</body>
-{% render 'footer' %}
+{% render 'footer',
+	title:title,
+	version:version
+	%}
