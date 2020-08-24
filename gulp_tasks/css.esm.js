@@ -27,30 +27,30 @@ function css() {
 		.pipe(dest("assets/css"));
 }
 
-function cssPurgeMin() {
-	const purge = purgecss({
-		// Specify the paths to all of the template files in your project
-		content: [
-			"includes/**/*.liquid",
-			"templates/**/*.liquid",
-			"views/**/*.liquid",
-		],
+// function cssPurgeMin() {
+// 	const purge = purgecss({
+// 		// Specify the paths to all of the template files in your project
+// 		content: [
+// 			"includes/**/*.liquid",
+// 			"templates/**/*.liquid",
+// 			"views/**/*.liquid",
+// 		],
 
-		whitelist: ["hidden"],
+// 		whitelist: ["hidden", "emoji"],
 
-		// Include any special characters you're using in this regular expression
-		defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
-	});
+// 		// Include any special characters you're using in this regular expression
+// 		defaultExtractor: (content) => content.match(/[\w-/:]+(?<!:)/g) || [],
+// 	});
 
-	const plugins = [purge, cssnano];
+// 	const plugins = [purge, cssnano];
 
-	return src("assets/css/style.css")
-		.pipe(postcss(plugins))
-		.pipe(dest("assets/css"));
-}
+// 	return src("assets/css/style.css")
+// 		.pipe(postcss(plugins))
+// 		.pipe(dest("assets/css"));
+// }
 
 function cssWatcher() {
 	return watch(["src/assets/css/**/*.css"], series(css));
 }
 
-export { css, cssWatcher, cssPurgeMin };
+export { css, cssWatcher };
