@@ -2,6 +2,7 @@ import { emoji } from "./emoji";
 import { userMenu, activeNavigation } from "./navigation";
 import { setTimeZone } from "./forms";
 import ContentTextArea from "./components/ContentTextArea.svelte";
+import Categories from "./components/Categories.svelte";
 
 window.addEventListener("DOMContentLoaded", () => {
 	emoji();
@@ -17,6 +18,12 @@ window.addEventListener("DOMContentLoaded", () => {
 			props: {
 				required,
 			},
+		});
+	}
+
+	if (!!document.querySelector(".fieldset--category")) {
+		const categoriesInput = new Categories({
+			target: document.querySelector(".fieldset--category"),
 		});
 	}
 });
