@@ -1,6 +1,10 @@
 # Celestial
 
-I am building this __Micropub client__ with a few goals in mind:
+The [IndieWeb](https://indieweb.org/) is a movement to decentralize the social web.
+
+<blockquote cite="https://micropub.spec.indieweb.org/"><p>The Micropub protocol is used to create, update and delete posts on one's own domain using third-party clients. Web apps and native apps (e.g., iPhone, Android) can use Micropub to post and edit articles, short notes, comments, likes, photos, events or other kinds of posts on your own website.</p><footer>&mdash; <cite>Micropub specification</cite></footer></blockquote>
+
+You may [view the full specification here](https://micropub.spec.indieweb.org/). I am building this __Micropub client__ with a few goals in mind:
 
 - Be as spec-compliant as possible.
 - Look good and support system-based dark mode.
