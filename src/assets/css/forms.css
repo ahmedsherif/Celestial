@@ -2,6 +2,7 @@
 form {
 	& fieldset {
 		font-weight: normal;
+		margin-bottom: 2.4em;
 	}
 }
 
@@ -61,8 +62,8 @@ form {
 	}
 }
 
-.form__field-group {
-	margin-bottom: 2.4em;;
+.field-group {
+	margin-bottom: 2.4em;
 }
 
 .publishing-form__character-count {

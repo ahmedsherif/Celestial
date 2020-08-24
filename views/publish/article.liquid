@@ -11,16 +11,16 @@
     <fieldset class="publishing-form__content">
         <legend>Your content&nbsp;</legend>
 
-        <div class="form__field-group">
-            <label for="form-field-group__title">Title:</label>
+        <div class="field-group">
+            <label for="field-group__title">Title:</label>
             <input
                 type="text"
-                id="form-field-group__title"
+                id="field-group__title"
                 name="p-name"
             />
         </div>
 
-        <div class="form__field-group form__field-group--content"></div>
+        {% include 'form/content' %}
     </fieldset>
 
     {% include 'form/syndicate-to' %}
