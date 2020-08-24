@@ -69,7 +69,7 @@ You'll need an account on Heroku.
 * `heroku login`
 * `heroku apps:create [name]`
 * `heroku container:login`
-* `heroku container:push web`
+* `heroku container:push celestial`
 * Set up Redis on Heroku.
   * Add Redis to your Heroku app's resources.
   * It will create a `REDIS_URL` environment variable by itself.
@@ -78,7 +78,7 @@ You'll need an account on Heroku.
     * Example: `https://live-love-laugh.herokuapp.com/`
   * `REDIRECT_URI`: the domain where you are hosting this website followed by `login/callback/`
     * Example: `https://live-love-laugh.herokuapp.com/login/callback/`
-* `heroku container:release web`
+* `heroku container:release celestial`
 
 ### Micropub Server
 
