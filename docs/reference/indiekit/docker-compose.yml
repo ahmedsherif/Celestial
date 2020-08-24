@@ -6,7 +6,7 @@ services:
     working_dir: /app
     entrypoint: PATH_TO_CELESTIAL/docker-entrypoint.sh
     command: node /app/index.js
-    env_file: PATH_TO_CELESTIAL/.env.celestial
+    env_file: PATH_TO_CELESTIAL/.env
     volumes:
       - type: bind
         source: PATH_TO_CELESTIAL
