@@ -1,3 +1,5 @@
+__The development docs are being updated currently. If you wish to self-host, please [see docs for self-hosting](docs/self-host.md).__
+
 ## Local Development
 
 ### Celestial

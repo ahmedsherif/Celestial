@@ -8,7 +8,6 @@ node_modules
 .tsbuildinfo
 src/coverage
 !coverage-final.json
-conf/redis.conf
 
 # Express app dirs and files
 /config

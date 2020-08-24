@@ -1,2 +1,0 @@
-requirepass "generate_and_paste_a_password_here_without_removing_the_quotes"
-appendonly yes
