@@ -16,7 +16,10 @@ const logger = createLogger({
 });
 
 // If we're in development then log to the `console` as well
-if (process.env.NODE_ENV === "development") {
+if (
+	process.env.NODE_ENV === "development" ||
+	process.env.NODE_ENV === "production"
+) {
 	logger.add(
 		new transports.Console({
 			format: combine(
