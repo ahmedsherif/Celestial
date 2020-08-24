@@ -11,20 +11,7 @@
     <fieldset class="publishing-form__content">
         <legend>Content&nbsp;</legend>
 
-        <div class="field-group">
-            <label for="field-group__slug">Slug:</label>
-            <p
-                class="field-group__description"
-                id="field-group__description--slug"
-            >Write a slug if your Micropub server supports it. In case of a collision, the server may choose to modify the slug. If you leave this empty, it may choose to generate a random string. If your server does not support this, you can safely ignore it.</p>
-            <input
-                type="text"
-                id="field-group__slug"
-                name="mp-slug"
-                aria-describedby="field-group__description--slug"
-            />
-
-        </div>
+        {% include 'form/mp-slug' %}
 
         <div class="field-group field-group--in-reply-to">
              <label for="field-group__in-reply-to">URL of the page you are replying to:</label>
