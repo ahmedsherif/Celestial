@@ -7,8 +7,8 @@ export const PORT: number = env.get("PORT").default("4000").asPortNumber();
 
 export const REDIS_URL: string = env
 	.get("REDIS_URL")
-	// This default doesn't exist. It's merely to pass validation.
-	.default("redis://db0:password@redis:6379")
+	// This default doesn't exist. It's merely to pass validation. Configure your environment accordingly.
+	.default("redis://db0:Sp4cPXot9awS5kWNteB3hr@redis:6379")
 	.asUrlString();
 
 export const APP_TITLE: string = inflect.titleize(pacman.name);
