@@ -1,6 +1,6 @@
 import { Request as ExpressRequest } from "express";
 import _merge from "lodash.merge";
-import { DateTime } from "luxon";
+import { DateTime, Duration } from "luxon";
 
 import { APP_TITLE, APP_SUBTITLE, APP_VERSION } from "../config/constants";
 import { AppUserState } from "../enumerator/AppUserState";
@@ -83,4 +83,13 @@ const isObject = (value: any) => {
 	return typeof value === "object" && !Array.isArray(value) && value !== null;
 };
 
-export { pageDataHelper, postDataHelper, enumValuesAsArray, isObject };
+const isStale = (date: string, duration: Duration) => {
+	if (
+		DateTime.fromISO(date).toUTC().toMillis() <
+		DateTime.utc().minus(duration).toMillis()
+	)
+		return true;
+	return false;
+};
+
+export { pageDataHelper, postDataHelper, enumValuesAsArray, isObject, isStale };
