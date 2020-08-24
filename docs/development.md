@@ -1,65 +1,49 @@
-__The development docs are being updated currently. If you wish to self-host, please [see docs for self-hosting](/docs/self-host.md).__
+# Local Development
 
-## Local Development
+__If you wish to self-host, please [see the docs for self-hosting](/docs/self-host.md).__
 
-### Celestial
+At the moment, much of what you do to self-host is what much of you need to do to get a development environment going - all thanks to Docker!
 
-The Docker setup employed uses a bind mount. While it should be fine to run this on a Windows or macOS host, I have not tested it and unfortunately cannot offer any support.
+## Micropub Client - Celestial
 
 * `git clone git@github.com:hirusi/Celestial.git`
-* `cd Celestial`
 
-#### Setting up the environment
+## Micropub Server - Indiekit
 
-At this point, you'll need to try your hand at some configuration. Don't worry, none of this is not hard. Follow the instructions, and open an issue if you find someting to be confusing. 😊
+I recommend [Indiekit](https://github.com/getindiekit/indiekit/) as a Micropub server should you be vibing a static site like I do. Please follow its setup instructions as well to get up and running. Currently, the instructions below apply for the v0.0.x tag series.
 
-##### Redis
+* `git clone git@github.com:getindiekit/indiekit`
+* `cd indiekit`
+* Since I am already using Docker, I found it helpful to Docker-ify Indiekit. You can find [its Dockerfile here](/docs/reference/indiekit/Dockerfile) along with a `docker-entrypoint.sh` script. __Copy both of these to wherever you cloned Indiekit and keep them at its root:__  `cp -r path/to/celestial/docs/reference/indiekit .`
+* Build a local image for Indiekit: `docker build . -t indiekit:0.0.3`
 
-Rename `redis.conf.example` to `redis.conf` in the `/conf` directory, then update the password on line 1. Keep the double quotes. You can generate one and paste it between these double quotes. This is where we tell Redis what password we want to use for the database.
+## Going live
 
-__Tip__: Try to keep your password lengthy (18-24 or more characters) but omit special characters. Some can cause Redis to read the password only up to a point -- such as `hello` (interpreted password) for `hello$world` (the desired password).
+We're almost there!
 
-##### Celestial
+Let's make sure our `docker-compose.yml` is all set up. This will let us bring Celestial, Redis, and Indiekit all with one command as well as let them talk to each other.
 
-If you are deploying straight to Heroku, there is no need to create a `.env` file. Please skip to the next heading.
+* You can find an example [`docker-compose.yml` file here](/docs/reference/with-indiekit/docker-compose.yml) to work from, or copy it from the command line and the make changes: `cp path/to/Celestial/docs/references/with-indiekit/docker-compose.yml path/to/Celestial/`
+* You must generate a password and replace `RANDOMLY_GENERATED_PASSWORD` everywhere in the file. This is the password to Redis.
+  * __Tip__: Try to keep the password lengthy (18-24 or more characters) but omit special characters. Some can cause Redis to read the password only up to a point -- such as `hello` (interpreted password) for `hello$world` (the desired password).
+* Make sure you also configure the environment variables required by Indiekit.
+* When you're all set, just run: `docker-compose up --build --remove-orphans`
 
-If you are self-hosting or developing locally, please continue reading this section.
+### Using a bind-mount to quickly mirror local changes to Docker env
 
-Create a `.env` file at the root of this project and set up the following variables:
+__TODO__
 
-```
-PORT=4000
-NODE_ENV=development
-TZ=Asia/Kolkata
-REDIS_URL=redis://db0:YOUR_REDIS_PASSWORD_WITHOUT_QUOTES@redis:6379
-```
+## Troubleshooting
 
-If you are self-hosting, change the `NODE_ENV` to `production`.
+- You will also need to make the entrypoint file an executable. Please repeat for Indiekit.
+  ```bash
+  cd path/to/Celestial
+  chmod a+x docker-entrypoint.sh
+  ```
 
-##### IndieKit
+## Publishing to Heroku
 
-In case you've set up [Indiekit](https://github.com/getindiekit/indiekit) from my [reference `docker-compose.yml` file](/docs/reference/indiekit/docker-compose.yml), create a `.env` file at the root of the `indiekit` directory, wherever you have cloned it and input the following variables.
-
-```
-PORT=3000
-NODE_ENV=development
-TZ=Asia/Kolkata
-GITHUB_REPO=
-GITHUB_TOKEN=
-GITHUB_USER=
-GITHUB_BRANCH=
-INDIEKIT_CONFIG_PATH=
-INDIEKIT_LOCALE=
-INDIEKIT_URL=
-```
-
-#### Going live locally
-
-For the final magic, let's bring up all our services:
-
-* `docker-compose up --build --remove-orphans`
-
-#### Publishing to Heroku
+__TODO: To be moved to a separate file.__
 
 You'll need an account on Heroku and `git` available locally.
 
@@ -71,33 +55,21 @@ You'll need an account on Heroku and `git` available locally.
     * Example: `https://live-love-laugh.herokuapp.com/`
   * `REDIRECT_URI`: the domain where you are hosting this website followed by `login/callback/`
     * Example: `https://live-love-laugh.herokuapp.com/login/callback/`
+* `heroku git:remote -a [name]`
 * `git push heroku master`
 
-### Micropub Server
-
-I recommend [Indiekit](https://github.com/getindiekit/indiekit/) as a Micropub server should you be vibing a static site like I do. Please follow its setup instructions as well to get up and running. 🙂
-
-Since I am already using Docker, I found it helpful to Docker-ify Indiekit.
-
-You can find [its Dockerfile here](/docs/reference/indiekit/Dockerfile) and [the entrypoint file here](/docs/reference/indiekit/docker-entrypoint.sh). Copy both these files to wherever you cloned indiekit and keep them at its root.
-
-You will also need to make the entrypoint file an executable:
+## Running Tests
 
 ```bash
-cd path/to/indiekit
-chmod a+x docker-entrypoint.sh
+npm run dev:tests
 ```
 
-If you'd like to run Celestial along with Indiekit, you can find an example [`docker-compose.yml` file here](docs/reference/indiekit/docker-compose.yml).
+On production environments, please use:
 
-### Running Tests
-
-```
-npm dev:test
+```bash
+npm run prod:tests
 ```
 
-On build/production environment, please use:
+### Troubleshooting
 
-```
-docker container exec celestial_web_1 npm run prod:test
-```
+- Switching between Docker and non-Docker environments can cause issues with file permissions. If you are unable to access certain files, run `sudo chown -R $USER:$USER .`
