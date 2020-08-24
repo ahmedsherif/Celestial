@@ -93,14 +93,15 @@ form {
 .publishing-form__date-time {
 	display: flex;
 	flex-direction: column;
-	gap: 2rem;
+	gap: 2em;
 }
 
 .publishing-form__date-time--part {
 	align-items: center;
 	display: flex;
 	flex-direction: row;
-	gap: 1rem;
+	gap: 0.25em;
+	margin-bottom: 1.5em;
 
 	@media (--lg) {
 		flex-direction: column;
