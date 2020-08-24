@@ -21,8 +21,8 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
 - [x] Set up infrastructure with a welcome page
 - [x] IndieAuth spec compliance
     - [x] Authorization
-        - [x] Basic usage with a sample `create` scope
         - [x] Complete all requirements as laid out by the spec
+        - [ ] Comply with changes to IndieAuth as on 2020/08/09
 - [ ] Micropub spec compliance - [being tracked here](https://github.com/hirusi/Celestial/issues/4).
 - [ ] General resilience tasks
     - [x] Use a logging library like `winston`
@@ -30,10 +30,14 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
     - [ ] Modular codebase (as many smaller & side-effects-free functions as possible without compromising readability)
     - [ ] [Express security checklist](https://expressjs.com/en/advanced/best-practice-security.html)
     - [ ] [Redis security checklist](https://redis.io/topics/security)
-- [ ] Design and polish
-    - [ ] Design system
-    - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
-    - [ ] Better forms UI/UX (reactivity?)
+- [ ] Polish
+    - [ ] Design
+        - [ ] Consistent spacing
+        - [ ] Work with page zoom as well as base font size in browser settings
+        - [ ] Design for more breakpoints (tablets, specifically) if the need is seen
+    - [ ] Forms
+        - [ ] Single page for article/note (title vs no-title)
+        - [ ] Single page for like/repost (radiobox to pick between)
     - [ ] Sprinkle helpful hints throughout the app
 
 ### Moving forward to v2.0
@@ -53,9 +57,9 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
 
 ## Usage
 
-__Not ready for public use.__
+Although I __do not consider this ready for public use__, you are welcome [to self-host](/docs/self-host.md).
 
-Detailed development instructions are [availble in the docs](/docs/development.md).
+Detailed [development instructions are available](/docs/development.md).
 
 ## Limitations of the public example server
 
