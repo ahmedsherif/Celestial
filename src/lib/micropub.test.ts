@@ -54,7 +54,9 @@ describe("Get capabilities/properties of the Micropub server", () => {
 			expectedJson: {},
 		},
 		[MicropubQueryType.categories]: {
-			expectedJson: {},
+			expectedJson: {
+				categories: ["tag1", "tag2", "tag3", "tag4", "tag5"],
+			},
 		},
 		[MicropubQueryType.source]: {
 			expectedJson: {},
@@ -215,8 +217,15 @@ describe("Get capabilities/properties of the Micropub server", () => {
 					)
 				).resolves.toBeUndefined();
 
-				expect(request).toMatchObject({
+				expect(request).toStrictEqual({
 					session: {
+						endpoints: {
+							micropub: "https://example.com/micropub/",
+						},
+						indieauth: {
+							access_token: "foobar",
+							token_type: "Bearer",
+						},
 						micropub: {
 							...responsesToTest[
 								MicropubQueryType[micropubQueryTypeKey]
@@ -234,7 +243,9 @@ describe("Get capabilities/properties of the Micropub server", () => {
 		});
 	}
 
-	test("should fetch syndication data if config query fails", async () => {
+	// TODO Help needed
+	// How do we deal with Promise.all?
+	test("should fetch syndication data (w/ error) if config query fails and category query succeeds", async () => {
 		expect.assertions(2);
 
 		fetchMock
@@ -243,38 +254,40 @@ describe("Get capabilities/properties of the Micropub server", () => {
 			}))
 			.mockRejectOnce(async () => ({
 				status: 404,
-			}));
-
-		await expect(setMicropubCapabilities(request)).rejects.toThrowError(
-			"We did not receive a successful response from your Micropub server for our syndicate-to query request."
-		);
-
-		expect(fetchMock.mock.calls.length).toBe(2);
-	});
-
-	test("should fetch syndication data individually (w/ error) if config query does not include syndication data", async () => {
-		expect.assertions(2);
-
-		fetchMock
+			}))
 			.mockResponseOnce(async () => ({
 				status: 200,
-				headers: {
-					"content-type": "application/json",
-				},
-				body: JSON.stringify({}),
-			}))
-			.mockRejectOnce(async () => ({
-				status: 404,
 			}));
 
 		await expect(setMicropubCapabilities(request)).rejects.toThrowError(
 			"We did not receive a successful response from your Micropub server for our syndicate-to query request."
 		);
 
-		expect(fetchMock.mock.calls.length).toBe(2);
+		expect(fetchMock.mock.calls.length).toBe(3);
 	});
 
-	test("should fetch syndication data individually (w/ valid response) if config query does not include syndication data", async () => {
+	test("should fetch category data (w/ error) if config query fails and syndicate-to query succeeds", async () => {
+		expect.assertions(2);
+
+		fetchMock
+			.mockRejectOnce(async () => ({
+				status: 404,
+			}))
+			.mockResponseOnce(async () => ({
+				status: 200,
+			}))
+			.mockRejectOnce(async () => ({
+				status: 404,
+			}));
+
+		await expect(setMicropubCapabilities(request)).rejects.toThrowError(
+			"We did not receive a successful response from your Micropub server for our category query request."
+		);
+
+		expect(fetchMock.mock.calls.length).toBe(3);
+	});
+
+	test("should fetch syndication and category data individually (w/ valid response) if config query does not include either data", async () => {
 		expect.assertions(3);
 
 		Date.now = jest.fn(() => 1482363367071);
@@ -296,23 +309,46 @@ describe("Get capabilities/properties of the Micropub server", () => {
 					...responsesToTest[MicropubQueryType.syndicationTargets]
 						.expectedJson,
 				}),
+			}))
+			.mockResponseOnce(async () => ({
+				status: 200,
+				headers: {
+					"content-type": "application/json",
+				},
+				body: JSON.stringify({
+					...responsesToTest[MicropubQueryType.categories]
+						.expectedJson,
+				}),
 			}));
 
 		await expect(setMicropubCapabilities(request)).resolves.toBeUndefined();
 
-		expect(request).toMatchObject({
+		expect(request).toStrictEqual({
 			session: {
+				endpoints: {
+					micropub: "https://example.com/micropub/",
+				},
+				indieauth: {
+					access_token: "foobar",
+					token_type: "Bearer",
+				},
 				micropub: {
 					...responsesToTest[MicropubQueryType.syndicationTargets]
 						.expectedJson,
+					...responsesToTest[MicropubQueryType.categories]
+						.expectedJson,
 					lastFetched: {
+						[MicropubQueryType.configuration]:
+							"2016-12-21T23:36:07.071Z",
 						[MicropubQueryType.syndicationTargets]:
+							"2016-12-21T23:36:07.071Z",
+						[MicropubQueryType.categories]:
 							"2016-12-21T23:36:07.071Z",
 					},
 				},
 			},
 		});
 
-		expect(fetchMock.mock.calls.length).toBe(2);
+		expect(fetchMock.mock.calls.length).toBe(3);
 	});
 });

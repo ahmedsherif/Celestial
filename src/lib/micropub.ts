@@ -10,41 +10,71 @@ import { isObject } from "./helpers";
 import { MicropubQueryType } from "../enumerator/Micropub";
 import { DateTime } from "luxon";
 
-// Dummy handler to keep nesting hell readable.
 const setMicropubCapabilities = (req: ExpressRequest): Promise<void> => {
 	return new Promise((resolve, reject) => {
 		queryServer(req, MicropubQueryType.configuration)
 			.then(() => {
 				logger.log(
 					LogLevels.debug,
-					"We *should* have syndication targets available in the session by now.",
+					"Response from config query received.",
 					{ user: req.session?.user?.profileUrl }
 				);
-				// This is when we get a good response, but response does not include syndication targets.
-				if (!req.session?.micropub?.["syndicate-to"]) {
-					logger.log(
-						LogLevels.debug,
-						"It looks like we don't have syndication endpoints in the session from the config query request.",
-						{ user: req.session?.user?.profileUrl }
-					);
-					queryServer(req, MicropubQueryType.syndicationTargets)
-						.then(() => resolve())
-						.catch((error: Error) => reject(error));
-				}
-				// We have the syndication endpoints (at least), resolve the micropub capabilities method.
-				else resolve();
+
+				fallbackQueries(req)
+					.then(() => resolve())
+					.catch((error) => reject(error));
 			})
 			.catch(() => {
-				// This is when we get a bad response, so we try to make a separate request.
+				// This is when we get a bad response, so we try to make separate requests.
 				logger.log(LogLevels.verbose, "Configuration query failed.", {
 					user: req.session?.user?.profileUrl,
 				});
-				queryServer(req, MicropubQueryType.syndicationTargets)
+
+				fallbackQueries(req)
 					.then(() => resolve())
-					.catch((error: Error) => reject(error));
+					.catch((error) => reject(error));
 			});
 	});
 };
+
+const fallbackQueries = (req: ExpressRequest) =>
+	new Promise((resolve, reject) => {
+		const queries: Promise<any>[] = [];
+
+		if (!req.session?.micropub?.["syndicate-to"]) {
+			// This is when we get a good response, but response does not include syndication targets.
+			logger.log(
+				LogLevels.debug,
+				"It looks like we don't have syndication endpoints in the session from the config query request.",
+				{ user: req.session?.user?.profileUrl }
+			);
+
+			queries.push(
+				queryServer(req, MicropubQueryType.syndicationTargets)
+			);
+		}
+
+		if (!req.session?.micropub?.["categories"]) {
+			logger.log(
+				LogLevels.debug,
+				"It looks like we don't have categories in the session from the config query request.",
+				{ user: req.session?.user?.profileUrl }
+			);
+
+			queries.push(queryServer(req, MicropubQueryType.categories));
+		}
+
+		Promise.all(queries)
+			.then(() => resolve())
+			.catch((error) => {
+				logger.log(
+					LogLevels.error,
+					"One of several query calls failed.",
+					{ user: req.session?.user?.profileUrl, error }
+				);
+				reject(error);
+			});
+	});
 
 const validateQueryResponse = (
 	data,
