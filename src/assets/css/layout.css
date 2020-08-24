@@ -15,7 +15,7 @@ body {
     @media (--lg) {
         display: grid;
         grid-template-columns: 20% 1fr 6fr 20%;
-        grid-template-rows: auto 1fr;
+        grid-template-rows: auto 1fr auto;
         column-gap: 1em;
         row-gap: 1em;
         
@@ -62,5 +62,22 @@ body {
 
         background: var(--background);
         padding: 1.8em 2.4em;
+    }
+
+    & > footer {
+        @media (--lg) {
+            grid-column-start: 3;
+            grid-column-end: 4;
+            grid-row-start: 3;
+            grid-row-end: 4;
+        }
+
+        & p {
+            margin-bottom: 0.5em;
+
+            &:last-child {
+                margin-bottom: 2em;
+            }
+        }
     }
 }

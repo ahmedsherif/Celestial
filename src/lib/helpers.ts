@@ -2,7 +2,7 @@ import { Request as ExpressRequest } from "express";
 import _merge from "lodash.merge";
 import { DateTime } from "luxon";
 
-import { APP_TITLE, APP_SUBTITLE } from "../config/constants";
+import { APP_TITLE, APP_SUBTITLE, APP_VERSION } from "../config/constants";
 import { AppUserState } from "../enumerator/AppUserState";
 import {
 	DefaultPageData,
@@ -16,6 +16,7 @@ const getBaseData = (req: ExpressRequest) => {
 	return {
 		title: APP_TITLE,
 		subtitle: APP_SUBTITLE,
+		version: APP_VERSION,
 		appState: req.session?.appState || AppUserState.Guest,
 		user: {
 			microformats: {

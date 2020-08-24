@@ -11,6 +11,8 @@ export const APP_TITLE: string = inflect.titleize(pacman.name);
 
 export const APP_SUBTITLE: string = pacman.description;
 
+export const APP_VERSION: string = pacman.version;
+
 export const INDIEAUTH_CLIENT: {
 	client_id: string;
 	redirect_uri: string;
