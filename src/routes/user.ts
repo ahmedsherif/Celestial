@@ -13,8 +13,11 @@ import { urlEncodedParser } from "../middleware/urlEncodedParser";
 import { FormEncoding } from "../enumerator/FormEncoding";
 import { LogLevels } from "../enumerator/LogLevels";
 import { logger } from "../lib/logger";
+import { protectedRoutes } from "../lib/utils";
 
 const userRouter = Router();
+
+userRouter.use(protectedRoutes);
 
 userRouter.get("/profile/", (req: ExpressRequest, res: ExpressResponse) => {
 	const pageData = pageDataHelper(req, {

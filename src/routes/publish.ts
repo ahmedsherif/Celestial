@@ -20,8 +20,11 @@ import { pageDataHelper, postDataHelper } from "../lib/helpers";
 import { resetEphemeralSessionData } from "../lib/session";
 import { logger } from "../lib/logger";
 import { prepareParams } from "../lib/publish";
+import { protectedRoutes } from "../lib/utils";
 
 const publishRouter = Router();
+
+publishRouter.use(protectedRoutes);
 
 publishRouter.get("/success/", (req: ExpressRequest, res: ExpressResponse) => {
 	const pageData: PostPageData = pageDataHelper(req, {
