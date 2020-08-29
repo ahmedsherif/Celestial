@@ -28,6 +28,7 @@
 
 .page-header__user-info {
 	position: relative;
+	overflow: hidden;
 }
 
 .page-header__user-identity {
