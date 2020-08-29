@@ -220,4 +220,4 @@ const queryServer = (
 			});
 	});
 
-export { setMicropubCapabilities, queryServer };
+export { setMicropubCapabilities, setQueryResponse, queryServer };

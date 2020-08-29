@@ -21,9 +21,9 @@ window.addEventListener("DOMContentLoaded", () => {
 		});
 	}
 
-	if (!!document.querySelector(".fieldset--category")) {
+	if (!!document.querySelector(".field-group--category")) {
 		const categoriesInput = new Categories({
-			target: document.querySelector(".fieldset--category"),
+			target: document.querySelector(".field-group--category"),
 		});
 	}
 });

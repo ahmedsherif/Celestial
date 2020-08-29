@@ -6,8 +6,6 @@
     enctype="{{ user.preferences.formEncoding }}"
     method="post"
 >
-    {% include 'form/date-time' %}
-
     <fieldset class="publishing-form__content">
         <legend>Content&nbsp;</legend>
 
@@ -30,7 +28,13 @@
 
     </fieldset>
 
-    {% include 'form/syndicate-to' %}
+    <section class="publishing-form__sidebar">
+        {% include 'form/date-time' %}
+        
+        {% include 'form/categories' %}    
+
+        {% include 'form/syndicate-to' %}
+    </section>
 
     <input type="hidden" name="h" value="entry">
 

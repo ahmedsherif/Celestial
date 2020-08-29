@@ -5,7 +5,7 @@ import {
 	NextFunction as ExpressNextFunction,
 } from "express";
 import fetch from "node-fetch";
-import { DateTime } from "luxon";
+import set from "set-value";
 // import getType from "post-type-discovery";
 
 // Our interface, enums, middleware, libs
@@ -126,21 +126,45 @@ publishRouter.post(
 						code: "AppError",
 						message: params.message,
 					});
+
+				const formData = {
+					encoding: FormEncoding.URLEncoded,
+				};
+
+				(params as URLSearchParams).forEach((value, key) => {
+					// Check if this is a key which has multiple values
+					// For example, mp-syndicate-to or category
+
+					// Has this key already been set?
+					if (formData[key] !== undefined) return;
+
+					const valuesWithThisKey = (params as URLSearchParams).getAll(
+						key
+					);
+					const hasMultipleValues =
+						valuesWithThisKey.length > 1 ? true : false;
+
+					if (hasMultipleValues) {
+						// If it does, build a nice comma-separated string and assign that to [key] on the form logging data object
+						let values = "";
+						valuesWithThisKey.forEach((eachValue, index) => {
+							if (index + 1 !== valuesWithThisKey.length)
+								values += `${eachValue}, `;
+							else values += eachValue;
+
+							// Also, slice the ending [] out
+							set(formData, key.slice(0, -2), values);
+						});
+					} else {
+						// Otherwise just set the key value on our logging data variable
+						set(formData, key, value);
+					}
+				});
+
 				logger.log(
 					LogLevels.verbose,
 					"Sending publish request to your Micropub server.",
-					{
-						encoding: FormEncoding.URLEncoded,
-						h: (params as URLSearchParams).get("h"),
-						content: (params as URLSearchParams).get("content"),
-						published: (params as URLSearchParams).get("published"),
-						"mp-syndicate-to": (params as URLSearchParams).getAll(
-							"mp-syndicate-to[]"
-						),
-						"mp-slug": (params as URLSearchParams).getAll(
-							"mp-slug"
-						),
-					}
+					{ ...formData }
 				);
 
 				requestOptions = {

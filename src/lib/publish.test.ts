@@ -1,6 +1,6 @@
 import {
 	deriveDate,
-	setSyndicationTargets,
+	setMultipleValues,
 	setDate,
 	deriveMf2Key,
 	prepareParams,
@@ -42,7 +42,7 @@ describe("Receive mf2 properties and translate them into submission data", () =>
 	describe("", () => {});
 
 	test("should handle no syndication targets", () => {
-		setSyndicationTargets(params, "");
+		setMultipleValues(params, "mp-syndicate-to", "");
 
 		expect(params.get("syndication-targets")).toBeNull();
 	});
@@ -50,7 +50,9 @@ describe("Receive mf2 properties and translate them into submission data", () =>
 	test("should handle a single syndication target", () => {
 		const target = "https://mastodon.social/@example";
 
-		setSyndicationTargets(params, target);
+		setMultipleValues(params, "mp-syndicate-to", {
+			"mp-syndicate-to": target,
+		});
 
 		expect(params.get("mp-syndicate-to")).toBe(target);
 	});
@@ -61,13 +63,39 @@ describe("Receive mf2 properties and translate them into submission data", () =>
 			"https://mastodon.social/@example2",
 		];
 
-		setSyndicationTargets(params, target);
+		setMultipleValues(params, "mp-syndicate-to", {
+			"mp-syndicate-to": target,
+		});
 
 		params
-			.getAll("my-syndicate-to")
+			.getAll("mp-syndicate-to[]")
 			.forEach((st: string, index: number) => {
 				expect(st).toBe(target[index]);
 			});
+	});
+
+	test("should handle no categories", () => {
+		setMultipleValues(params, "category", "");
+
+		expect(params.get("category")).toBeNull();
+	});
+
+	test("should handle a single categoyr", () => {
+		const target = "food";
+
+		setMultipleValues(params, "category", { category: target });
+
+		expect(params.get("category")).toBe(target);
+	});
+
+	test("should handle multiple categories", () => {
+		const target = ["food", "wine"];
+
+		setMultipleValues(params, "category", { category: target });
+
+		params.getAll("category[]").forEach((st: string, index: number) => {
+			expect(st).toBe(target[index]);
+		});
 	});
 
 	test("should handle published date", () => {

@@ -11,6 +11,8 @@ import {
 	UserPageData,
 } from "../interface/PageData";
 import { getPostsNavigation } from "./publish";
+import { logger } from "./logger";
+import { LogLevels } from "../enumerator/LogLevels";
 
 const getBaseData = (req: ExpressRequest) => {
 	return {
@@ -84,11 +86,26 @@ const isObject = (value: any) => {
 };
 
 const isStale = (date: string, duration: Duration) => {
+	const nowMinusDuration = DateTime.utc().minus(duration);
+
+	logger.log(LogLevels.debug, "Checking if date is stale", {
+		toCheck: date,
+		with: nowMinusDuration.toISO(),
+	});
+
 	if (
-		DateTime.fromISO(date).toUTC().toMillis() <
-		DateTime.utc().minus(duration).toMillis()
-	)
+		DateTime.fromISO(date).toUTC().toMillis() < nowMinusDuration.toMillis()
+	) {
+		logger.log(LogLevels.debug, "date is stale", {
+			toCheck: date,
+			with: nowMinusDuration.toISO(),
+		});
 		return true;
+	}
+	logger.log(LogLevels.debug, "date is not stale", {
+		toCheck: date,
+		with: nowMinusDuration.toISO(),
+	});
 	return false;
 };
 

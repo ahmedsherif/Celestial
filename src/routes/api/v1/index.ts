@@ -34,8 +34,16 @@ apiv1Router.get(
 			);
 
 			queryServer(req, MicropubQueryType.categories)
-				.then((data) => {
-					res.json(data).end();
+				.then(() => {
+					logger.log(
+						LogLevels.verbose,
+						"Sending response back to front-end",
+						{
+							user: req.session?.user?.profileUrl,
+							categories: req?.session?.micropub?.categories,
+						}
+					);
+					res.json(req?.session?.micropub?.categories).end();
 				})
 				.catch((error) => {
 					logger.log(
@@ -53,26 +61,46 @@ apiv1Router.get(
 				"Categories data available, yet to determine if we want to make a fresh call because our data might be stale.",
 				{ user: req.session?.user?.profileUrl }
 			);
+
+			// Check for category first, then fall back on config
 			if (
-				(req.session?.micropub?.lastFetched?.config &&
-					isStale(
-						req.session?.micropub?.lastFetched?.config,
-						Duration.fromObject({ minutes: 30 })
-					)) ||
 				(req.session?.micropub?.lastFetched?.category &&
-					isStale(
+					!isStale(
 						req.session?.micropub?.lastFetched?.category,
-						Duration.fromObject({ minutes: 30 })
+						Duration.fromObject({ minutes: 10 })
+					)) ||
+				(req.session?.micropub?.lastFetched?.config &&
+					!isStale(
+						req.session?.micropub?.lastFetched?.config,
+						Duration.fromObject({ minutes: 10 })
 					))
 			) {
 				logger.log(
 					LogLevels.verbose,
-					"Current query data is stale, fetching fresh categories."
+					"Sending existing data back to front-end",
+					{
+						user: req.session?.user?.profileUrl,
+						categories: req?.session?.micropub?.categories,
+					}
+				);
+				res.json(req?.session?.micropub?.categories).end();
+			} else {
+				logger.log(
+					LogLevels.verbose,
+					"Current data is stale, fetching fresh categories."
 				);
 
 				queryServer(req, MicropubQueryType.categories)
-					.then((data) => {
-						res.json(data).end();
+					.then(() => {
+						logger.log(
+							LogLevels.verbose,
+							"Sending response back to front-end",
+							{
+								user: req.session?.user?.profileUrl,
+								categories: req?.session?.micropub?.categories,
+							}
+						);
+						res.json(req?.session?.micropub?.categories).end();
 					})
 					.catch((error) => {
 						logger.log(

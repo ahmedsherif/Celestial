@@ -50,20 +50,21 @@ const deriveMf2Key = (key: string) => {
 	return key.slice(key.indexOf("-") + 1);
 };
 
-const setSyndicationTargets = (
+const setMultipleValues = (
 	params: URLSearchParams,
-	syndicationTargets: string | string[]
+	keyName: string,
+	body: ExpressRequest["body"]
 ) => {
 	// Can be a string, an emtpy string, or an array of string
-	if (syndicationTargets && syndicationTargets !== "") {
-		if (Array.isArray(syndicationTargets)) {
+	if (body?.[keyName] && body?.[keyName] !== "") {
+		if (Array.isArray(body?.[keyName])) {
 			// Is an array
-			for (const target of syndicationTargets) {
-				params.append("mp-syndicate-to[]", target);
+			for (const target of body?.[keyName]) {
+				params.append(`${keyName}[]`, target);
 			}
 		} else {
 			// Is a string
-			params.append("mp-syndicate-to", syndicationTargets);
+			params.append(keyName, body?.[keyName]);
 		}
 	}
 };
@@ -102,9 +103,11 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 		return new Error("An h-* property must be available.");
 	params.append("h", req.body.h);
 
+	// Properties which may be a string, or an "array" as used in url-encoded requests
+	setMultipleValues(params, "mp-syndicate-to", req.body);
+	setMultipleValues(params, "category", req.body);
+
 	// mp-*
-	// It might be possible to have a common setter for syndication targets and categories, since they both behave in a similar manner
-	setSyndicationTargets(params, req.body?.["mp-syndicate-to"]);
 	setSlug(params, req.body?.["mp-slug"]);
 
 	// dt-published
@@ -158,6 +161,7 @@ const prepareParams = (req: ExpressRequest): URLSearchParams | Error => {
 		"h",
 		"mp-syndicate-to",
 		"mp-slug",
+		"category",
 		"date",
 		"time",
 		"h-event__dt-start--date",
@@ -215,7 +219,7 @@ export {
 	prepareParams,
 	setDate,
 	deriveDate,
-	setSyndicationTargets,
+	setMultipleValues,
 	setSlug,
 	deriveMf2Key,
 	getPostsNavigation,

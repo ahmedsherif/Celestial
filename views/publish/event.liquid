@@ -8,8 +8,6 @@
 >
     {% comment %} TODO Add a summary content area {% endcomment %}
     
-    {% include 'form/date-time' %}
-
     <section class="publishing-form__content">
         <fieldset>
             <legend>Your content&nbsp;</legend>
@@ -85,10 +83,15 @@
                 </div>
             </div>
         </fieldset>
-
     </section>
 
-    {% include 'form/syndicate-to' %}
+    <section class="publishing-form__sidebar">
+        {% include 'form/date-time' %}
+        
+        {% include 'form/categories' %}    
+
+        {% include 'form/syndicate-to' %}
+    </section>
 
     <input type="hidden" name="h" value="event">
 
