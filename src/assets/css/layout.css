@@ -29,18 +29,20 @@ body {
 
 
     & > header {
+        background: var(--background);
+        padding: 1.8em 2.4em;
+
         @media (--lg) {
             grid-column-start: 3;
             grid-column-end: 4;
             grid-row-start: 1;
             grid-row-end: 2;
         }
-
-        background: var(--background);
-        padding: 1.8em 2.4em;
     }
 
     & > nav {
+        padding: 12px 6px;
+
         @media (--lg) {
             grid-column-start: 2;
             grid-column-end: 3;
@@ -48,28 +50,33 @@ body {
             grid-row-end: 3;
             text-align: right;
         }
-        
-        padding: 12px 6px;
     }
 
     & > main {
+        background: var(--background);
+        padding: 1.8em 2.4em;
+        margin-bottom: 2.4em;
+
         @media (--lg) {
             grid-column-start: 3;
             grid-column-end: 4;
             grid-row-start: 2;
             grid-row-end: 3;
         }
-
-        background: var(--background);
-        padding: 1.8em 2.4em;
     }
 
     & > footer {
+        margin-left: 0.6em;
+        margin-right: 0.6em;
+
         @media (--lg) {
             grid-column-start: 3;
             grid-column-end: 4;
             grid-row-start: 3;
             grid-row-end: 4;
+
+            margin-left: unset;
+            margin-right: unset;
         }
 
         & p {
