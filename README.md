@@ -1,6 +1,10 @@
 # Celestial
 
-I am building this __Micropub client__ with a few goals in mind:
+The [IndieWeb](https://indieweb.org/) is a movement to decentralize the social web.
+
+<blockquote cite="https://micropub.spec.indieweb.org/"><p>The Micropub protocol is used to create, update and delete posts on one's own domain using third-party clients. Web apps and native apps (e.g., iPhone, Android) can use Micropub to post and edit articles, short notes, comments, likes, photos, events or other kinds of posts on your own website.</p><footer>&mdash; <cite>Micropub specification</cite></footer></blockquote>
+
+You may [view the full specification here](https://micropub.spec.indieweb.org/). I am building this __Micropub client__ with a few goals in mind:
 
 - Be as spec-compliant as possible.
 - Look good and support system-based dark mode.
@@ -43,6 +47,7 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
 ### Moving forward to v2.0
 
 - [ ] Rely on our own code instead of external libraries for menial tasks. Reduce dependencies and allow the project to be maintainable in the long run.
+- [ ] Docker image based on `node:version-alpine`
 - [ ] Add an inline/split Markdown preview for supported post types.
 - [ ] Full-width layout for a better and familiar publishing experience.
 - [ ] Option for user to turn off helpful hints in preferences (for advanced users)
