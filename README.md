@@ -66,6 +66,19 @@ Although I __do not consider this ready for public use__, you are welcome [to se
 
 Detailed [development instructions are available](/docs/development.md).
 
+### Publishing a new version to Docker Hub
+
+A Docker image [is available](https://hub.docker.com/r/hirusi/celestial).
+
+- `docker build . -t hirusi/celestial:version`
+    - example: `docker push hirusi/celestial:0.13.0`
+- `docker login`
+- `docker push hirusi/celestial:version`
+
+### Publishing a new version to Heroku deployment
+
+- `git push heroku master`
+
 ## Limitations of the public example server
 
 * I have implemented a strong Content Security Policy, and only allow the browser to load images from certain specified domains. This will **not** be changed to accomodate your domain.
