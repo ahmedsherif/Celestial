@@ -28,10 +28,11 @@
 
 .page-header__user-info {
 	position: relative;
-	overflow: hidden;
 }
 
 .page-header__user-identity {
+	overflow: hidden;
+
 	/* Flex child properties */
 	flex-grow: 0;
 	flex-shrink: 0;
