@@ -177,8 +177,8 @@ form {
 	}
 }
 
-.fieldset--categories {
-	#category--user {
+.field-group--category {
+	& #category--user {
 		display: flex;
 		flex-direction: column;
 		flex-wrap: wrap;
@@ -191,7 +191,7 @@ form {
 		}
 	}
 	
-	.user-category {
+	& .user-category {
 		align-items: center;
 		display: flex;
 		flex-direction: row;
@@ -199,7 +199,7 @@ form {
 		gap: 0.25em;
 	}
 	
-	.user-category__remove {
+	& .user-category__remove {
 		border-radius: 9999px;
 		padding: 6px 10px;
 	}
