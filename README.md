@@ -71,7 +71,7 @@ Detailed [development instructions are available](/docs/development.md).
 A Docker image [is available](https://hub.docker.com/r/hirusi/celestial).
 
 - `docker build . -t hirusi/celestial:version`
-    - example: `docker push hirusi/celestial:0.13.0`
+    - example: `docker build . -t hirusi/celestial:0.13.0`
 - `docker login`
 - `docker push hirusi/celestial:version`
 
