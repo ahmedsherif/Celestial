@@ -27,7 +27,7 @@ A [demo site](https://micropub-celestial.herokuapp.com/) is available through He
     - [x] Authorization
         - [x] Complete all requirements as laid out by the spec
         - [ ] Comply with changes to IndieAuth as on 2020/08/09
-- [ ] Micropub spec compliance - [being tracked here](https://github.com/hirusi/Celestial/issues/4).
+- [ ] Micropub spec compliance - [being tracked here](/MICROPUB_REPORT.md).
 - [ ] General resilience tasks
     - [x] Use a logging library like `winston`
     - [x] Unit testing
