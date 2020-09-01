@@ -13,6 +13,8 @@
 	--gray-800: #2D3748;
 	--gray-900: #1A202C;
 
+	--error: #F56565;
+
 	--background: #f9f9f9;
 	--background-off: #f1f1f1;
 	--text-color: #4a4a4a;
@@ -38,6 +40,8 @@
 
 @media (--dm) {
 	:root {
+		--error: #F56565;
+		
 		--background: #111111;
 		--background-off: #0a0a0a;
 		--text-color: #fafafa;

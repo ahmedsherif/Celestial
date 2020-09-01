@@ -2,6 +2,7 @@ import { emoji } from "./emoji";
 import { userMenu, activeNavigation } from "./navigation";
 import { setTimeZone } from "./forms";
 import ContentTextArea from "./components/ContentTextArea.svelte";
+import SummaryTextArea from "./components/SummaryTextArea.svelte";
 import Categories from "./components/Categories.svelte";
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -18,6 +19,12 @@ window.addEventListener("DOMContentLoaded", () => {
 			props: {
 				required,
 			},
+		});
+	}
+
+	if (!!document.querySelector(".field-group--summary")) {
+		const summary = new SummaryTextArea({
+			target: document.querySelector(".field-group--summary"),
 		});
 	}
 

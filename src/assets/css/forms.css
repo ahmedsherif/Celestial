@@ -66,11 +66,16 @@ form {
 	margin-bottom: 2.4em;
 }
 
-.publishing-form__character-count {
+.publishing-form__character-count,
+.publishing-form__word-count {
 	color: var(--brand-base);
 	font-size: 1.4rem;
 	margin-bottom: 0.25em;
 	text-align: right;
+}
+
+.publishing-form__word-count--warning {
+	color: var(--error);
 }
 
 .publishing-form__syndication-targets {
