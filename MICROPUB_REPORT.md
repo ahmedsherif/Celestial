@@ -69,6 +69,7 @@ Please list any [Micropub extensions](https://indieweb.org/Micropub-extensions) 
 - [x] [Slug](https://indieweb.org/Micropub-extensions#Slug)
 - [x] [Query for category/tag list](https://indieweb.org/Micropub-extensions#Query_for_Category.2FTag_List)
 - [ ] [Query for post list](https://indieweb.org/Micropub-extensions#Query_for_Post_List)
+- [ ] [Post Status](https://indieweb.org/Micropub-extensions#Post_Status)
 
 ## Vocabularies
 
