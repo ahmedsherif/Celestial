@@ -74,7 +74,7 @@ form {
 	text-align: right;
 }
 
-.publishing-form__word-count--warning {
+.publishing-form__character-count--warning {
 	color: var(--error);
 }
 
